@@ -1,4 +1,4 @@
-package com.example.movopfy.ui.theme
+package com.example.movopfy.presentation.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

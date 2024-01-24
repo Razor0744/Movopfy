@@ -1,15 +1,16 @@
 [versions]
 activity-compose = "1.8.2"
-agp = "8.2.1"
+agp = "8.2.2"
 androidx-junit = "1.1.5"
+coil = "2.5.0"
 converter-gson = "2.9.0"
 core-ktx = "1.12.0"
 espresso-core = "3.5.1"
 junit = "4.13.2"
 koin-android = "3.4.3"
-koin-androidx-compose = "3.6.0"
+koin-androidx-compose = "3.4.3"
 koin-core = "3.4.3"
-kotlin = "1.9.0"
+kotlin = "1.9.22"
 kotlinx-coroutines-android = "1.7.3"
 kotlinx-coroutines-core = "1.7.3"
 ksp = "1.9.22-1.0.17"
@@ -33,6 +34,7 @@ androidx-navigation-ui-ktx = { module = "androidx.navigation:navigation-ui-ktx",
 androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "room-runtime" }
 androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "room-runtime" }
 androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "room-runtime" }
+coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coil" }
 converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "converter-gson" }
 junit = { module = "junit:junit", version.ref = "junit" }
 koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin-android" }
@@ -49,7 +51,6 @@ koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin-core" }
 kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinx-coroutines-android" }
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinx-coroutines-core" }
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
-
 
 
 [plugins]
