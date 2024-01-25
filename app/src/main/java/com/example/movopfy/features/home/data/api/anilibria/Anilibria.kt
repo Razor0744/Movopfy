@@ -1,16 +1,15 @@
-package com.example.movopfy.data.api.anilibria
+package com.example.movopfy.features.home.data.api.anilibria
 
-import com.example.movopfy.data.api.RetrofitClient
-import com.example.movopfy.domain.models.AnilibriaSchedule
+import com.example.movopfy.features.home.domain.models.AnilibriaSchedule
 import retrofit2.Call
 import retrofit2.Response
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
-class Anilibria(private val retrofitClient: RetrofitClient) {
+class Anilibria(private val anilibriaURL: AnilibriaURL) {
 
     suspend fun getSchedule(): List<AnilibriaSchedule> = suspendCoroutine {
-        retrofitClient.anilibriaAPI.getSchedule().enqueue(object :
+        anilibriaURL.anilibriaAPI.getSchedule().enqueue(object :
             retrofit2.Callback<List<AnilibriaSchedule>> {
             override fun onResponse(
                 call: Call<List<AnilibriaSchedule>>,
