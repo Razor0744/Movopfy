@@ -1,4 +1,4 @@
-package com.example.movopfy.features.home.domain.models
+package com.example.movopfy.features.home.data.models
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
