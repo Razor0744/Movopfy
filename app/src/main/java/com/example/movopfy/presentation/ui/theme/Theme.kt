@@ -1,4 +1,4 @@
-package com.example.movopfy.ui.theme
+package com.example.movopfy.presentation.ui.theme
 
 import android.app.Activity
 import android.os.Build

@@ -1,4 +1,4 @@
-package com.example.movopfy
+package com.example.movopfy.presentation
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -10,7 +10,13 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.movopfy.ui.theme.MovopfyTheme
+import androidx.lifecycle.lifecycleScope
+import com.example.movopfy.data.api.RetrofitClient
+import com.example.movopfy.data.api.anilibria.Anilibria
+import com.example.movopfy.data.api.anilibria.AnilibriaAPI
+import com.example.movopfy.presentation.ui.theme.MovopfyTheme
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,6 +31,12 @@ class MainActivity : ComponentActivity() {
                     Greeting("Android")
                 }
             }
+        }
+
+        val retrofit = RetrofitClient
+        val anilibriaAPI = Anilibria(retrofit)
+        lifecycleScope.launch(Dispatchers.IO) {
+            println(anilibriaAPI.getSchedule()[0].day)
         }
     }
 }
