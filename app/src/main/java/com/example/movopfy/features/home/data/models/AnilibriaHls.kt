@@ -8,5 +8,4 @@ data class AnilibriaHls(
     @SerialName("fhd") val fhd: String?,
     @SerialName("hd") val hd: String?,
     @SerialName("sd") val sd: String?
-
 )
