@@ -2,7 +2,6 @@ package com.example.movopfy.features.home.data.repository
 
 import com.example.movopfy.features.home.data.api.anilibria.AnilibriaService
 import com.example.movopfy.features.home.data.models.AnilibriaSchedule
-import com.example.movopfy.features.home.data.models.AnilibriaTitle
 import com.example.movopfy.features.home.domain.repository.AnilibriaRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
