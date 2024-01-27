@@ -7,17 +7,12 @@ class GetWaitingListTodayUseCase(private val anilibriaRepository: AnilibriaRepos
 
     suspend fun execute(day: Int): List<WaitingListToday> {
         val schedule = anilibriaRepository.getSchedule()
-        val waitingListToday = arrayListOf<WaitingListToday>()
 
-        for (i in schedule[day].list) {
-            waitingListToday.add(
-                WaitingListToday(
-                    id = i.id,
-                    pictureUrl = "https://www.anilibria.tv${i.anilibriaPosters?.small?.url}"
-                )
-            )
+        return schedule[day].list.map { item ->
+            val pictureUrl = item.anilibriaPosters?.small?.url.let {
+                "https://www.anilibria.tv$it"
+            }
+            WaitingListToday(id = item.id, pictureUrl = pictureUrl)
         }
-
-        return waitingListToday
     }
 }

@@ -8,5 +8,4 @@ interface AnilibriaService {
 
     @GET("title/schedule")
     suspend fun getSchedule(): Response<List<AnilibriaSchedule>>
-
 }
