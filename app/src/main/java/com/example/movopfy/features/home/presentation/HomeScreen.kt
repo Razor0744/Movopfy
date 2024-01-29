@@ -1,7 +1,6 @@
 package com.example.movopfy.features.home.presentation
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -10,14 +9,13 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
@@ -28,10 +26,11 @@ import com.example.movopfy.main.ui.theme.BackgroundMain
 import com.example.movopfy.main.ui.theme.Dimensions
 import com.example.movopfy.main.ui.theme.LocalDim
 import com.example.movopfy.main.ui.theme.TextMain
+import com.example.movopfy.uiComponents.ProgressBarLoading
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun HomeScreen(viewModel: HomeViewModel = koinViewModel()) {
+fun HomeScreen(viewModel: HomeViewModel = koinViewModel(), ) {
 
     val uiState by viewModel.uiState.collectAsState()
 
@@ -46,7 +45,7 @@ fun HomeScreen(viewModel: HomeViewModel = koinViewModel()) {
 
         when (val state = uiState) {
             is HomeViewModel.HomeUiState.Loading -> {
-                ProgressBarForWaitingListToday()
+                ProgressBarLoading()
             }
 
             is HomeViewModel.HomeUiState.Loaded -> {
@@ -58,9 +57,8 @@ fun HomeScreen(viewModel: HomeViewModel = koinViewModel()) {
 
 @Composable
 fun TextWaitingListToday(dimensions: Dimensions) {
-
     Text(
-        text = "Расписание на сегодня",
+        text = stringResource(R.string.text_waiting_today_home_screen),
         color = TextMain,
         fontSize = dimensions.textSizeMain,
         fontFamily = FontFamily(Font(R.font.inter_bold)),
@@ -73,7 +71,6 @@ fun TextWaitingListToday(dimensions: Dimensions) {
 
 @Composable
 fun LazyRowWaitingListToday(list: List<WaitingListToday>, dimensions: Dimensions) {
-
     LazyRow(
         modifier = Modifier
             .fillMaxWidth()
@@ -87,19 +84,7 @@ fun LazyRowWaitingListToday(list: List<WaitingListToday>, dimensions: Dimensions
                 contentDescription = null,
                 modifier = Modifier
                     .clip(shape = RoundedCornerShape(size = 15.dp))
-                    .clickable {  }
             )
         }
-    }
-}
-
-@Composable
-fun ProgressBarForWaitingListToday() {
-    Column(
-        modifier = Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        CircularProgressIndicator()
     }
 }
