@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Movopfy</string>
+    <string name="schedule_for_today_text">Расписание на сегодня</string>
 </resources>

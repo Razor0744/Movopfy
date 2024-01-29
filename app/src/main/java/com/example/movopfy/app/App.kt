@@ -1,9 +1,8 @@
 package com.example.movopfy.app
 
 import android.app.Application
-import com.example.movopfy.di.appModule
-import com.example.movopfy.di.dataModule
-import com.example.movopfy.di.domainModule
+import com.example.movopfy.features.home.koin.homeModule
+import com.example.movopfy.network.networkModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -17,7 +16,7 @@ class App : Application() {
         startKoin {
             androidLogger(Level.DEBUG)
             androidContext(this@App)
-            modules(listOf(appModule, domainModule, dataModule))
+            modules(listOf(homeModule, networkModule))
         }
     }
 }
