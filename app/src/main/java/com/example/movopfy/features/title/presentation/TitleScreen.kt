@@ -1,7 +1,7 @@
 package com.example.movopfy.features.title.presentation
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -21,6 +21,7 @@ import com.example.movopfy.main.ui.theme.BackgroundMain
 import com.example.movopfy.main.ui.theme.Dimensions
 import com.example.movopfy.main.ui.theme.LocalDim
 import com.example.movopfy.main.ui.theme.TextMain
+import com.example.movopfy.uiComponents.ProgressBarLoading
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -32,35 +33,38 @@ fun TitleScreen(viewModel: TitleViewModel = koinViewModel(), id: Int) {
 
     val dimensions = LocalDim.current
 
-    Box(
+    Column(
         modifier = Modifier
             .background(color = BackgroundMain)
             .fillMaxSize()
-    )
+    ) {
+        when (val state = uiState) {
+            is TitleViewModel.TitleUiState.Loading -> {
+                ProgressBarLoading()
+            }
 
-    when (val state = uiState) {
-        is TitleViewModel.TitleUiState.Loading -> println("load")
-        is TitleViewModel.TitleUiState.Loaded -> {
+            is TitleViewModel.TitleUiState.Loaded -> {
 
-            LazyColumn {
-                item {
-                    AsyncImage(
-                        model = "https://www.anilibria.tv${state.title?.anilibriaPosters?.original?.url}",
-                        contentDescription = null,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                    )
-                }
+                LazyColumn {
+                    item {
+                        AsyncImage(
+                            model = "https://www.anilibria.tv${state.title?.anilibriaPosters?.original?.url}",
+                            contentDescription = null,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                        )
+                    }
 
-                item {
-                    NameOfTitle(dimensions = dimensions, name = state.title?.anilibriaNames?.ru)
-                }
+                    item {
+                        NameOfTitle(dimensions = dimensions, name = state.title?.anilibriaNames?.ru)
+                    }
 
-                item {
-                    DescriptionOfTitle(
-                        dimensions = dimensions,
-                        description = state.title?.description
-                    )
+                    item {
+                        DescriptionOfTitle(
+                            dimensions = dimensions,
+                            description = state.title?.description
+                        )
+                    }
                 }
             }
         }

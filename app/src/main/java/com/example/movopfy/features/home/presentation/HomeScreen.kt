@@ -1,6 +1,7 @@
 package com.example.movopfy.features.home.presentation
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -19,9 +20,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.example.movopfy.R
 import com.example.movopfy.features.home.domain.models.WaitingListToday
+import com.example.movopfy.main.Screen
 import com.example.movopfy.main.ui.theme.BackgroundMain
 import com.example.movopfy.main.ui.theme.Dimensions
 import com.example.movopfy.main.ui.theme.LocalDim
@@ -30,7 +33,7 @@ import com.example.movopfy.uiComponents.ProgressBarLoading
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun HomeScreen(viewModel: HomeViewModel = koinViewModel(), ) {
+fun HomeScreen(viewModel: HomeViewModel = koinViewModel(), navController: NavController) {
 
     val uiState by viewModel.uiState.collectAsState()
 
@@ -49,7 +52,11 @@ fun HomeScreen(viewModel: HomeViewModel = koinViewModel(), ) {
             }
 
             is HomeViewModel.HomeUiState.Loaded -> {
-                LazyRowWaitingListToday(list = state.schedules, dimensions = dimensions)
+                LazyRowWaitingListToday(
+                    list = state.schedules,
+                    dimensions = dimensions,
+                    navController = navController
+                )
             }
         }
     }
@@ -70,7 +77,11 @@ fun TextWaitingListToday(dimensions: Dimensions) {
 }
 
 @Composable
-fun LazyRowWaitingListToday(list: List<WaitingListToday>, dimensions: Dimensions) {
+fun LazyRowWaitingListToday(
+    list: List<WaitingListToday>,
+    dimensions: Dimensions,
+    navController: NavController
+) {
     LazyRow(
         modifier = Modifier
             .fillMaxWidth()
@@ -83,7 +94,10 @@ fun LazyRowWaitingListToday(list: List<WaitingListToday>, dimensions: Dimensions
                 model = list[it].pictureUrl,
                 contentDescription = null,
                 modifier = Modifier
-                    .clip(shape = RoundedCornerShape(size = 15.dp))
+                    .clip(shape = RoundedCornerShape(size = dimensions.radius))
+                    .clickable {
+                        navController.navigate(route = Screen.Title.passId(id = list[it].id!!))
+                    }
             )
         }
     }
