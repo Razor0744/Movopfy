@@ -58,7 +58,7 @@ fun HomeScreen(viewModel: HomeViewModel = koinViewModel(), ) {
 @Composable
 fun TextWaitingListToday(dimensions: Dimensions) {
     Text(
-        text = stringResource(R.string.text_waiting_today_home_screen),
+        text = stringResource(R.string.schedule_for_today_text),
         color = TextMain,
         fontSize = dimensions.textSizeMain,
         fontFamily = FontFamily(Font(R.font.inter_bold)),
