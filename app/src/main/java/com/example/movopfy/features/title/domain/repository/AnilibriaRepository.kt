@@ -1,6 +1,6 @@
 package com.example.movopfy.features.title.domain.repository
 
-import com.example.movopfy.features.title.data.models.AnilibriaTitle
+import com.example.movopfy.network.anilibria.models.AnilibriaTitle
 
 interface AnilibriaRepository {
 

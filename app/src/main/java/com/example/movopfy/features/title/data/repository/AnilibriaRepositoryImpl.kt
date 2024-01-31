@@ -1,8 +1,8 @@
 package com.example.movopfy.features.title.data.repository
 
-import com.example.movopfy.features.title.data.api.anilibria.AnilibriaService
-import com.example.movopfy.features.title.data.models.AnilibriaTitle
 import com.example.movopfy.features.title.domain.repository.AnilibriaRepository
+import com.example.movopfy.network.anilibria.models.AnilibriaTitle
+import com.example.movopfy.network.anilibria.service.AnilibriaService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
