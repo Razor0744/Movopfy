@@ -11,21 +11,21 @@ import kotlinx.coroutines.launch
 
 class DetailsViewModel(private val anilibriaRepository: AnilibriaRepository) : ViewModel() {
 
-    private val _uiState = MutableStateFlow<TitleUiState>(TitleUiState.Loading)
-    val uiState: StateFlow<TitleUiState> = _uiState.asStateFlow()
+    private val _uiState = MutableStateFlow<DetailsUiState>(DetailsUiState.Loading)
+    val uiState: StateFlow<DetailsUiState> = _uiState.asStateFlow()
 
     fun getTitleById(id: Int) {
         viewModelScope.launch {
             val title = anilibriaRepository.getTitle(id = id)
 
-            _uiState.emit(TitleUiState.Loaded(title = title))
+            _uiState.emit(DetailsUiState.Loaded(title = title))
         }
     }
 
-    sealed interface TitleUiState {
+    sealed interface DetailsUiState {
 
-        data object Loading : TitleUiState
+        data object Loading : DetailsUiState
 
-        data class Loaded(val title: AnilibriaTitle?) : TitleUiState
+        data class Loaded(val title: AnilibriaTitle?) : DetailsUiState
     }
 }

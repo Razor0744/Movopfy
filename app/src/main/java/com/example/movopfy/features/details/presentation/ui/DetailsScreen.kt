@@ -34,11 +34,11 @@ fun DetailsScreen(viewModel: DetailsViewModel = koinViewModel(), id: Int) {
             .background(color = BackgroundMain)
     ) {
         when (val state = uiState) {
-            is DetailsViewModel.TitleUiState.Loading -> {
+            is DetailsViewModel.DetailsUiState.Loading -> {
                 ProgressBarLoading()
             }
 
-            is DetailsViewModel.TitleUiState.Loaded -> {
+            is DetailsViewModel.DetailsUiState.Loaded -> {
                 LazyColumn {
                     item {
                         AsyncImage(
