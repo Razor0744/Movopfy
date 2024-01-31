@@ -1,4 +1,4 @@
-package com.example.movopfy.features.title.presentation.ui
+package com.example.movopfy.features.details.presentation.ui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -12,15 +12,14 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import coil.compose.AsyncImage
 import com.example.movopfy.common.extensions.getSmallImageUrl
-import com.example.movopfy.features.title.presentation.viewmodel.TitleViewModel
+import com.example.movopfy.features.details.presentation.viewmodel.DetailsViewModel
 import com.example.movopfy.uiComponents.components.ProgressBarLoading
 import com.example.movopfy.uiComponents.theme.BackgroundMain
 import com.example.movopfy.uiComponents.theme.LocalDim
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun TitleScreen(viewModel: TitleViewModel = koinViewModel(), id: Int) {
-
+fun DetailsScreen(viewModel: DetailsViewModel = koinViewModel(), id: Int) {
     val uiState by viewModel.uiState.collectAsState()
 
     val dimensions = LocalDim.current
@@ -35,11 +34,11 @@ fun TitleScreen(viewModel: TitleViewModel = koinViewModel(), id: Int) {
             .background(color = BackgroundMain)
     ) {
         when (val state = uiState) {
-            is TitleViewModel.TitleUiState.Loading -> {
+            is DetailsViewModel.TitleUiState.Loading -> {
                 ProgressBarLoading()
             }
 
-            is TitleViewModel.TitleUiState.Loaded -> {
+            is DetailsViewModel.TitleUiState.Loaded -> {
                 LazyColumn {
                     item {
                         AsyncImage(
@@ -51,14 +50,14 @@ fun TitleScreen(viewModel: TitleViewModel = koinViewModel(), id: Int) {
                     }
 
                     item {
-                        NameOfTitle(
+                        TitleText(
                             dimensions = dimensions,
                             name = state.title?.anilibriaNames?.ru
                         )
                     }
 
                     item {
-                        DescriptionOfTitle(
+                        DescriptionText(
                             dimensions = dimensions,
                             description = state.title?.description
                         )

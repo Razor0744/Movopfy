@@ -37,7 +37,7 @@ fun SchedulesList(
                 modifier = Modifier
                     .clip(shape = RoundedCornerShape(size = dimensions.radius))
                     .clickable {
-                        navController.navigate(route = Screen.Title.passId(id = list[it].id ?: 0))
+                        navController.navigate(route = Screen.Details.passId(id = list[it].id ?: 0))
                     }
             )
         }

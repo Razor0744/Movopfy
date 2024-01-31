@@ -1,4 +1,4 @@
-package com.example.movopfy.features.title.domain.repository
+package com.example.movopfy.features.details.domain.repository
 
 import com.example.movopfy.network.anilibria.models.AnilibriaTitle
 

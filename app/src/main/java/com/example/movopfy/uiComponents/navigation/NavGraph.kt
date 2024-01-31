@@ -6,8 +6,8 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.example.movopfy.features.details.presentation.ui.DetailsScreen
 import com.example.movopfy.features.home.presentation.ui.HomeScreen
-import com.example.movopfy.features.title.presentation.ui.TitleScreen
 
 @Composable
 fun SetupNavGraph(navController: NavHostController) {
@@ -19,11 +19,11 @@ fun SetupNavGraph(navController: NavHostController) {
             HomeScreen(navController = navController)
         }
         composable(
-            route = Screen.Title.route,
+            route = Screen.Details.route,
             arguments = listOf(navArgument("id") { type = NavType.IntType })
         ) {
             val id = it.arguments?.getInt("id") ?: 0
-            TitleScreen(id = id)
+            DetailsScreen(id = id)
         }
     }
 }

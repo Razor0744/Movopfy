@@ -16,7 +16,6 @@ import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun HomeScreen(viewModel: HomeViewModel = koinViewModel(), navController: NavController) {
-
     val uiState by viewModel.uiState.collectAsState()
 
     val dimensions = LocalDim.current
@@ -26,7 +25,7 @@ fun HomeScreen(viewModel: HomeViewModel = koinViewModel(), navController: NavCon
             .background(color = BackgroundMain)
             .fillMaxSize()
     ) {
-        TextWaitingListToday(dimensions = dimensions)
+        SchedulesHeader(dimensions = dimensions)
 
         when (val state = uiState) {
             is HomeViewModel.HomeUiState.Loading -> {
