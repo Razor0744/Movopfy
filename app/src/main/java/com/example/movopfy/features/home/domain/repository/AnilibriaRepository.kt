@@ -1,6 +1,6 @@
 package com.example.movopfy.features.home.domain.repository
 
-import com.example.movopfy.features.home.data.models.AnilibriaSchedule
+import com.example.movopfy.network.anilibria.models.AnilibriaSchedule
 
 interface AnilibriaRepository {
 
