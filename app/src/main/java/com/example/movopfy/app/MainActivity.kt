@@ -6,7 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.movopfy.uiComponents.navigation.SetupNavGraph
-import com.example.movopfy.uiComponents.theme.MovopfyTheme
+import com.example.movopfy.uiComponents.theme.AppTheme
 
 class MainActivity : ComponentActivity() {
 
@@ -15,7 +15,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            MovopfyTheme {
+            AppTheme {
                 navController = rememberNavController()
                 SetupNavGraph(navController = navController)
             }
