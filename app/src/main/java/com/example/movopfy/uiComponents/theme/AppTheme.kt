@@ -20,7 +20,8 @@ private val darkColorScheme = AppColorScheme(
     background = Neutral_100,
     click = Neutral_200,
     substrate = Neutral_0,
-    brandBorder = Neutral_350
+    brandBorder = Neutral_350,
+    backgroundNavBar = Neutral_350
 )
 
 private val lightColorScheme = AppColorScheme(
@@ -34,7 +35,8 @@ private val lightColorScheme = AppColorScheme(
     background = Neutral_100,
     click = Neutral_200,
     substrate = Neutral_0,
-    brandBorder = Neutral_350
+    brandBorder = Neutral_350,
+    backgroundNavBar = Neutral_350
 )
 
 private val typography = AppTypography(
@@ -69,7 +71,8 @@ private val size = AppSize(
 private val dimension = AppDimensions(
     paddingStart = 16.dp,
     paddingEnd = 16.dp,
-    lazySpace = 20.dp
+    lazySpace = 20.dp,
+    height = 52.dp
 )
 
 @Composable

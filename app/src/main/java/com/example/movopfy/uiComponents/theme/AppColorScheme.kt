@@ -14,7 +14,8 @@ data class AppColorScheme(
     val background: Color,
     val click: Color,
     val substrate: Color,
-    val brandBorder: Color
+    val brandBorder: Color,
+    val backgroundNavBar: Color
 )
 
 val LocalAppColorScheme = staticCompositionLocalOf {
@@ -29,6 +30,7 @@ val LocalAppColorScheme = staticCompositionLocalOf {
         background = Color.Unspecified,
         click = Color.Unspecified,
         substrate = Color.Unspecified,
-        brandBorder = Color.Unspecified
+        brandBorder = Color.Unspecified,
+        backgroundNavBar = Color.Unspecified
     )
 }
