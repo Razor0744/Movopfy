@@ -62,17 +62,13 @@ private val shape = AppShape(
 )
 
 private val size = AppSize(
-    large = 26.dp,
-    medium = 16.dp,
-    normal = 14.dp,
-    small = 8.dp
+    height = 52.dp
 )
 
 private val dimension = AppDimensions(
     paddingStart = 16.dp,
     paddingEnd = 16.dp,
-    lazySpace = 20.dp,
-    height = 52.dp
+    lazySpace = 20.dp
 )
 
 @Composable
