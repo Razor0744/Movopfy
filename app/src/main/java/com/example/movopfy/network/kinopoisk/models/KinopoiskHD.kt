@@ -5,5 +5,5 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class KinopoiskHD(
-    @SerialName("poster") val poster: KinopoiskMoviePoster?
+    @SerialName("kpHD") val kinopoiskHD: String?
 )

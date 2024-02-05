@@ -5,7 +5,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class KinopoiskTitle(
-    @SerialName("kpHD") val kinopoiskHd: String?,
+    @SerialName("poster") val poster: KinopoiskMoviePoster?,
     @SerialName("name") val name: String?,
     @SerialName("description") val description: String?,
     @SerialName("externalId") val kinopoiskHD: KinopoiskHD?
