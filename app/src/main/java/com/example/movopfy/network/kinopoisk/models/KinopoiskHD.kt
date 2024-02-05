@@ -4,7 +4,6 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class KinopoiskMoviePoster(
-    @SerialName("url") val url: String?,
-    @SerialName("previewUrl") val previewUrl: String?
+data class KinopoiskHD(
+    @SerialName("poster") val poster: KinopoiskMoviePoster?
 )
