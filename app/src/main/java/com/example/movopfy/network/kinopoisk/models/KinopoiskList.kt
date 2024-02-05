@@ -5,7 +5,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class KinopoiskList(
-    @SerialName("docs") val docs: ArrayList<KinopoiskDocs>?,
+    @SerialName("docs") val docs: List<KinopoiskDocs>?,
     @SerialName("total") val total: Int?,
     @SerialName("limit") val limit: Int?,
     @SerialName("page") val page: Int?,
