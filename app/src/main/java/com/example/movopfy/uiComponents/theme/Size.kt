@@ -2,13 +2,14 @@ package com.example.movopfy.uiComponents.theme
 
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
 
-data class AppSize(
-   val height: Dp
+data class Size(
+    val height: Dp
 )
 
 val LocalAppSize = staticCompositionLocalOf {
-    AppSize(
-        height = Dp.Unspecified
+    Size(
+        height = 52.dp
     )
 }

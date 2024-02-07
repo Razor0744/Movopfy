@@ -10,14 +10,13 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import com.example.movopfy.features.home.presentation.viewmodel.HomeViewModel
 import com.example.movopfy.uiComponents.components.ProgressBarLoading
-import com.example.movopfy.uiComponents.theme.AppTheme
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun HomeScreen(viewModel: HomeViewModel = koinViewModel(), navController: NavController) {
     val uiState by viewModel.uiState.collectAsState()
 
-    Scaffold(containerColor = AppTheme.colorScheme.background) {
+    Scaffold {
         Column(
             modifier = Modifier
                 .padding(it),

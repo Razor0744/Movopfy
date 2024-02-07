@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -14,7 +15,7 @@ import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.example.movopfy.features.home.domain.models.WaitingListToday
 import com.example.movopfy.uiComponents.navigation.Screen
-import com.example.movopfy.uiComponents.theme.AppTheme
+import com.example.movopfy.uiComponents.theme.dimensions
 
 @Composable
 fun SchedulesList(
@@ -25,10 +26,10 @@ fun SchedulesList(
         modifier = Modifier
             .fillMaxWidth()
             .padding(top = 10.dp),
-        horizontalArrangement = Arrangement.spacedBy(space = AppTheme.dimensions.lazySpace),
+        horizontalArrangement = Arrangement.spacedBy(space = MaterialTheme.dimensions.lazySpace),
         contentPadding = PaddingValues(
-            start = AppTheme.dimensions.paddingStart,
-            end = AppTheme.dimensions.paddingEnd
+            start = MaterialTheme.dimensions.paddingStart,
+            end = MaterialTheme.dimensions.paddingEnd
         )
     ) {
         items(count = list.size) {
@@ -36,7 +37,7 @@ fun SchedulesList(
                 model = list[it].pictureUrl,
                 contentDescription = null,
                 modifier = Modifier
-                    .clip(shape = AppTheme.shape.image)
+                    .clip(shape = MaterialTheme.shapes.medium)
                     .clickable {
                         navController.navigate(route = Screen.Details.passId(id = list[it].id ?: 0))
                     }

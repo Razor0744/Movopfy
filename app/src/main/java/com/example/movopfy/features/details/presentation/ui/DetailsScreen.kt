@@ -14,7 +14,6 @@ import coil.compose.AsyncImage
 import com.example.movopfy.common.extensions.getSmallImageUrl
 import com.example.movopfy.features.details.presentation.viewmodel.DetailsViewModel
 import com.example.movopfy.uiComponents.components.ProgressBarLoading
-import com.example.movopfy.uiComponents.theme.AppTheme
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -25,7 +24,7 @@ fun DetailsScreen(viewModel: DetailsViewModel = koinViewModel(), id: Int) {
         viewModel.getTitleById(id = id)
     }
 
-    Scaffold(containerColor = AppTheme.colorScheme.background) {
+    Scaffold {
         Column(
             modifier = Modifier.padding(it)
         ) {

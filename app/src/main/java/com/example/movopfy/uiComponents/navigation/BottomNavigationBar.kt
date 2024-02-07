@@ -3,6 +3,7 @@ package com.example.movopfy.uiComponents.navigation
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.height
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationBarItemColors
@@ -12,7 +13,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
-import com.example.movopfy.uiComponents.theme.AppTheme
+import com.example.movopfy.uiComponents.theme.BackgroundNavBar
+import com.example.movopfy.uiComponents.theme.size
 
 @Composable
 fun BottomNavigationBar(
@@ -21,8 +23,8 @@ fun BottomNavigationBar(
     onItemClick: (BottomNavItem) -> Unit
 ) {
     NavigationBar(
-        containerColor = AppTheme.colorScheme.backgroundNavBar,
-        modifier = Modifier.height(AppTheme.size.height)
+        containerColor = BackgroundNavBar,
+        modifier = Modifier.height(MaterialTheme.size.height)
     ) {
         val backStackEntry = navController.currentBackStackEntryAsState()
         items.forEachIndexed { _, item ->
@@ -34,18 +36,18 @@ fun BottomNavigationBar(
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
                         Icon(imageVector = item.icon, contentDescription = null)
                         if (selected) {
-                            Text(text = item.label, style = AppTheme.typography.textNormal)
+                            Text(text = item.label, style = MaterialTheme.typography.labelSmall)
                         }
                     }
                 },
                 colors = NavigationBarItemColors(
-                    selectedIconColor = AppTheme.colorScheme.brandPrimary,
-                    selectedTextColor = AppTheme.colorScheme.brandPrimary,
-                    selectedIndicatorColor = AppTheme.colorScheme.backgroundNavBar,
-                    unselectedIconColor = AppTheme.colorScheme.textSecondary,
-                    unselectedTextColor = AppTheme.colorScheme.textSecondary,
-                    disabledIconColor = AppTheme.colorScheme.textSecondary,
-                    disabledTextColor = AppTheme.colorScheme.textSecondary
+                    selectedIconColor = MaterialTheme.colorScheme.primary,
+                    selectedTextColor = MaterialTheme.colorScheme.primary,
+                    selectedIndicatorColor = BackgroundNavBar,
+                    unselectedIconColor = MaterialTheme.colorScheme.onSecondary,
+                    unselectedTextColor = MaterialTheme.colorScheme.onSecondary,
+                    disabledIconColor = MaterialTheme.colorScheme.onSecondary,
+                    disabledTextColor = MaterialTheme.colorScheme.onSecondary
                 )
             )
         }

@@ -9,7 +9,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.movopfy.uiComponents.navigation.BottomNavItem
 import com.example.movopfy.uiComponents.navigation.BottomNavigationBar
 import com.example.movopfy.uiComponents.navigation.SetupNavGraph
-import com.example.movopfy.uiComponents.theme.AppTheme
+import com.example.movopfy.uiComponents.theme.MovopfyTheme
 
 class MainActivity : ComponentActivity() {
 
@@ -18,10 +18,9 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            AppTheme {
+            MovopfyTheme {
                 navController = rememberNavController()
                 Scaffold(
-                    containerColor = AppTheme.colorScheme.background,
                     bottomBar = {
                         BottomNavigationBar(
                             items = listOf(BottomNavItem.Home, BottomNavItem.Favorites),
