@@ -1,22 +1,18 @@
 package com.example.movopfy.features.details.presentation.ui
 
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.font.Font
-import androidx.compose.ui.text.font.FontFamily
-import com.example.movopfy.R
-import com.example.movopfy.uiComponents.theme.Dimensions
-import com.example.movopfy.uiComponents.theme.TextMain
+import com.example.movopfy.uiComponents.theme.dimensions
 
 @Composable
-fun TitleText(dimensions: Dimensions, name: String?) {
+fun TitleText(name: String?) {
     Text(
-        modifier = Modifier.padding(start = dimensions.paddingStart),
+        modifier = Modifier.padding(start = MaterialTheme.dimensions.paddingStart),
         text = name.toString(),
-        fontFamily = FontFamily(Font(R.font.inter_extrabold)),
-        fontSize = dimensions.textSizeMain,
-        color = TextMain
+        style = MaterialTheme.typography.titleMedium,
+        color = MaterialTheme.colorScheme.onPrimary
     )
 }
