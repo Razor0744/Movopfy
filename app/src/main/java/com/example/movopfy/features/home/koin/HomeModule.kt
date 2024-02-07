@@ -1,7 +1,9 @@
 package com.example.movopfy.features.home.koin
 
 import com.example.movopfy.features.home.data.repository.AnilibriaRepositoryImpl
+import com.example.movopfy.features.home.data.repository.KinopoiskRepositoryImpl
 import com.example.movopfy.features.home.domain.repository.AnilibriaRepository
+import com.example.movopfy.features.home.domain.repository.KinopoiskRepository
 import com.example.movopfy.features.home.domain.usecase.GetWaitingListTodayUseCase
 import com.example.movopfy.features.home.presentation.viewmodel.HomeViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -19,5 +21,9 @@ val homeModule = module {
 
     factory<GetWaitingListTodayUseCase> {
         GetWaitingListTodayUseCase(anilibriaRepository = get())
+    }
+
+    single<KinopoiskRepository> {
+        KinopoiskRepositoryImpl(kinopoiskService = get())
     }
 }
