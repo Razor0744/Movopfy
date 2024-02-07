@@ -1,5 +1,6 @@
 package com.example.movopfy.network.kinopoisk.service
 
+import com.example.movopfy.BuildConfig
 import com.example.movopfy.network.kinopoisk.models.KinopoiskList
 import com.example.movopfy.network.kinopoisk.models.KinopoiskTitle
 import retrofit2.Response
@@ -11,7 +12,7 @@ import retrofit2.http.Query
 interface KinopoiskService {
 
     @GET("movie")
-    @Headers("accept: application/json", "X-API-KEY: B7MW9FS-1BQM1N0-H4W3YZ7-3FAEB2K")
+    @Headers("accept: application/json", "X-API-KEY: ${BuildConfig.KINOPOISK_API_KEY}")
     suspend fun getList(
         @Query("page") page: Int,
         @Query("limit") limit: Int,
@@ -19,6 +20,6 @@ interface KinopoiskService {
     ): Response<KinopoiskList>
 
     @GET("movie/{id}")
-    @Headers("accept: application/json", "X-API-KEY: B7MW9FS-1BQM1N0-H4W3YZ7-3FAEB2K")
+    @Headers("accept: application/json", "X-API-KEY: ${BuildConfig.KINOPOISK_API_KEY}")
     suspend fun getTitle(@Path("id") id: Int): Response<KinopoiskTitle>
 }
