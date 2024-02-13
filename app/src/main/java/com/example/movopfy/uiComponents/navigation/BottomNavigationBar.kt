@@ -24,7 +24,7 @@ fun BottomNavigationBar(
 ) {
     NavigationBar(
         containerColor = BackgroundNavBar,
-        modifier = Modifier.height(MaterialTheme.size.height)
+        modifier = Modifier.height(MaterialTheme.size.heightComponent)
     ) {
         val backStackEntry = navController.currentBackStackEntryAsState()
         items.forEachIndexed { _, item ->

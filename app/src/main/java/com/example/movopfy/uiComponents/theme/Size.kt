@@ -5,11 +5,15 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
 data class Size(
-    val height: Dp
+    val heightComponent: Dp,
+    val heightImage: Dp,
+    val widthImage: Dp
 )
 
 val LocalAppSize = staticCompositionLocalOf {
     Size(
-        height = 52.dp
+        heightComponent = 52.dp,
+        heightImage = 180.dp,
+        widthImage = 120.dp
     )
 }

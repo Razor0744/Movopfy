@@ -16,19 +16,20 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
-import com.example.movopfy.features.home.domain.models.WaitingListToday
+import com.example.movopfy.network.kinopoisk.models.KinopoiskDocs
 import com.example.movopfy.uiComponents.navigation.Screen
 import com.example.movopfy.uiComponents.theme.dimensions
 import com.example.movopfy.uiComponents.theme.size
 
 @Composable
-fun SchedulesList(
-    list: List<WaitingListToday>,
+fun KinopoiskList(
+    list: List<KinopoiskDocs>,
     navController: NavController
 ) {
     LazyRow(
         modifier = Modifier
             .fillMaxWidth()
+            .height(MaterialTheme.size.heightImage)
             .padding(top = 10.dp),
         horizontalArrangement = Arrangement.spacedBy(space = MaterialTheme.dimensions.lazySpace),
         contentPadding = PaddingValues(
@@ -38,7 +39,7 @@ fun SchedulesList(
     ) {
         items(count = list.size) {
             AsyncImage(
-                model = list[it].pictureUrl,
+                model = list[it].poster?.previewUrl,
                 contentDescription = null,
                 contentScale = ContentScale.FillBounds,
                 modifier = Modifier

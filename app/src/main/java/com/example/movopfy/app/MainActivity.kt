@@ -30,9 +30,8 @@ class MainActivity : ComponentActivity() {
                             }
                         )
                     }
-                ) {
-                    SetupNavGraph(navController = navController)
-                    println(it)
+                ) { padding ->
+                    SetupNavGraph(navController = navController, paddingValues = padding)
                 }
             }
         }
