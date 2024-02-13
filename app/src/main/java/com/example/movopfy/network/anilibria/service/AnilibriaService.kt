@@ -11,7 +11,6 @@ interface AnilibriaService {
     @GET("title/schedule")
     suspend fun getSchedule(): Response<List<AnilibriaSchedule>>
 
-
     @GET("title")
     suspend fun getTitle(@Query("id") id: Int): Response<AnilibriaTitle>
 }

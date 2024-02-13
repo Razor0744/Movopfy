@@ -16,14 +16,14 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
-import com.example.movopfy.features.home.domain.models.WaitingListToday
+import com.example.movopfy.features.home.domain.models.AnimeSeries
 import com.example.movopfy.uiComponents.navigation.Screen
 import com.example.movopfy.uiComponents.theme.dimensions
 import com.example.movopfy.uiComponents.theme.size
 
 @Composable
 fun SchedulesList(
-    list: List<WaitingListToday>,
+    list: List<AnimeSeries>,
     navController: NavController
 ) {
     LazyRow(
