@@ -19,7 +19,6 @@ import coil.compose.AsyncImage
 import com.example.movopfy.features.home.domain.models.AnimeSeries
 import com.example.movopfy.uiComponents.navigation.Screen
 import com.example.movopfy.uiComponents.theme.dimensions
-import com.example.movopfy.uiComponents.theme.size
 
 @Composable
 fun SchedulesList(
@@ -42,8 +41,8 @@ fun SchedulesList(
                 contentDescription = null,
                 contentScale = ContentScale.FillBounds,
                 modifier = Modifier
-                    .height(MaterialTheme.size.heightImage)
-                    .width(MaterialTheme.size.widthImage)
+                    .height(height = 180.dp)
+                    .width(width = 120.dp)
                     .clip(shape = MaterialTheme.shapes.medium)
                     .clickable {
                         navController.navigate(route = Screen.Details.passId(id = list[it].id ?: 0))

@@ -27,20 +27,17 @@ fun HomeScreen(
     val uiState by viewModel.uiState.collectAsState()
 
     Scaffold(modifier = modifier) { padding ->
-        LazyColumn(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(padding),
-        ) {
+        when (val state = uiState) {
+            is HomeViewModel.HomeUiState.Loading -> {
+                ProgressBarLoading()
+            }
 
-            when (val state = uiState) {
-                is HomeViewModel.HomeUiState.Loading -> {
-                    item {
-                        ProgressBarLoading()
-                    }
-                }
-
-                is HomeViewModel.HomeUiState.Loaded -> {
+            is HomeViewModel.HomeUiState.Loaded -> {
+                LazyColumn(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(padding),
+                ) {
                     item {
                         Row(
                             modifier = Modifier.fillMaxWidth(),
@@ -52,23 +49,26 @@ fun HomeScreen(
                         }
 
                         SchedulesList(
-                            list = state.anime,
+                            list = state.homeState.animeSeriesList,
                             navController = navController
                         )
                     }
 
-                    items(count = state.movieList.size) { item ->
+                    items(count = state.homeState.movieList.size) { item ->
                         Row(
                             modifier = Modifier.fillMaxWidth(),
                             verticalAlignment = Alignment.Bottom
                         ) {
-                            Title(text = state.movieList[item].first)
+                            Title(text = state.homeState.movieList[item].first)
 
-                            MoviesButton(navController = navController, state.movieList[item].first)
+                            MoviesButton(
+                                navController = navController,
+                                state.homeState.movieList[item].first
+                            )
                         }
 
                         KinopoiskList(
-                            list = state.movieList[item].second,
+                            list = state.homeState.movieList[item].second,
                             navController = navController
                         )
                     }

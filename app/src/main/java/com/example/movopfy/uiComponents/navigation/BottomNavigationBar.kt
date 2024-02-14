@@ -11,10 +11,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.movopfy.uiComponents.theme.BackgroundNavBar
-import com.example.movopfy.uiComponents.theme.size
 
 @Composable
 fun BottomNavigationBar(
@@ -24,7 +24,7 @@ fun BottomNavigationBar(
 ) {
     NavigationBar(
         containerColor = BackgroundNavBar,
-        modifier = Modifier.height(MaterialTheme.size.heightComponent)
+        modifier = Modifier.height(height = 52.dp)
     ) {
         val backStackEntry = navController.currentBackStackEntryAsState()
         items.forEachIndexed { _, item ->

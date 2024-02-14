@@ -19,7 +19,6 @@ import coil.compose.AsyncImage
 import com.example.movopfy.network.kinopoisk.models.KinopoiskDocs
 import com.example.movopfy.uiComponents.navigation.Screen
 import com.example.movopfy.uiComponents.theme.dimensions
-import com.example.movopfy.uiComponents.theme.size
 
 @Composable
 fun KinopoiskList(
@@ -29,7 +28,7 @@ fun KinopoiskList(
     LazyRow(
         modifier = Modifier
             .fillMaxWidth()
-            .height(MaterialTheme.size.heightImage)
+            .height(height = 180.dp)
             .padding(top = 10.dp),
         horizontalArrangement = Arrangement.spacedBy(space = MaterialTheme.dimensions.lazySpace),
         contentPadding = PaddingValues(
@@ -43,8 +42,8 @@ fun KinopoiskList(
                 contentDescription = null,
                 contentScale = ContentScale.FillBounds,
                 modifier = Modifier
-                    .height(MaterialTheme.size.heightImage)
-                    .width(MaterialTheme.size.widthImage)
+                    .height(height = 180.dp)
+                    .width(width = 120.dp)
                     .clip(shape = MaterialTheme.shapes.medium)
                     .clickable {
                         navController.navigate(route = Screen.Details.passId(id = list[it].id ?: 0))
