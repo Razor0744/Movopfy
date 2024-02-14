@@ -15,8 +15,9 @@ interface KinopoiskService {
     @Headers("accept: application/json", "X-API-KEY: ${BuildConfig.KINOPOISK_API_KEY}")
     suspend fun getList(
         @Query("page") page: Int,
-        @Query("limit") limit: Int,
-        @Query("selectFields") selectFields: List<String> = listOf("id", "poster")
+        @Query("limit") limit: Int = 10,
+        @Query("selectFields") selectFields: List<String> = listOf("id", "poster"),
+        @Query("genres.name") category: String
     ): Response<KinopoiskList>
 
     @GET("movie/{id}")

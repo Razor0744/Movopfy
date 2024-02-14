@@ -45,7 +45,6 @@ fun MovopfyTheme(
 
     CompositionLocalProvider {
         LocalAppDimensions
-        LocalAppSize
     }
 
     MaterialTheme(
@@ -58,6 +57,3 @@ fun MovopfyTheme(
 
 val MaterialTheme.dimensions: Dimensions
     @Composable get() = LocalAppDimensions.current
-
-val MaterialTheme.size: Size
-    @Composable get() = LocalAppSize.current
