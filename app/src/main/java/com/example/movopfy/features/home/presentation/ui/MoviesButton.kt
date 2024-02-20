@@ -20,7 +20,7 @@ import com.example.movopfy.uiComponents.theme.dimensions
 fun MoviesButton(navController: NavController, category: String) {
     Text(
         text = stringResource(id = R.string.more_movies_button),
-        style = MaterialTheme.typography.titleLarge,
+        style = MaterialTheme.typography.titleMedium,
         color = MaterialTheme.colorScheme.primary,
         textAlign = TextAlign.End,
         modifier = Modifier
