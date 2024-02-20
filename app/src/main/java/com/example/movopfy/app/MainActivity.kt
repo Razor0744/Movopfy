@@ -6,6 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.compose.material3.Scaffold
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.example.movopfy.uiComponents.components.TopBar
 import com.example.movopfy.uiComponents.navigation.BottomNavItem
 import com.example.movopfy.uiComponents.navigation.BottomNavigationBar
 import com.example.movopfy.uiComponents.navigation.SetupNavGraph
@@ -21,6 +22,9 @@ class MainActivity : ComponentActivity() {
             MovopfyTheme {
                 navController = rememberNavController()
                 Scaffold(
+                    topBar = {
+                        TopBar()
+                    },
                     bottomBar = {
                         BottomNavigationBar(
                             items = listOf(BottomNavItem.Home, BottomNavItem.Favorites),
