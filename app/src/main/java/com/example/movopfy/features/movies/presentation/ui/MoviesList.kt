@@ -1,6 +1,5 @@
 package com.example.movopfy.features.movies.presentation.ui
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.height
@@ -20,7 +19,7 @@ import com.example.movopfy.network.kinopoisk.models.KinopoiskDocs
 import com.example.movopfy.uiComponents.theme.dimensions
 
 @Composable
-fun MovieList(
+fun MoviesList(
     modifier: Modifier = Modifier,
     list: List<KinopoiskDocs>,
     state: LazyGridState,
@@ -46,8 +45,6 @@ fun MovieList(
                         .height(height = 180.dp)
                         .width(width = 120.dp)
                         .clip(shape = MaterialTheme.shapes.medium)
-                        .clickable {
-                        }
                 )
             }
         }

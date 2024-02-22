@@ -1,10 +1,10 @@
-package com.example.movopfy.common.mappers
+package com.example.movopfy.common.mappers.anilibria
 
 import com.example.movopfy.common.extensions.getSmallImageUrl
 import com.example.movopfy.features.home.domain.models.AnimeSeries
 import com.example.movopfy.network.anilibria.models.AnilibriaSchedule
 
-fun anilibriaUrlMapper(anilibriaSchedule: AnilibriaSchedule): List<AnimeSeries> {
+fun mapToAnimeSeriesList(anilibriaSchedule: AnilibriaSchedule): List<AnimeSeries> {
     return anilibriaSchedule.list.map { item ->
         AnimeSeries(id = item.id, pictureUrl = item.getSmallImageUrl())
     }

@@ -38,7 +38,7 @@ fun MoviesScreen(
                     viewModel.getKinopoiskList(category = category)
                 }
 
-                MovieList(
+                MoviesList(
                     modifier = Modifier.padding(padding),
                     list = state.list,
                     state = gridState,

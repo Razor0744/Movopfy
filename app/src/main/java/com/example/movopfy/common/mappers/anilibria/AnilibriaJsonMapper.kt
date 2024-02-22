@@ -1,4 +1,4 @@
-package com.example.movopfy.common.mappers
+package com.example.movopfy.common.mappers.anilibria
 
 import android.util.Log
 import com.example.movopfy.network.anilibria.models.AnilibriaEpisodesList
@@ -10,7 +10,7 @@ import kotlinx.serialization.json.JsonObject
 const val JSON_ERROR = "JsonError"
 private val json = Json { ignoreUnknownKeys = true }
 
-fun anilibriaJsonMapper(jsonElement: JsonElement): List<AnilibriaEpisodesList> {
+fun mapToAnilibriaEpisodesList(jsonElement: JsonElement): List<AnilibriaEpisodesList> {
     return when (jsonElement) {
         is JsonObject -> convertJsonObject(jsonObject = jsonElement)
 
