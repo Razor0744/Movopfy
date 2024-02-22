@@ -10,7 +10,7 @@ import kotlinx.serialization.json.JsonObject
 const val JSON_ERROR = "JsonError"
 private val json = Json { ignoreUnknownKeys = true }
 
-fun mapAnilibriaJsonToDataClass(jsonElement: JsonElement): List<AnilibriaEpisodesList> {
+fun anilibriaJsonMapper(jsonElement: JsonElement): List<AnilibriaEpisodesList> {
     return when (jsonElement) {
         is JsonObject -> convertJsonObject(jsonObject = jsonElement)
 
@@ -24,15 +24,9 @@ fun mapAnilibriaJsonToDataClass(jsonElement: JsonElement): List<AnilibriaEpisode
 }
 
 fun convertJsonArray(jsonArray: JsonArray): List<AnilibriaEpisodesList> {
-    val list = arrayListOf<AnilibriaEpisodesList>()
-
-    for (i in jsonArray) {
-        list.add(
-            json.decodeFromJsonElement(AnilibriaEpisodesList.serializer(), i)
-        )
+    return jsonArray.map { jsonElement ->
+        json.decodeFromJsonElement(AnilibriaEpisodesList.serializer(), jsonElement)
     }
-
-    return list
 }
 
 fun convertJsonObject(jsonObject: JsonObject): List<AnilibriaEpisodesList> {

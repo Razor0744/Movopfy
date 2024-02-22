@@ -34,7 +34,11 @@ fun SetupNavGraph(navController: NavHostController, paddingValues: PaddingValues
             arguments = listOf(navArgument("category") { type = NavType.StringType })
         ) {
             val category = it.arguments?.getString("category") ?: ""
-            MoviesScreen(navController = navController, category = category)
+            MoviesScreen(
+                modifier = Modifier.padding(paddingValues),
+                navController = navController,
+                category = category
+            )
         }
     }
 }

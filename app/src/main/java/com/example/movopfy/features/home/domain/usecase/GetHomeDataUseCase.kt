@@ -1,6 +1,6 @@
 package com.example.movopfy.features.home.domain.usecase
 
-import com.example.movopfy.common.mappers.mapAnilibriaUrlToImageUrl
+import com.example.movopfy.common.mappers.anilibriaUrlMapper
 import com.example.movopfy.features.home.domain.models.HomeState
 import com.example.movopfy.features.home.domain.repository.AnilibriaRepository
 import com.example.movopfy.features.home.domain.repository.KinopoiskRepository
@@ -24,7 +24,7 @@ class GetDataUseCase(
 
     suspend fun execute(currentDay: Int): HomeState = coroutineScope {
         val animeList =
-            async { mapAnilibriaUrlToImageUrl(anilibriaSchedule = anilibriaRepository.getSchedule()[currentDay]) }
+            async { anilibriaUrlMapper(anilibriaSchedule = anilibriaRepository.getSchedule()[currentDay]) }
 
         val horrorList = async {
             Pair(
