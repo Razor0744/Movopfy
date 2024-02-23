@@ -1,4 +1,4 @@
-package com.example.movopfy.features.home.domain.models
+package com.example.movopfy.common.models
 
 data class AnimeSeries(
     val id: Int?,

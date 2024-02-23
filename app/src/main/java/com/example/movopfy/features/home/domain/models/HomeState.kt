@@ -1,5 +1,6 @@
 package com.example.movopfy.features.home.domain.models
 
+import com.example.movopfy.common.models.AnimeSeries
 import com.example.movopfy.network.kinopoisk.models.KinopoiskDocs
 
 data class HomeState(

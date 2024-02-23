@@ -1,6 +1,7 @@
 package com.example.movopfy.app
 
 import android.app.Application
+import com.example.movopfy.features.anime.koin.animeModule
 import com.example.movopfy.features.details.koin.detailsModule
 import com.example.movopfy.features.home.koin.homeModule
 import com.example.movopfy.features.movies.koin.moviesModule
@@ -23,7 +24,8 @@ class App : Application() {
                     homeModule,
                     networkModule,
                     detailsModule,
-                    moviesModule
+                    moviesModule,
+                    animeModule
                 )
             )
         }

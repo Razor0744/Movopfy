@@ -45,7 +45,7 @@ fun HomeScreen(
                         ) {
                             Title(text = stringResource(id = R.string.schedule_for_today_text))
 
-                            MoviesButton(navController = navController, "anime")
+                            AnimeButton(navController = navController)
                         }
 
                         SchedulesList(
