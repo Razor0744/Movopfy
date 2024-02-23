@@ -18,4 +18,6 @@ sealed class Screen(val route: String) {
             return this.route.replace(oldValue = "{$MOVIES_CATEGORY}", newValue = category)
         }
     }
+
+    data object Anime : Screen(route = "anime_screen")
 }

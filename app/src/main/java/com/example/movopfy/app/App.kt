@@ -1,6 +1,7 @@
 package com.example.movopfy.app
 
 import android.app.Application
+import com.example.movopfy.features.anime.koin.animeModule
 import com.example.movopfy.features.details.koin.detailsModule
 import com.example.movopfy.features.home.koin.homeModule
 import com.example.movopfy.network.koin.networkModule
@@ -17,7 +18,7 @@ class App : Application() {
         startKoin {
             androidLogger(Level.DEBUG)
             androidContext(this@App)
-            modules(listOf(homeModule, networkModule, detailsModule))
+            modules(listOf(homeModule, networkModule, detailsModule, animeModule))
         }
     }
 }
