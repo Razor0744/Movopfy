@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -16,6 +17,7 @@ import androidx.navigation.NavController
 import com.example.movopfy.R
 import com.example.movopfy.features.home.presentation.viewmodel.HomeViewModel
 import com.example.movopfy.uiComponents.components.ProgressBarLoading
+import com.example.movopfy.uiComponents.theme.dimensions
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -40,8 +42,10 @@ fun HomeScreen(
                 ) {
                     item {
                         Row(
-                            modifier = Modifier.fillMaxWidth(),
-                            verticalAlignment = Alignment.Bottom
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(top = MaterialTheme.dimensions.paddingTop),
+                            verticalAlignment = Alignment.CenterVertically
                         ) {
                             Title(text = stringResource(id = R.string.schedule_for_today_text))
 
@@ -56,8 +60,10 @@ fun HomeScreen(
 
                     items(count = state.homeState.movieList.size) { item ->
                         Row(
-                            modifier = Modifier.fillMaxWidth(),
-                            verticalAlignment = Alignment.Bottom
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(top = MaterialTheme.dimensions.paddingTop),
+                            verticalAlignment = Alignment.CenterVertically
                         ) {
                             Title(text = state.homeState.movieList[item].first)
 

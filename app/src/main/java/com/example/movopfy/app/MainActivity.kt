@@ -45,7 +45,7 @@ class MainActivity : ComponentActivity() {
 
                 Scaffold(
                     topBar = {
-                        TopBar(arrow = showArrowTopBar)
+                        TopBar(arrow = showArrowTopBar, navController = navController)
                     },
                     bottomBar = {
                         if (showBottomBar) {
