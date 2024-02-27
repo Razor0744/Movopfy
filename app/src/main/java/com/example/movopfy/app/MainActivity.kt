@@ -4,11 +4,17 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.material3.Scaffold
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.movopfy.uiComponents.components.TopBar
 import com.example.movopfy.uiComponents.navigation.BottomNavItem
 import com.example.movopfy.uiComponents.navigation.BottomNavigationBar
+import com.example.movopfy.uiComponents.navigation.Screen
 import com.example.movopfy.uiComponents.navigation.SetupNavGraph
 import com.example.movopfy.uiComponents.theme.MovopfyTheme
 
@@ -21,18 +27,36 @@ class MainActivity : ComponentActivity() {
         setContent {
             MovopfyTheme {
                 navController = rememberNavController()
+                var showBottomBar by rememberSaveable { mutableStateOf(true) }
+                var showArrowTopBar by rememberSaveable { mutableStateOf(false) }
+                val navBackStackEntry by navController.currentBackStackEntryAsState()
+
+                showBottomBar = when (navBackStackEntry?.destination?.route) {
+                    Screen.Details.route -> false
+                    else -> true
+                }
+
+                showArrowTopBar = when (navBackStackEntry?.destination?.route) {
+                    Screen.Details.route -> true
+                    Screen.Anime.route -> true
+                    Screen.Movies.route -> true
+                    else -> false
+                }
+
                 Scaffold(
                     topBar = {
-                        TopBar()
+                        TopBar(arrow = showArrowTopBar)
                     },
                     bottomBar = {
-                        BottomNavigationBar(
-                            items = listOf(BottomNavItem.Home, BottomNavItem.Favorites),
-                            navController = navController,
-                            onItemClick = {
-                                navController.navigate(it.route)
-                            }
-                        )
+                        if (showBottomBar) {
+                            BottomNavigationBar(
+                                items = listOf(BottomNavItem.Home, BottomNavItem.Favorites),
+                                navController = navController,
+                                onItemClick = {
+                                    navController.navigate(it.route)
+                                }
+                            )
+                        }
                     }
                 ) { padding ->
                     SetupNavGraph(navController = navController, paddingValues = padding)

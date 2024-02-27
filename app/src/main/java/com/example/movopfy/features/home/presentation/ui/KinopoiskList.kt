@@ -16,6 +16,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
+import com.example.movopfy.common.constants.API_CATEGORY_KINOPOISK
 import com.example.movopfy.network.kinopoisk.models.KinopoiskDocs
 import com.example.movopfy.uiComponents.navigation.Screen
 import com.example.movopfy.uiComponents.theme.dimensions
@@ -46,7 +47,12 @@ fun KinopoiskList(
                     .width(width = 120.dp)
                     .clip(shape = MaterialTheme.shapes.medium)
                     .clickable {
-                        navController.navigate(route = Screen.Details.passId(id = list[it].id ?: 0))
+                        navController.navigate(
+                            route = Screen.Details.passId(
+                                id = list[it].id ?: 0,
+                                category = API_CATEGORY_KINOPOISK
+                            )
+                        )
                     }
             )
         }

@@ -26,10 +26,18 @@ fun SetupNavGraph(navController: NavHostController, paddingValues: PaddingValues
 
         composable(
             route = Screen.Details.route,
-            arguments = listOf(navArgument("id") { type = NavType.IntType })
+            arguments = listOf(
+                navArgument(DETAILS_ID) { type = NavType.IntType },
+                navArgument(DETAILS_CATEGORY) { type = NavType.StringType }
+            )
         ) {
-            val id = it.arguments?.getInt("id") ?: 0
-            DetailsScreen(id = id)
+            val id = it.arguments?.getInt(DETAILS_ID) ?: 0
+            val category = it.arguments?.getString(DETAILS_CATEGORY) ?: "null"
+            DetailsScreen(
+                modifier = Modifier.padding(paddingValues),
+                id = id,
+                category = category
+            )
         }
 
         composable(
@@ -45,7 +53,10 @@ fun SetupNavGraph(navController: NavHostController, paddingValues: PaddingValues
         }
 
         composable(route = Screen.Anime.route) {
-            AnimeScreen(modifier = Modifier.padding(paddingValues))
+            AnimeScreen(
+                modifier = Modifier.padding(paddingValues),
+                navController = navController
+            )
         }
     }
 }
