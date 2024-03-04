@@ -7,13 +7,22 @@ import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import androidx.navigation.NavController
+import com.example.movopfy.R
+import com.example.movopfy.uiComponents.navigation.Screen
 import com.example.movopfy.uiComponents.theme.dimensions
 
 @Composable
-fun PlayerButton() {
+fun PlayerButton(
+    modifier: Modifier = Modifier,
+    navController: NavController,
+    id: Int,
+    episode: Int
+) {
     OutlinedButton(
-        onClick = {},
-        modifier = Modifier
+        onClick = { navController.navigate(Screen.Player.passId(id = id, episode = episode)) },
+        modifier = modifier
             .fillMaxWidth()
             .padding(
                 start = MaterialTheme.dimensions.paddingStart,
@@ -22,7 +31,7 @@ fun PlayerButton() {
             )
     ) {
         Text(
-            text = "Начать просмотр",
+            text = stringResource(id = R.string.play_anime_button),
             style = MaterialTheme.typography.labelMedium,
             color = MaterialTheme.colorScheme.onPrimary
         )

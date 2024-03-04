@@ -12,9 +12,9 @@ import androidx.compose.ui.unit.dp
 import com.example.movopfy.uiComponents.theme.dimensions
 
 @Composable
-fun Line() {
+fun CustomDivider(modifier: Modifier = Modifier) {
     Box(
-        modifier = Modifier
+        modifier = modifier
             .padding(
                 start = MaterialTheme.dimensions.paddingStart,
                 end = MaterialTheme.dimensions.paddingEnd,

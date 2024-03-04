@@ -22,7 +22,7 @@ import com.example.movopfy.R
 import com.example.movopfy.uiComponents.theme.dimensions
 
 @Composable
-fun TopBar(arrow: Boolean, navController: NavController) {
+fun TopBar(isBackEnabled: Boolean, navController: NavController) {
     Row(
         modifier = Modifier
             .height(height = 52.dp)
@@ -33,7 +33,7 @@ fun TopBar(arrow: Boolean, navController: NavController) {
             ),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        if (arrow) {
+        if (isBackEnabled) {
             Image(
                 painter = painterResource(id = R.drawable.ic_arrow_left),
                 contentDescription = null,

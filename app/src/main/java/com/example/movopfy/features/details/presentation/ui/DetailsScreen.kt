@@ -77,7 +77,7 @@ fun DetailsScreen(
                     }
 
                     item {
-                        Line()
+                        CustomDivider()
                     }
 
                     item {
