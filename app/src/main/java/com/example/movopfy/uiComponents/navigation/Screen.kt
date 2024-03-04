@@ -3,6 +3,8 @@ package com.example.movopfy.uiComponents.navigation
 const val DETAILS_ID = "id"
 const val DETAILS_CATEGORY = "category"
 const val MOVIES_CATEGORY = "category"
+const val PLAYER_ID = "id"
+const val PLAYER_EPISODE = "episode"
 
 sealed class Screen(val route: String) {
 
@@ -23,4 +25,12 @@ sealed class Screen(val route: String) {
     }
 
     data object Anime : Screen(route = "anime_screen")
+
+    data object Player : Screen(route = "player_screen/{$PLAYER_ID}/{$PLAYER_EPISODE}") {
+        fun passId(id: Int, episode: Int): String {
+            return this.route
+                .replace(oldValue = "{$PLAYER_ID}", newValue = id.toString())
+                .replace(oldValue = "{$PLAYER_EPISODE}", newValue = episode.toString())
+        }
+    }
 }

@@ -29,6 +29,7 @@ class MainActivity : ComponentActivity() {
                 navController = rememberNavController()
                 var showBottomBar by rememberSaveable { mutableStateOf(true) }
                 var showArrowTopBar by rememberSaveable { mutableStateOf(false) }
+                var showTopBar by rememberSaveable { mutableStateOf(true) }
                 val navBackStackEntry by navController.currentBackStackEntryAsState()
 
                 showBottomBar = when (navBackStackEntry?.destination?.route) {
@@ -41,6 +42,11 @@ class MainActivity : ComponentActivity() {
                     Screen.Anime.route -> true
                     Screen.Movies.route -> true
                     else -> false
+                }
+
+                showTopBar = when (navBackStackEntry?.destination?.route) {
+                    Screen.Player.route -> false
+                    else -> true
                 }
 
                 Scaffold(

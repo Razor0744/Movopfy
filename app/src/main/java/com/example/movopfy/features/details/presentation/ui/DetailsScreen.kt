@@ -11,6 +11,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.example.movopfy.common.constants.API_CATEGORY_ANILIBRIA
 import com.example.movopfy.common.constants.API_CATEGORY_KINOPOISK
@@ -24,7 +25,8 @@ fun DetailsScreen(
     modifier: Modifier = Modifier,
     viewModel: DetailsViewModel = koinViewModel(),
     id: Int,
-    category: String
+    category: String,
+    navController: NavController
 ) {
     val uiState by viewModel.uiState.collectAsState()
 
@@ -61,7 +63,7 @@ fun DetailsScreen(
                     }
 
                     item {
-                        PlayerButton()
+                        PlayerButton(navController = navController, id = id, episode = 0)
                     }
 
                     item {

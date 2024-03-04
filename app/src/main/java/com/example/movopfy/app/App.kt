@@ -5,6 +5,7 @@ import com.example.movopfy.features.anime.koin.animeModule
 import com.example.movopfy.features.details.koin.detailsModule
 import com.example.movopfy.features.home.koin.homeModule
 import com.example.movopfy.features.movies.koin.moviesModule
+import com.example.movopfy.features.player.koin.playerModule
 import com.example.movopfy.network.koin.networkModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -25,7 +26,8 @@ class App : Application() {
                     networkModule,
                     detailsModule,
                     moviesModule,
-                    animeModule
+                    animeModule,
+                    playerModule
                 )
             )
         }
