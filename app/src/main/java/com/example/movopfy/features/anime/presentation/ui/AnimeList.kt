@@ -1,5 +1,6 @@
 package com.example.movopfy.features.anime.presentation.ui
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -13,12 +14,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import coil.compose.AsyncImage
+import com.example.movopfy.common.constants.API_CATEGORY_ANILIBRIA
 import com.example.movopfy.common.models.AnimeSeries
+import com.example.movopfy.uiComponents.navigation.Screen
 import com.example.movopfy.uiComponents.theme.dimensions
 
 @Composable
-fun AnimeList(list: List<AnimeSeries>) {
+fun AnimeList(
+    list: List<AnimeSeries>,
+    navController: NavController
+) {
     LazyRow(
         modifier = Modifier
             .fillMaxWidth()
@@ -38,7 +45,14 @@ fun AnimeList(list: List<AnimeSeries>) {
                     .height(height = 180.dp)
                     .width(width = 120.dp)
                     .clip(shape = MaterialTheme.shapes.medium)
-
+                    .clickable {
+                        navController.navigate(
+                            Screen.Details.passId(
+                                id = list[it].id ?: 0,
+                                category = API_CATEGORY_ANILIBRIA
+                            )
+                        )
+                    }
             )
         }
     }

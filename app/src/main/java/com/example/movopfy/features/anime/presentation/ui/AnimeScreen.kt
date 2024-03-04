@@ -11,8 +11,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.example.movopfy.R
-import com.example.movopfy.common.mappers.mapAnilibriaUrlToImageUrl
+import com.example.movopfy.common.mappers.anilibria.mapToAnimeSeriesList
 import com.example.movopfy.features.anime.presentation.viewmodel.AnimeViewModel
 import com.example.movopfy.uiComponents.components.ProgressBarLoading
 import org.koin.androidx.compose.koinViewModel
@@ -20,7 +21,8 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun AnimeScreen(
     modifier: Modifier = Modifier,
-    viewModel: AnimeViewModel = koinViewModel()
+    viewModel: AnimeViewModel = koinViewModel(),
+    navController: NavController
 ) {
     val uiState by viewModel.uiState.collectAsState()
 
@@ -40,7 +42,10 @@ fun AnimeScreen(
                     items(state.list.size) {
                         DayTitle(text = stringArrayResource(id = R.array.day_list)[it])
 
-                        AnimeList(list = mapAnilibriaUrlToImageUrl(state.list[it]))
+                        AnimeList(
+                            list = mapToAnimeSeriesList(state.list[it]),
+                            navController = navController
+                        )
                     }
                 }
             }

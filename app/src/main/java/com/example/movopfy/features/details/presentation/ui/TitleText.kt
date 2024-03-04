@@ -8,11 +8,15 @@ import androidx.compose.ui.Modifier
 import com.example.movopfy.uiComponents.theme.dimensions
 
 @Composable
-fun TitleText(name: String?) {
+fun TitleText(text: String?) {
     Text(
-        modifier = Modifier.padding(start = MaterialTheme.dimensions.paddingStart),
-        text = name.toString(),
-        style = MaterialTheme.typography.titleMedium,
+        modifier = Modifier
+            .padding(
+                start = MaterialTheme.dimensions.paddingStart,
+                top = MaterialTheme.dimensions.paddingTop
+            ),
+        text = text.toString(),
+        style = MaterialTheme.typography.titleLarge,
         color = MaterialTheme.colorScheme.onPrimary
     )
 }
