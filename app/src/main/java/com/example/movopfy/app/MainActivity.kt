@@ -34,6 +34,7 @@ class MainActivity : ComponentActivity() {
 
                 showBottomBar = when (navBackStackEntry?.destination?.route) {
                     Screen.Details.route -> false
+                    Screen.Player.route -> false
                     else -> true
                 }
 

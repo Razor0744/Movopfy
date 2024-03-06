@@ -14,6 +14,8 @@ class PlayerViewModel(private val anilibriaRepository: AnilibriaRepository) : Vi
     private val _uiState = MutableStateFlow<PlayerUiState>(PlayerUiState.Loading)
     val uiState: StateFlow<PlayerUiState> = _uiState.asStateFlow()
 
+    var isFullScreen = false
+
     fun getTitle(id: Int) {
         viewModelScope.launch {
             val title = anilibriaRepository.getTitle(id = id)

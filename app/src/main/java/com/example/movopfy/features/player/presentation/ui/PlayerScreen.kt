@@ -5,8 +5,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import com.example.movopfy.common.extensions.getUrl
-import com.example.movopfy.common.mappers.anilibria.mapToAnilibriaEpisodesList
 import com.example.movopfy.features.player.presentation.viewmodel.PlayerViewModel
 import com.example.movopfy.uiComponents.components.ProgressBarLoading
 import org.koin.androidx.compose.koinViewModel
@@ -32,8 +30,9 @@ fun PlayerScreen(
         is PlayerViewModel.PlayerUiState.Loaded -> {
             Player(
                 modifier = modifier,
-                url = mapToAnilibriaEpisodesList(state.title?.player?.list)[episode].hls?.getUrl()
-                    ?: ""
+                title = state.title,
+                episode = episode,
+                viewModel = viewModel
             )
         }
     }

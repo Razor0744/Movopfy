@@ -1,6 +1,11 @@
 package com.example.movopfy.features.player.presentation.ui
 
+import android.annotation.SuppressLint
+import android.app.Activity
+import android.content.pm.ActivityInfo
 import androidx.annotation.OptIn
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
@@ -12,6 +17,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.media3.common.MediaItem
@@ -19,16 +25,33 @@ import androidx.media3.common.Player
 import androidx.media3.common.util.UnstableApi
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.ui.PlayerView
+import com.example.movopfy.common.extensions.getUrl
+import com.example.movopfy.common.mappers.anilibria.mapToAnilibriaEpisodesList
+import com.example.movopfy.features.player.presentation.viewmodel.PlayerViewModel
+import com.example.movopfy.network.anilibria.models.AnilibriaTitle
+import kotlinx.coroutines.delay
+import kotlin.time.Duration.Companion.seconds
 
 const val SEEK_NUMBER = 10000
 
+@SuppressLint("SourceLockedOrientationActivity")
 @OptIn(UnstableApi::class)
 @Composable
 fun Player(
     modifier: Modifier = Modifier,
-    url: String
+    title: AnilibriaTitle?,
+    episode: Int,
+    viewModel: PlayerViewModel
 ) {
     val context = LocalContext.current
+
+    val activity = context as Activity
+
+    var currentEpisode by remember { mutableIntStateOf(episode) }
+
+    val url = remember(currentEpisode) {
+        mapToAnilibriaEpisodesList(title?.player?.list)[currentEpisode].hls?.getUrl() ?: ""
+    }
 
     var isPlaying by remember { mutableStateOf(true) }
 
@@ -36,7 +59,7 @@ fun Player(
 
     var currentTime by remember { mutableLongStateOf(0L) }
 
-    var bufferedPercentage by remember { mutableIntStateOf(0) }
+    var isVisible by remember { mutableStateOf(false) }
 
     val exoPlayer = remember {
         ExoPlayer.Builder(context).build().apply {
@@ -58,7 +81,18 @@ fun Player(
         },
         modifier = modifier
             .fillMaxSize()
+            .clickable {
+                isVisible = isVisible.not()
+            }
+            .background(Color.Black)
     )
+
+    LaunchedEffect(Unit) {
+        while (true) {
+            delay(1.seconds)
+            currentTime = exoPlayer.currentPosition.coerceAtLeast(0L)
+        }
+    }
 
     DisposableEffect(Unit) {
         val listener =
@@ -66,8 +100,6 @@ fun Player(
                 override fun onEvents(player: Player, events: Player.Events) {
                     super.onEvents(player, events)
                     totalDuration = player.duration.coerceAtLeast(0L)
-                    currentTime = player.currentPosition.coerceAtLeast(0L)
-                    bufferedPercentage = player.bufferedPercentage
                 }
             }
 
@@ -81,7 +113,7 @@ fun Player(
 
     CustomControls(
         isPlaying = { isPlaying },
-        onPreviousClick = { exoPlayer.seekToPreviousMediaItem() },
+        onPreviousClick = { if (currentEpisode != 0) currentEpisode -= 1 },
         onReplayClick = {
             val seekReplay = exoPlayer.currentPosition - SEEK_NUMBER
 
@@ -102,10 +134,19 @@ fun Player(
             if (seekForward <= exoPlayer.duration) exoPlayer.seekTo(seekForward)
             else exoPlayer.seekTo(exoPlayer.duration)
         },
-        onNextClick = { exoPlayer.seekToNextMediaItem() },
+        onNextClick = { if (currentEpisode != mapToAnilibriaEpisodesList(title?.player?.list).size - 1) currentEpisode += 1 },
         totalDuration = { totalDuration },
         currentTime = { currentTime },
-        bufferPercentage = { bufferedPercentage },
-        onSeekChanged = { timeMs: Float -> exoPlayer.seekTo(timeMs.toLong()) }
+        onSeekChanged = { timeMs: Float -> exoPlayer.seekTo(timeMs.toLong()) },
+        isVisible = { isVisible },
+        onFullScreenClick = {
+            if (!viewModel.isFullScreen) {
+                activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+            } else {
+                activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
+            }
+
+            viewModel.isFullScreen = viewModel.isFullScreen.not()
+        }
     )
 }

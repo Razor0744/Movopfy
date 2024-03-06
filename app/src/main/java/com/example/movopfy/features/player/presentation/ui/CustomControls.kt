@@ -1,14 +1,22 @@
 package com.example.movopfy.features.player.presentation.ui
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 
+@OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun CustomControls(
     modifier: Modifier = Modifier,
@@ -20,23 +28,60 @@ fun CustomControls(
     onNextClick: () -> Unit,
     totalDuration: () -> Long,
     currentTime: () -> Long,
-    bufferPercentage: () -> Int,
-    onSeekChanged: (timeMs: Float) -> Unit
+    onSeekChanged: (timeMs: Float) -> Unit,
+    isVisible: () -> Boolean,
+    onFullScreenClick: () -> Unit
 ) {
-    Box(
-        modifier = modifier
-            .background(Color.Black.copy(alpha = 0.6f))
-            .fillMaxSize()
+    val isVisibleState = remember(isVisible()) { isVisible() }
+
+    val isPlayingState = remember(isPlaying()) { isPlaying() }
+
+    val currentTimeState = remember(currentTime()) { currentTime() }
+
+    AnimatedVisibility(
+        modifier = modifier,
+        visible = isVisibleState,
+        enter = fadeIn(),
+        exit = fadeOut()
     ) {
-        CenterControls(
+        Box(
             modifier = Modifier
-                .align(alignment = Alignment.Center)
-                .fillMaxWidth(),
-            isPlaying = { isPlaying() },
-            onPreviousClick = { onPreviousClick() },
-            onReplayClick = { onReplayClick() },
-            onPlayClick = { onPlayClick() },
-            onForwardClick = { onForwardClick() },
-            onNextClick = { onNextClick() })
+                .background(Color.Black.copy(alpha = 0.6f))
+                .fillMaxSize()
+        ) {
+            CenterControls(
+                modifier = Modifier
+                    .align(alignment = Alignment.Center)
+                    .fillMaxWidth(),
+                isPlaying = { isPlayingState },
+                onPreviousClick = { onPreviousClick() },
+                onReplayClick = { onReplayClick() },
+                onPlayClick = { onPlayClick() },
+                onForwardClick = { onForwardClick() },
+                onNextClick = { onNextClick() })
+
+            BottomControls(
+                modifier = Modifier
+                    .align(alignment = Alignment.BottomCenter)
+                    .animateEnterExit(
+                        enter =
+                        slideInVertically(
+                            initialOffsetY = { fullHeight: Int ->
+                                fullHeight
+                            }
+                        ),
+                        exit =
+                        slideOutVertically(
+                            targetOffsetY = { fullHeight: Int ->
+                                fullHeight
+                            }
+                        )
+                    ),
+                totalDuration = { totalDuration() },
+                currentTime = { currentTimeState },
+                onSeekChanged = { timeMs: Float -> onSeekChanged(timeMs) },
+                onFullScreenClick = { onFullScreenClick() })
+
+        }
     }
 }

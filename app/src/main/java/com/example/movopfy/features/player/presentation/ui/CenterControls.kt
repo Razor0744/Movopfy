@@ -1,10 +1,10 @@
 package com.example.movopfy.features.player.presentation.ui
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
-import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -30,7 +30,7 @@ fun CenterControls(
         horizontalArrangement = Arrangement.SpaceEvenly
     ) {
         IconButton(modifier = Modifier.size(40.dp), onClick = { onPreviousClick() }) {
-            Icon(
+            Image(
                 modifier = Modifier.fillMaxSize(),
                 painter = painterResource(id = R.drawable.ic_previous),
                 contentDescription = "Previous series"
@@ -38,7 +38,7 @@ fun CenterControls(
         }
 
         IconButton(modifier = Modifier.size(40.dp), onClick = { onReplayClick() }) {
-            Icon(
+            Image(
                 modifier = Modifier.fillMaxSize(),
                 painter = painterResource(id = R.drawable.ic_replay_10),
                 contentDescription = "Replay 10 sec"
@@ -46,7 +46,7 @@ fun CenterControls(
         }
 
         IconButton(modifier = Modifier.size(40.dp), onClick = { onPlayClick() }) {
-            Icon(
+            Image(
                 modifier = Modifier.fillMaxSize(),
                 painter = if (!isPlayingState) painterResource(id = R.drawable.ic_play)
                 else painterResource(id = R.drawable.ic_pause),
@@ -55,7 +55,7 @@ fun CenterControls(
         }
 
         IconButton(modifier = Modifier.size(40.dp), onClick = { onForwardClick() }) {
-            Icon(
+            Image(
                 modifier = Modifier.fillMaxSize(),
                 painter = painterResource(id = R.drawable.ic_forward_10),
                 contentDescription = "Forward 10 sec"
@@ -63,7 +63,7 @@ fun CenterControls(
         }
 
         IconButton(modifier = Modifier.size(40.dp), onClick = { onNextClick() }) {
-            Icon(
+            Image(
                 modifier = Modifier.fillMaxSize(),
                 painter = painterResource(id = R.drawable.ic_next),
                 contentDescription = "Next series"

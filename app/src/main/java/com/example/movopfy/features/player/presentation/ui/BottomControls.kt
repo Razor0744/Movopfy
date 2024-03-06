@@ -1,11 +1,11 @@
 package com.example.movopfy.features.player.presentation.ui
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Slider
@@ -24,28 +24,14 @@ fun BottomControls(
     modifier: Modifier = Modifier,
     totalDuration: () -> Long,
     currentTime: () -> Long,
-    bufferPercentage: () -> Int,
-    onSeekChanged: (timeMs: Float) -> Unit
+    onSeekChanged: (timeMs: Float) -> Unit,
+    onFullScreenClick: () -> Unit
 ) {
     val duration = remember(totalDuration()) { totalDuration() }
 
     val videoTime = remember(currentTime()) { currentTime() }
 
-    val buffer = remember(bufferPercentage()) { bufferPercentage() }
-
     Column(modifier = modifier.padding(bottom = 32.dp)) {
-        Slider(
-            value = buffer.toFloat(),
-            enabled = false,
-            onValueChange = { },
-            valueRange = 0f..100f,
-            colors =
-            SliderDefaults.colors(
-                disabledThumbColor = MaterialTheme.colorScheme.onPrimary,
-                disabledActiveTrackColor = MaterialTheme.colorScheme.onPrimary
-            )
-        )
-
         Slider(
             modifier = Modifier.fillMaxWidth(),
             value = videoTime.toFloat(),
@@ -65,16 +51,14 @@ fun BottomControls(
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Text(
-                modifier = Modifier.padding(horizontal = 16.dp),
-                text = duration.formatMinSec(),
-                color = MaterialTheme.colorScheme.primary
+                text = videoTime.formatMinSec(),
+                color = MaterialTheme.colorScheme.primary,
             )
 
             IconButton(
-                modifier = Modifier.padding(horizontal = 16.dp),
-                onClick = {}
+                onClick = { onFullScreenClick() }
             ) {
-                Icon(
+                Image(
                     painter = painterResource(id = R.drawable.ic_fullscreen),
                     contentDescription = "Enter/Exit fullscreen"
                 )
