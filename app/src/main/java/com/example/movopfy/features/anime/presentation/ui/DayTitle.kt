@@ -9,13 +9,17 @@ import androidx.compose.ui.unit.dp
 import com.example.movopfy.uiComponents.theme.dimensions
 
 @Composable
-fun DayTitle(text: String) {
+fun DayTitle(
+    modifier: Modifier = Modifier,
+    text: String
+) {
     Text(
-        text = text,
-        modifier = Modifier.padding(
+        modifier = modifier.padding(
             start = MaterialTheme.dimensions.paddingStart,
             top = 10.dp
         ),
+        text = text,
+        color = MaterialTheme.colorScheme.onPrimary,
         style = MaterialTheme.typography.titleLarge
     )
 }

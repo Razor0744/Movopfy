@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -34,7 +35,7 @@ fun TopBar(isBackEnabled: Boolean, navController: NavController) {
         verticalAlignment = Alignment.CenterVertically
     ) {
         if (isBackEnabled) {
-            Image(
+            Icon(
                 painter = painterResource(id = R.drawable.ic_arrow_left),
                 contentDescription = null,
                 modifier = Modifier
@@ -44,7 +45,9 @@ fun TopBar(isBackEnabled: Boolean, navController: NavController) {
                         indication = null,
                         interactionSource = remember { MutableInteractionSource() }) {
                         navController.popBackStack()
-                    })
+                    },
+                tint = MaterialTheme.colorScheme.onPrimary
+            )
         } else {
             Image(
                 painter = painterResource(id = R.drawable.ic_top_bar),
@@ -63,22 +66,24 @@ fun TopBar(isBackEnabled: Boolean, navController: NavController) {
                 .fillMaxWidth()
                 .height(height = 52.dp)
         ) {
-            Image(
+            Icon(
                 painter = painterResource(id = R.drawable.ic_search),
                 contentDescription = null,
                 modifier = Modifier
                     .height(45.dp)
                     .width(45.dp)
-                    .padding(end = 12.dp)
+                    .padding(end = 12.dp),
+                tint = MaterialTheme.colorScheme.onPrimary
             )
 
-            Image(
+            Icon(
                 painter = painterResource(id = R.drawable.ic_accout),
                 contentDescription = null,
                 modifier = Modifier
                     .height(51.dp)
                     .width(51.dp)
-                    .padding(end = MaterialTheme.dimensions.paddingEnd)
+                    .padding(end = MaterialTheme.dimensions.paddingEnd),
+                tint = MaterialTheme.colorScheme.onPrimary
             )
         }
     }
