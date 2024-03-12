@@ -13,12 +13,14 @@ fun Context.findActivity(): Activity? = when (this) {
 }
 
 fun Context.setLandscape() {
-    val activity = this.findActivity()
-    activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+    this.findActivity()?.apply {
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+    }
 }
 
 @SuppressLint("SourceLockedOrientationActivity")
 fun Context.setPortrait() {
-    val activity = this.findActivity()
-    activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+    this.findActivity()?.apply {
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+    }
 }
