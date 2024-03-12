@@ -1,8 +1,6 @@
 package com.example.movopfy.features.player.presentation.ui
 
 import android.annotation.SuppressLint
-import android.app.Activity
-import android.content.pm.ActivityInfo
 import androidx.annotation.OptIn
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -15,17 +13,24 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.viewinterop.AndroidView
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsControllerCompat
 import androidx.media3.common.MediaItem
 import androidx.media3.common.Player
 import androidx.media3.common.util.UnstableApi
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.ui.PlayerView
+import com.example.movopfy.common.extensions.findActivity
 import com.example.movopfy.common.extensions.getUrl
+import com.example.movopfy.common.extensions.setLandscape
+import com.example.movopfy.common.extensions.setPortrait
 import com.example.movopfy.common.mappers.anilibria.mapToAnilibriaEpisodesList
 import com.example.movopfy.features.player.presentation.viewmodel.PlayerViewModel
 import com.example.movopfy.network.anilibria.models.AnilibriaTitle
@@ -45,8 +50,6 @@ fun Player(
 ) {
     val context = LocalContext.current
 
-    val activity = context as Activity
-
     var currentEpisode by remember { mutableIntStateOf(episode) }
 
     val url = remember(currentEpisode) {
@@ -57,19 +60,21 @@ fun Player(
 
     var totalDuration by remember { mutableLongStateOf(0L) }
 
-    var currentTime by remember { mutableLongStateOf(0L) }
+    var currentTime by rememberSaveable { mutableLongStateOf(0L) }
 
     var isVisible by remember { mutableStateOf(false) }
 
+
+
     val exoPlayer = remember {
         ExoPlayer.Builder(context).build().apply {
-            this.playWhenReady = true
+            playWhenReady = true
         }
     }
 
-    LaunchedEffect(url) {
-        exoPlayer.setMediaItem(MediaItem.fromUri(url))
-        exoPlayer.prepare()
+    exoPlayer.apply {
+        setMediaItem(MediaItem.fromUri(url))
+        prepare()
     }
 
     AndroidView(
@@ -95,6 +100,15 @@ fun Player(
     }
 
     DisposableEffect(Unit) {
+        val window = context.findActivity()?.window ?: return@DisposableEffect onDispose {}
+        val insetsController = WindowCompat.getInsetsController(window, window.decorView)
+
+        insetsController.apply {
+            hide(WindowInsetsCompat.Type.statusBars())
+            hide(WindowInsetsCompat.Type.navigationBars())
+            systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+        }
+
         val listener =
             object : Player.Listener {
                 override fun onEvents(player: Player, events: Player.Events) {
@@ -103,11 +117,23 @@ fun Player(
                 }
             }
 
-        exoPlayer.addListener(listener)
+        exoPlayer.apply {
+            addListener(listener)
+        }
 
         onDispose {
-            exoPlayer.removeListener(listener)
-            exoPlayer.release()
+            exoPlayer.apply {
+                removeListener(listener)
+                release()
+            }
+
+            context.setPortrait()
+
+            insetsController.apply {
+                show(WindowInsetsCompat.Type.statusBars())
+                show(WindowInsetsCompat.Type.navigationBars())
+                systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_DEFAULT
+            }
         }
     }
 
@@ -141,9 +167,9 @@ fun Player(
         isVisible = { isVisible },
         onFullScreenClick = {
             if (!viewModel.isFullScreen) {
-                activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+                context.setLandscape()
             } else {
-                activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
+                context.setPortrait()
             }
 
             viewModel.isFullScreen = viewModel.isFullScreen.not()
