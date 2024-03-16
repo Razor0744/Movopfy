@@ -19,7 +19,6 @@ import coil.compose.AsyncImage
 import com.example.movopfy.common.constants.API_CATEGORY_ANILIBRIA
 import com.example.movopfy.common.constants.API_CATEGORY_KINOPOISK
 import com.example.movopfy.common.extensions.getSmallImageUrl
-import com.example.movopfy.common.mappers.anilibria.mapToAnilibriaEpisodesList
 import com.example.movopfy.features.details.presentation.viewmodel.DetailsViewModel
 import com.example.movopfy.uiComponents.components.ProgressBarLoading
 import com.example.movopfy.uiComponents.navigation.Screen
@@ -111,19 +110,21 @@ fun DetailsScreen(
                         )
                     }
 
-                    itemsIndexed(mapToAnilibriaEpisodesList(state.anilibriaTitle?.player?.list).reversed()) { index, item ->
-                        Episode(
-                            episode = item.episode,
-                            name = item.name ?: "",
-                            color = if (index % 2 == 0) MaterialTheme.colorScheme.onSecondary
-                            else MaterialTheme.colorScheme.background
-                        ) {
-                            navController.navigate(
-                                Screen.Player.passId(
-                                    id = id,
-                                    episode = item.episode?.minus(1) ?: 0
+                    state.episodesList?.let {
+                        itemsIndexed(it.reversed()) { index, item ->
+                            Episode(
+                                episode = item.episode,
+                                name = item.name ?: "",
+                                color = if (index % 2 == 0) MaterialTheme.colorScheme.onSecondary
+                                else MaterialTheme.colorScheme.background
+                            ) {
+                                navController.navigate(
+                                    Screen.Player.passId(
+                                        id = id,
+                                        episode = item.episode?.minus(1) ?: 0
+                                    )
                                 )
-                            )
+                            }
                         }
                     }
                 }
