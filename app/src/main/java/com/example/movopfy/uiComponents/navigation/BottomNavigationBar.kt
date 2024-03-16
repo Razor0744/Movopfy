@@ -14,7 +14,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
-import com.example.movopfy.uiComponents.theme.BackgroundNavBar
 
 @Composable
 fun BottomNavigationBar(
@@ -23,8 +22,8 @@ fun BottomNavigationBar(
     onItemClick: (BottomNavItem) -> Unit
 ) {
     NavigationBar(
-        containerColor = BackgroundNavBar,
-        modifier = Modifier.height(height = 52.dp)
+        modifier = Modifier.height(height = 52.dp),
+        containerColor = MaterialTheme.colorScheme.onBackground,
     ) {
         val backStackEntry = navController.currentBackStackEntryAsState()
         items.forEachIndexed { _, item ->
@@ -43,7 +42,7 @@ fun BottomNavigationBar(
                 colors = NavigationBarItemColors(
                     selectedIconColor = MaterialTheme.colorScheme.primary,
                     selectedTextColor = MaterialTheme.colorScheme.primary,
-                    selectedIndicatorColor = BackgroundNavBar,
+                    selectedIndicatorColor = MaterialTheme.colorScheme.onBackground,
                     unselectedIconColor = MaterialTheme.colorScheme.onSecondary,
                     unselectedTextColor = MaterialTheme.colorScheme.onSecondary,
                     disabledIconColor = MaterialTheme.colorScheme.onSecondary,
