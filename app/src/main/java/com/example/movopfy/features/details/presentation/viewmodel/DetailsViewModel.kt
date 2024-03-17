@@ -21,27 +21,53 @@ class DetailsViewModel(
 
     fun getTitleAnilibria(id: Int) {
         viewModelScope.launch {
-            val title = anilibriaRepository.getTitle(id = id)
+            val anilibriaTitle = LocalState.anilibriaMap[id]
 
-            _uiState.emit(
-                DetailsUiState.Loaded(
-                    anilibriaTitle = title,
-                    kinopoiskTitle = null
+            if (anilibriaTitle != null) {
+                _uiState.emit(
+                    DetailsUiState.Loaded(
+                        anilibriaTitle = anilibriaTitle,
+                        kinopoiskTitle = null
+                    )
                 )
-            )
+            } else {
+                val title = anilibriaRepository.getTitle(id = id)
+
+                title?.let { LocalState.anilibriaMap[id] = it }
+
+                _uiState.emit(
+                    DetailsUiState.Loaded(
+                        anilibriaTitle = title,
+                        kinopoiskTitle = null
+                    )
+                )
+            }
         }
     }
 
     fun getTitleKinopoisk(id: Int) {
         viewModelScope.launch {
-            val title = kinopoiskRepository.getTitle(id = id)
+            val kinopoiskTitle = LocalState.kinopoiskMap[id]
 
-            _uiState.emit(
-                DetailsUiState.Loaded(
-                    kinopoiskTitle = title,
-                    anilibriaTitle = null
+            if (kinopoiskTitle != null) {
+                _uiState.emit(
+                    DetailsUiState.Loaded(
+                        kinopoiskTitle = kinopoiskTitle,
+                        anilibriaTitle = null
+                    )
                 )
-            )
+            } else {
+                val title = kinopoiskRepository.getTitle(id = id)
+
+                title?.let { LocalState.kinopoiskMap[id] = it }
+
+                _uiState.emit(
+                    DetailsUiState.Loaded(
+                        kinopoiskTitle = title,
+                        anilibriaTitle = null
+                    )
+                )
+            }
         }
     }
 
@@ -53,5 +79,12 @@ class DetailsViewModel(
             val anilibriaTitle: AnilibriaTitle?,
             val kinopoiskTitle: KinopoiskTitle?
         ) : DetailsUiState
+    }
+
+    private object LocalState {
+
+        val anilibriaMap = mutableMapOf<Int, AnilibriaTitle>()
+
+        val kinopoiskMap = mutableMapOf<Int, KinopoiskTitle>()
     }
 }
