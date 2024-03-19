@@ -38,7 +38,6 @@ fun SetupNavGraph(navController: NavHostController, paddingValues: PaddingValues
             val id = it.arguments?.getInt(DETAILS_ID) ?: 0
             val category = it.arguments?.getString(DETAILS_CATEGORY) ?: "null"
             DetailsScreen(
-                modifier = Modifier.padding(paddingValues),
                 id = id,
                 category = category,
                 navController = navController
