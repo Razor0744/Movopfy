@@ -11,6 +11,7 @@ class KinopoiskRepositoryImpl(private val kinopoiskService: KinopoiskService): K
     override suspend fun getList(page: Int, category: String): List<KinopoiskDocs> =
         withContext(Dispatchers.IO) {
             val response = kinopoiskService.getList(page = page, category = category)
+
             if (response.isSuccessful) response.body()?.docs ?: emptyList() else emptyList()
         }
 }

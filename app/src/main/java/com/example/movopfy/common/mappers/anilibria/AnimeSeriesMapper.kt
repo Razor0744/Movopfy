@@ -6,6 +6,6 @@ import com.example.movopfy.network.anilibria.models.AnilibriaSchedule
 
 fun mapToAnimeSeriesList(anilibriaSchedule: AnilibriaSchedule): List<AnimeSeries> {
     return anilibriaSchedule.list.map { item ->
-        AnimeSeries(id = item.id, pictureUrl = item.getSmallImageUrl())
+        AnimeSeries(id = item.id, pictureUrl = item.getSmallImageUrl() ?: "")
     }
 }

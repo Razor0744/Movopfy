@@ -10,10 +10,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import java.util.Calendar
 
-class HomeViewModel(
-    private val getHomeDataUseCase: GetDataUseCase
-) :
-    ViewModel() {
+class HomeViewModel(private val getHomeDataUseCase: GetDataUseCase) : ViewModel() {
 
     private val _uiState = MutableStateFlow<HomeUiState>(HomeUiState.Loading)
     val uiState: StateFlow<HomeUiState> = _uiState.asStateFlow()

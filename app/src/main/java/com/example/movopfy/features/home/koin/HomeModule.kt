@@ -16,11 +16,14 @@ val homeModule = module {
     }
 
     single<AnilibriaRepository> {
-        AnilibriaRepositoryImpl(anilibriaService = get())
+        AnilibriaRepositoryImpl(
+            anilibriaService = get(),
+            animeSeriesDao = get()
+        )
     }
 
     single<KinopoiskRepository> {
-        KinopoiskRepositoryImpl(kinopoiskService = get())
+        KinopoiskRepositoryImpl(kinopoiskService = get(), kinopoiskDocsDao = get())
     }
 
     factory<GetDataUseCase> {

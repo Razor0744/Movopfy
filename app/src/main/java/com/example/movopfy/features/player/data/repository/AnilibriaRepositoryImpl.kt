@@ -7,9 +7,22 @@ import com.example.movopfy.network.anilibria.service.AnilibriaService
 class AnilibriaRepositoryImpl(private val anilibriaService: AnilibriaService) :
     AnilibriaRepository {
 
-    override suspend fun getTitle(id: Int): AnilibriaTitle? {
-        val response = anilibriaService.getTitle(id = id)
+    private var anilibriaTitle: AnilibriaTitle? = null
 
-        return if (response.isSuccessful) response.body() else null
+    override suspend fun getTitle(id: Int): AnilibriaTitle? {
+
+        return when {
+            anilibriaTitle != null -> {
+                anilibriaTitle
+            }
+
+            else -> {
+                val response = anilibriaService.getTitle(id = id)
+
+                anilibriaTitle = if (response.isSuccessful) response.body() else null
+
+                anilibriaTitle
+            }
+        }
     }
 }

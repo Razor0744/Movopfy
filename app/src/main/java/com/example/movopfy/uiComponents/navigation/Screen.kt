@@ -33,4 +33,6 @@ sealed class Screen(val route: String) {
                 .replace(oldValue = "{$PLAYER_EPISODE}", newValue = episode.toString())
         }
     }
+
+    data object Favourite : Screen(route = "favorites_screen")
 }

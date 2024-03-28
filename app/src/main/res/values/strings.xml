@@ -18,4 +18,8 @@
     <string name="play_anime_button">Начать просмотр</string>
 
     <string name="episode_anime_list">Серия %1$s %2$s</string>
+
+    <string name="favourite_item_is_watched">Просмотрено</string>
+
+    <string name="favourite_item_remove">Remove from favourite</string>
 </resources>
