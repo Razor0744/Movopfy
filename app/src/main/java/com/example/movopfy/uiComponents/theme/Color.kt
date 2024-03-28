@@ -23,3 +23,5 @@ val BackgroundNavBarDark = Color(0xFF24242D)
 val InputActiveDark = Color(0xFFE0E4E7)
 val TextSecondaryDark = Color(0xFF727283)
 val TextPrimaryDark = Color(0xFFF2F2F2)
+
+val Yellow = Color(0xFFFFB600)

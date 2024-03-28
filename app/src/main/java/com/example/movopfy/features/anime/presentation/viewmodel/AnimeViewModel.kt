@@ -2,8 +2,8 @@ package com.example.movopfy.features.anime.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.movopfy.common.models.AnimeSeries
 import com.example.movopfy.features.anime.domain.repository.AnilibriaRepository
-import com.example.movopfy.network.anilibria.models.AnilibriaSchedule
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -26,6 +26,6 @@ class AnimeViewModel(private val anilibriaRepository: AnilibriaRepository) : Vie
 
         data object Loading : AnimeUiState
 
-        data class Loaded(val list: List<AnilibriaSchedule>): AnimeUiState
+        data class Loaded(val list: List<List<AnimeSeries>>): AnimeUiState
     }
 }

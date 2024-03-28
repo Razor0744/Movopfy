@@ -1,6 +1,5 @@
 package com.example.movopfy.features.home.domain.usecase
 
-import com.example.movopfy.common.mappers.anilibria.mapToAnimeSeriesList
 import com.example.movopfy.features.home.domain.models.HomeState
 import com.example.movopfy.features.home.domain.repository.AnilibriaRepository
 import com.example.movopfy.features.home.domain.repository.KinopoiskRepository
@@ -24,7 +23,7 @@ class GetDataUseCase(
 
     suspend fun execute(currentDay: Int): HomeState = coroutineScope {
         val animeList =
-            async { mapToAnimeSeriesList(anilibriaSchedule = anilibriaRepository.getSchedule()[currentDay]) }
+            async { anilibriaRepository.getAnimeSeriesList(currentDay = currentDay) }
 
         val horrorList = async {
             Pair(

@@ -12,6 +12,9 @@ val animeModule = module {
     }
 
     single<AnilibriaRepository> {
-        AnilibriaRepositoryImpl(anilibriaService = get())
+        AnilibriaRepositoryImpl(
+            anilibriaService = get(),
+            animeSchedulesDao = get()
+        )
     }
 }
