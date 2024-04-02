@@ -1,8 +1,8 @@
 package com.example.movopfy.features.details.domain.repository
 
-import com.example.movopfy.features.details.domain.models.DetailsState
+import com.example.movopfy.features.details.domain.models.DetailsData
 
 interface KinopoiskRepository {
 
-    suspend fun getTitle(id: Int): DetailsState?
+    suspend fun getTitle(id: Int): DetailsData?
 }

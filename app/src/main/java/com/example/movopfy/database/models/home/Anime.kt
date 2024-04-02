@@ -4,10 +4,10 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "kinopoisk_docs")
-data class RoomKinopoiskDocs(
+@Entity(tableName = "anime_series")
+data class Anime(
     @PrimaryKey
     @ColumnInfo(name = "id") val id: Int,
-    @ColumnInfo(name = "category") val category: String,
-    @ColumnInfo(name = "preview_url") val previewUrl: String
+    @ColumnInfo(name = "picture_url") val pictureUrl: String,
+    @ColumnInfo(name = "day") val day: Int
 )

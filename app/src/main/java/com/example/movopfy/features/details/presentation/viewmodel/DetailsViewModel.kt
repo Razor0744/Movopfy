@@ -2,7 +2,7 @@ package com.example.movopfy.features.details.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.movopfy.database.models.favourite.RoomFavourite
+import com.example.movopfy.database.models.favourite.Favourite
 import com.example.movopfy.features.details.domain.models.DetailsState
 import com.example.movopfy.features.details.domain.repository.AnilibriaRepository
 import com.example.movopfy.features.details.domain.repository.FavouriteRepository
@@ -23,14 +23,16 @@ class DetailsViewModel(
 
     fun getTitleAnilibria(id: Int) {
         viewModelScope.launch {
-            val state = anilibriaRepository.getTitle(id = id)
+            val data = anilibriaRepository.getTitle(id = id)
 
-            val isFavourite = favouriteRepository.getFavouriteById(id = id)
+            val favourite = favouriteRepository.getFavouriteById(id = id)
 
             _uiState.emit(
                 DetailsUiState.Loaded(
-                    detailsState = state,
-                    roomFavourite = isFavourite
+                    detailsState = DetailsState(
+                        detailsData = data,
+                        favourite = favourite
+                    )
                 )
             )
         }
@@ -38,28 +40,30 @@ class DetailsViewModel(
 
     fun getTitleKinopoisk(id: Int) {
         viewModelScope.launch {
-            val state = kinopoiskRepository.getTitle(id = id)
+            val data = kinopoiskRepository.getTitle(id = id)
 
-            val isFavourite = favouriteRepository.getFavouriteById(id = id)
+            val favourite = favouriteRepository.getFavouriteById(id = id)
 
             _uiState.emit(
                 DetailsUiState.Loaded(
-                    detailsState = state,
-                    roomFavourite = isFavourite
+                    detailsState = DetailsState(
+                        detailsData = data,
+                        favourite = favourite
+                    )
                 )
             )
         }
     }
 
-    fun addToFavourite(roomFavourite: RoomFavourite) {
+    fun addToFavourite(favourite: Favourite) {
         viewModelScope.launch {
-            favouriteRepository.addToFavourite(roomFavourite = roomFavourite)
+            favouriteRepository.addToFavourite(favourite = favourite)
         }
     }
 
-    fun removeFromFavourite(roomFavourite: RoomFavourite) {
+    fun removeFromFavourite(favourite: Favourite) {
         viewModelScope.launch {
-            favouriteRepository.removeFromFavourite(roomFavourite = roomFavourite)
+            favouriteRepository.removeFromFavourite(favourite = favourite)
         }
     }
 
@@ -67,9 +71,6 @@ class DetailsViewModel(
 
         data object Loading : DetailsUiState
 
-        data class Loaded(
-            val detailsState: DetailsState?,
-            val roomFavourite: RoomFavourite?
-        ) : DetailsUiState
+        data class Loaded(val detailsState: DetailsState?) : DetailsUiState
     }
 }

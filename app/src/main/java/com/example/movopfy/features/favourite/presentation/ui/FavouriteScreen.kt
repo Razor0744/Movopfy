@@ -16,7 +16,6 @@ fun FavouriteScreen(
     modifier: Modifier = Modifier,
     viewModel: FavouriteViewModel = koinViewModel()
 ) {
-
     val uiState by viewModel.uiState.collectAsState()
 
     Surface(modifier = modifier) {

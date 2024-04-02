@@ -4,13 +4,15 @@ import com.example.movopfy.common.constants.API_CATEGORY_ANILIBRIA
 import com.example.movopfy.common.extensions.getSmallImageUrl
 import com.example.movopfy.common.mappers.anilibria.mapToAnilibriaEpisodesList
 import com.example.movopfy.database.dao.details.DetailsStateDao
-import com.example.movopfy.database.models.details.RoomDetailsState
-import com.example.movopfy.database.models.details.RoomEpisodes
-import com.example.movopfy.features.details.domain.models.DetailsState
+import com.example.movopfy.database.models.details.Details
+import com.example.movopfy.database.models.details.Episodes
+import com.example.movopfy.features.details.domain.models.DetailsData
 import com.example.movopfy.features.details.domain.repository.AnilibriaRepository
 import com.example.movopfy.network.anilibria.models.AnilibriaEpisodesList
 import com.example.movopfy.network.anilibria.service.AnilibriaService
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
 
 class AnilibriaRepositoryImpl(
@@ -18,74 +20,84 @@ class AnilibriaRepositoryImpl(
     private val detailsStateDao: DetailsStateDao
 ) : AnilibriaRepository {
 
-    private var state: DetailsState? = null
-    private var idState: Int? = null
+    private val detailsDataMutex = Mutex()
 
-    override suspend fun getTitle(id: Int): DetailsState? = withContext(Dispatchers.IO) {
-        val localState = detailsStateDao.getTitleById(id = id, category = API_CATEGORY_ANILIBRIA)
+    private var detailsData: DetailsData? = null
+    private var lastTitleId: Int? = null
 
-        when {
-            state != null && idState == id -> {
-                state
-            }
+    override suspend fun getTitle(id: Int): DetailsData? = withContext(Dispatchers.IO) {
+        detailsDataMutex.withLock {
 
-            localState != null -> {
-                state = DetailsState(
-                    url = localState.detailsState.pictureUrl,
-                    name = localState.detailsState.name,
-                    description = localState.detailsState.description,
-                    episodesList = localState.episodesList.map {
-                        AnilibriaEpisodesList(
-                            episode = it.episode,
-                            name = it.name,
-                            uuid = null,
-                            createdTimestamp = null,
-                            preview = null,
-                            hls = null
-                        )
-                    }
+            val localState =
+                if (detailsData == null) detailsStateDao.getTitleById(
+                    id = id,
+                    category = API_CATEGORY_ANILIBRIA
                 )
+                else null
 
-                idState = id
-
-                state
-            }
-
-            else -> {
-                val response = anilibriaService.getTitle(id = id)
-
-                val responseBody = if (response.isSuccessful) response.body() else null
-
-                responseBody?.let { title ->
-                    state = DetailsState(
-                        url = title.getSmallImageUrl(),
-                        name = title.anilibriaNames?.ru,
-                        description = title.description,
-                        episodesList = mapToAnilibriaEpisodesList(title.player?.list)
-                    )
-
-                    detailsStateDao.addTitle(
-                        roomDetailsState = RoomDetailsState(
-                            name = title.anilibriaNames?.ru ?: "",
-                            description = title.description ?: "",
-                            pictureUrl = title.getSmallImageUrl() ?: "",
-                            titleId = id,
-                            category = API_CATEGORY_ANILIBRIA
-                        )
-                    )
-
-                    detailsStateDao.addEpisodes(roomEpisodes = mapToAnilibriaEpisodesList(title.player?.list).map {
-                        RoomEpisodes(
-                            name = it.name ?: "",
-                            episode = it.episode ?: 0,
-                            titleId = id
-                        )
-                    }.toTypedArray())
+            when {
+                detailsData != null && lastTitleId == id -> {
+                    detailsData
                 }
 
-                idState = id
+                localState != null -> {
+                    detailsData = DetailsData(
+                        url = localState.details.pictureUrl,
+                        name = localState.details.name,
+                        description = localState.details.description,
+                        episodesList = localState.episodesList.map {
+                            AnilibriaEpisodesList(
+                                episode = it.episode,
+                                name = it.name,
+                                uuid = null,
+                                createdTimestamp = null,
+                                preview = null,
+                                hls = null
+                            )
+                        }
+                    )
 
-                state
+                    lastTitleId = id
+
+                    detailsData
+                }
+
+                else -> {
+                    val response = anilibriaService.getTitle(id = id)
+
+                    val responseBody = if (response.isSuccessful) response.body() else null
+
+                    responseBody?.let { title ->
+                        detailsData = DetailsData(
+                            url = title.getSmallImageUrl(),
+                            name = title.anilibriaNames?.ru,
+                            description = title.description,
+                            episodesList = mapToAnilibriaEpisodesList(title.player?.list)
+                        )
+
+                        detailsStateDao.addTitle(
+                            details = Details(
+                                name = title.anilibriaNames?.ru ?: "",
+                                description = title.description ?: "",
+                                pictureUrl = title.getSmallImageUrl() ?: "",
+                                titleId = id,
+                                category = API_CATEGORY_ANILIBRIA
+                            )
+                        )
+
+                        detailsStateDao.addEpisodes(episodes = mapToAnilibriaEpisodesList(title.player?.list).map {
+                            Episodes(
+                                name = it.name ?: "",
+                                episode = it.episode ?: 0,
+                                titleId = id
+                            )
+                        }.toTypedArray())
+                    }
+
+                    lastTitleId = id
+
+                    detailsData
+                }
             }
         }
     }

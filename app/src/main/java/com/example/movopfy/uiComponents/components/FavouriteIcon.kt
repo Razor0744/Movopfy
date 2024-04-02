@@ -22,7 +22,7 @@ fun FavouriteIcon(
             modifier = modifier
                 .clickable { onIconClick() },
             painter = painterResource(id = R.drawable.ic_star),
-            contentDescription = "is_favorite_false",
+            contentDescription = null,
             tint = MaterialTheme.colorScheme.onPrimary
         )
     } else {
@@ -30,7 +30,7 @@ fun FavouriteIcon(
             modifier = modifier
                 .clickable { onIconClick() },
             imageVector = Icons.Outlined.Star,
-            contentDescription = "is_favorite_true",
+            contentDescription = null,
             tint = Yellow
         )
     }

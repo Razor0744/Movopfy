@@ -21,7 +21,7 @@ import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.example.movopfy.common.constants.API_CATEGORY_ANILIBRIA
 import com.example.movopfy.common.constants.API_CATEGORY_KINOPOISK
-import com.example.movopfy.database.models.favourite.RoomFavourite
+import com.example.movopfy.database.models.favourite.Favourite
 import com.example.movopfy.features.details.presentation.viewmodel.DetailsViewModel
 import com.example.movopfy.uiComponents.components.FavouriteIcon
 import com.example.movopfy.uiComponents.components.ProgressBarLoading
@@ -55,7 +55,7 @@ fun DetailsScreen(
                 LazyColumn {
                     item {
                         AsyncImage(
-                            model = state.detailsState?.url,
+                            model = state.detailsState?.detailsData?.url,
                             contentDescription = null,
                             contentScale = ContentScale.FillBounds,
                             modifier = Modifier
@@ -81,7 +81,7 @@ fun DetailsScreen(
                                         top = MaterialTheme.dimensions.paddingTop,
                                         end = 32.dp
                                     ),
-                                text = state.detailsState?.name
+                                text = state.detailsState?.detailsData?.name
                             )
 
                             FavouriteIcon(
@@ -93,11 +93,11 @@ fun DetailsScreen(
                                             bottom = 4.dp
                                         )
                                     ),
-                                isFavorite = state.roomFavourite != null,
+                                isFavorite = state.detailsState?.favourite != null,
                             ) {
-                                if (state.roomFavourite != null) {
+                                if (state.detailsState?.favourite != null) {
                                     viewModel.removeFromFavourite(
-                                        roomFavourite = state.roomFavourite
+                                        favourite = state.detailsState.favourite
                                     )
 
                                     when (category) {
@@ -106,8 +106,8 @@ fun DetailsScreen(
                                     }
                                 } else {
                                     viewModel.addToFavourite(
-                                        roomFavourite = RoomFavourite(
-                                            name = state.detailsState?.name ?: "",
+                                        favourite = Favourite(
+                                            name = state.detailsState?.detailsData?.name ?: "",
                                             isWatched = true,
                                             titleId = id
                                         )
@@ -128,7 +128,7 @@ fun DetailsScreen(
 
                     item {
                         DescriptionText(
-                            description = state.detailsState?.description
+                            description = state.detailsState?.detailsData?.description
                         )
                     }
 
@@ -144,7 +144,7 @@ fun DetailsScreen(
                         )
                     }
 
-                    state.detailsState?.episodesList?.let {
+                    state.detailsState?.detailsData?.episodesList?.let {
                         itemsIndexed(it.reversed()) { index, item ->
                             Episode(
                                 episode = item.episode,

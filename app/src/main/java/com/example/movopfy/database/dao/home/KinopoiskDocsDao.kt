@@ -4,14 +4,14 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.example.movopfy.database.models.home.RoomKinopoiskDocs
+import com.example.movopfy.database.models.home.Kinopoisk
 
 @Dao
 interface KinopoiskDocsDao {
 
     @Query("SELECT * FROM kinopoisk_docs WHERE category = :category")
-    fun getKinopoiskDocsByCategory(category: String): List<RoomKinopoiskDocs>
+    fun getKinopoiskDocsByCategory(category: String): List<Kinopoisk>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun addKinopoiskDocs(vararg roomKinopoiskDocs: RoomKinopoiskDocs)
+    fun addKinopoiskDocs(vararg kinopoiskDocs: Kinopoisk)
 }

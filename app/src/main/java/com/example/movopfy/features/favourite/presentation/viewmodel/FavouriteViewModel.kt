@@ -2,7 +2,7 @@ package com.example.movopfy.features.favourite.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.movopfy.database.models.favourite.RoomFavourite
+import com.example.movopfy.database.models.favourite.Favourite
 import com.example.movopfy.features.favourite.domain.repository.FavouriteRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -22,9 +22,9 @@ class FavouriteViewModel(private val favouriteRepository: FavouriteRepository) :
         }
     }
 
-    fun removeFromFavorite(roomFavourite: RoomFavourite) {
+    fun removeFromFavorite(favourite: Favourite) {
         viewModelScope.launch {
-            favouriteRepository.removeFromFavourite(roomFavourite = roomFavourite)
+            favouriteRepository.removeFromFavourite(favourite = favourite)
 
             val list = favouriteRepository.getFavourite()
 
@@ -35,6 +35,6 @@ class FavouriteViewModel(private val favouriteRepository: FavouriteRepository) :
     sealed interface FavoritesUiState {
         data object Loading : FavoritesUiState
 
-        data class Loaded(val list: List<RoomFavourite>) : FavoritesUiState
+        data class Loaded(val list: List<Favourite>) : FavoritesUiState
     }
 }

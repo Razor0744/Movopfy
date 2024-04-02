@@ -5,7 +5,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "anime_schedules")
-data class RoomAnimeSchedules(
+data class AnimeSchedules(
     @PrimaryKey
     @ColumnInfo(name = "id") val id: Int,
     @ColumnInfo(name = "picture_url") val pictureUrl: String,

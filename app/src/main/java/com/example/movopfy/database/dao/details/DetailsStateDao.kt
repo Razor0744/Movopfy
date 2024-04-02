@@ -4,20 +4,20 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Transaction
-import com.example.movopfy.database.models.details.RoomDetailsState
-import com.example.movopfy.database.models.details.RoomDetailsStateWithEpisodes
-import com.example.movopfy.database.models.details.RoomEpisodes
+import com.example.movopfy.database.models.details.Details
+import com.example.movopfy.database.models.details.DetailsWithEpisodes
+import com.example.movopfy.database.models.details.Episodes
 
 @Dao
 interface DetailsStateDao {
 
     @Transaction
     @Query("SELECT * FROM details_state WHERE id = :id AND category = :category")
-    fun getTitleById(id: Int, category: String): RoomDetailsStateWithEpisodes?
+    fun getTitleById(id: Int, category: String): DetailsWithEpisodes?
 
     @Insert
-    fun addTitle(roomDetailsState: RoomDetailsState)
+    fun addTitle(details: Details)
 
     @Insert
-    fun addEpisodes(vararg roomEpisodes: RoomEpisodes)
+    fun addEpisodes(vararg episodes: Episodes)
 }

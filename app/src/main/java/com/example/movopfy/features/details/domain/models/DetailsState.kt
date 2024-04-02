@@ -1,10 +1,8 @@
 package com.example.movopfy.features.details.domain.models
 
-import com.example.movopfy.network.anilibria.models.AnilibriaEpisodesList
+import com.example.movopfy.database.models.favourite.Favourite
 
 data class DetailsState(
-    val url: String?,
-    val name: String?,
-    val description: String?,
-    val episodesList: List<AnilibriaEpisodesList>?
+    val detailsData: DetailsData?,
+    val favourite: Favourite?
 )

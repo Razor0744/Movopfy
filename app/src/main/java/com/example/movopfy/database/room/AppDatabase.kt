@@ -7,22 +7,22 @@ import com.example.movopfy.database.dao.details.DetailsStateDao
 import com.example.movopfy.database.dao.favorites.FavouriteDao
 import com.example.movopfy.database.dao.home.AnimeSeriesDao
 import com.example.movopfy.database.dao.home.KinopoiskDocsDao
-import com.example.movopfy.database.models.anime.RoomAnimeSchedules
-import com.example.movopfy.database.models.details.RoomDetailsState
-import com.example.movopfy.database.models.details.RoomEpisodes
-import com.example.movopfy.database.models.favourite.RoomFavourite
-import com.example.movopfy.database.models.home.RoomAnimeSeries
-import com.example.movopfy.database.models.home.RoomKinopoiskDocs
+import com.example.movopfy.database.models.anime.AnimeSchedules
+import com.example.movopfy.database.models.details.Details
+import com.example.movopfy.database.models.details.Episodes
+import com.example.movopfy.database.models.favourite.Favourite
+import com.example.movopfy.database.models.home.Anime
+import com.example.movopfy.database.models.home.Kinopoisk
 
 @Database(
     version = 6,
     entities = [
-        RoomAnimeSeries::class,
-        RoomKinopoiskDocs::class,
-        RoomAnimeSchedules::class,
-        RoomDetailsState::class,
-        RoomEpisodes::class,
-        RoomFavourite::class
+        Anime::class,
+        Kinopoisk::class,
+        AnimeSchedules::class,
+        Details::class,
+        Episodes::class,
+        Favourite::class
     ]
 )
 abstract class AppDatabase : RoomDatabase() {

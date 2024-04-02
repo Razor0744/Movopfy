@@ -15,17 +15,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.movopfy.R
-import com.example.movopfy.database.models.favourite.RoomFavourite
+import com.example.movopfy.database.models.favourite.Favourite
 import com.example.movopfy.features.favourite.presentation.viewmodel.FavouriteViewModel
 import com.example.movopfy.uiComponents.theme.dimensions
 
 @Composable
 fun FavouriteItem(
     modifier: Modifier = Modifier,
-    item: RoomFavourite,
+    item: Favourite,
     viewModel: FavouriteViewModel
 ) {
-    println(item)
     Box(
         modifier = modifier
             .height(height = 52.dp)
@@ -49,7 +48,7 @@ fun FavouriteItem(
                 .align(alignment = Alignment.TopEnd)
                 .padding(end = MaterialTheme.dimensions.paddingEnd)
                 .clickable {
-                    viewModel.removeFromFavorite(roomFavourite = item)
+                    viewModel.removeFromFavorite(favourite = item)
                 },
             text = stringResource(id = R.string.favourite_item_remove),
             style = MaterialTheme.typography.labelSmall,
