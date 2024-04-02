@@ -2,8 +2,7 @@ package com.example.movopfy.features.favourite.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.movopfy.database.models.favourite.FavouriteModel
-import com.example.movopfy.features.favourite.domain.models.FavouriteState
+import com.example.movopfy.features.favourite.domain.models.FavouriteItem
 import com.example.movopfy.features.favourite.domain.repository.FavouriteRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -19,23 +18,19 @@ class FavouriteViewModel(private val favouriteRepository: FavouriteRepository) :
         viewModelScope.launch {
             val list = favouriteRepository.getFavourite()
 
-            _uiState.emit(FavoritesUiState.Loaded(favouriteState = FavouriteState(list = list)))
-        }
-    }
-
-    fun removeFromFavorite(favouriteModel: FavouriteModel) {
-        viewModelScope.launch {
-            favouriteRepository.removeFromFavourite(favouriteModel = favouriteModel)
-
-            val list = favouriteRepository.getFavourite()
-
-            _uiState.emit(FavoritesUiState.Loaded(favouriteState = FavouriteState(list = list)))
+            _uiState.emit(FavoritesUiState.Loaded(favouriteItems = list.map {
+                FavouriteItem(
+                    titleId = it.titleId,
+                    url = it.url,
+                    category = it.category
+                )
+            }))
         }
     }
 
     sealed interface FavoritesUiState {
         data object Loading : FavoritesUiState
 
-        data class Loaded(val favouriteState: FavouriteState) : FavoritesUiState
+        data class Loaded(val favouriteItems: List<FavouriteItem>) : FavoritesUiState
     }
 }

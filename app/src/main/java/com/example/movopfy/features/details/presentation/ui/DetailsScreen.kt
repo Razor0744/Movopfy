@@ -107,9 +107,9 @@ fun DetailsScreen(
                                 } else {
                                     viewModel.addToFavourite(
                                         favouriteModel = FavouriteModel(
-                                            name = state.detailsState?.detailsData?.name ?: "",
-                                            isWatched = true,
-                                            titleId = id
+                                            titleId = id,
+                                            url = state.detailsState?.detailsData?.url ?: "",
+                                            category = category
                                         )
                                     )
 

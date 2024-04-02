@@ -77,7 +77,10 @@ fun SetupNavGraph(navController: NavHostController, paddingValues: PaddingValues
         }
 
         composable(route = Screen.Favourite.route) {
-            FavouriteScreen(modifier = Modifier.padding(paddingValues))
+            FavouriteScreen(
+                modifier = Modifier.padding(paddingValues),
+                navController = navController
+            )
         }
     }
 }

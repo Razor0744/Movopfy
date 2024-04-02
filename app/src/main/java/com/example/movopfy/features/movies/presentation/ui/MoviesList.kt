@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.grid.LazyGridState
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.material3.MaterialTheme
@@ -37,27 +38,26 @@ fun MoviesList(
         horizontalArrangement = Arrangement.spacedBy(space = MaterialTheme.dimensions.lazySpace),
         verticalArrangement = Arrangement.spacedBy(space = MaterialTheme.dimensions.lazySpace),
         state = state,
-        columns = GridCells.Fixed(count = 3),
-        content = {
-            items(count = list.size) {
-                AsyncImage(
-                    model = list[it].poster?.previewUrl,
-                    contentDescription = null,
-                    contentScale = ContentScale.FillBounds,
-                    modifier = Modifier
-                        .height(height = 180.dp)
-                        .width(width = 120.dp)
-                        .clip(shape = MaterialTheme.shapes.medium)
-                        .clickable {
-                            navController.navigate(
-                                Screen.Details.passId(
-                                    id = list[it].id,
-                                    category = API_CATEGORY_KINOPOISK
-                                )
+        columns = GridCells.Fixed(count = 3)
+    ) {
+        items(list) { item ->
+            AsyncImage(
+                model = item.poster?.previewUrl,
+                contentDescription = null,
+                contentScale = ContentScale.FillBounds,
+                modifier = Modifier
+                    .height(height = 180.dp)
+                    .width(width = 120.dp)
+                    .clip(shape = MaterialTheme.shapes.medium)
+                    .clickable {
+                        navController.navigate(
+                            Screen.Details.passId(
+                                id = item.id,
+                                category = API_CATEGORY_KINOPOISK
                             )
-                        }
-                )
-            }
+                        )
+                    }
+            )
         }
-    )
+    }
 }
