@@ -1,5 +1,6 @@
 package com.example.movopfy.features.movies.presentation.ui
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.height
@@ -15,7 +16,9 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
+import com.example.movopfy.common.constants.API_CATEGORY_KINOPOISK
 import com.example.movopfy.network.kinopoisk.models.KinopoiskDocs
+import com.example.movopfy.uiComponents.navigation.Screen
 import com.example.movopfy.uiComponents.theme.dimensions
 
 @Composable
@@ -45,6 +48,14 @@ fun MoviesList(
                         .height(height = 180.dp)
                         .width(width = 120.dp)
                         .clip(shape = MaterialTheme.shapes.medium)
+                        .clickable {
+                            navController.navigate(
+                                Screen.Details.passId(
+                                    id = list[it].id,
+                                    category = API_CATEGORY_KINOPOISK
+                                )
+                            )
+                        }
                 )
             }
         }

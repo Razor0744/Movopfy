@@ -12,8 +12,7 @@ import kotlinx.coroutines.launch
 
 class MoviesViewModel(private val kinopoiskRepository: KinopoiskRepository) : ViewModel() {
 
-    private val _uiState =
-        MutableStateFlow<MoviesUiState>(MoviesUiState.Loading)
+    private val _uiState = MutableStateFlow<MoviesUiState>(MoviesUiState.Loading)
     val uiState: StateFlow<MoviesUiState> = _uiState.asStateFlow()
 
     private val list = arrayListOf<KinopoiskDocs>()

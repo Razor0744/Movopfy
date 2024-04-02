@@ -13,6 +13,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.example.movopfy.features.anime.presentation.ui.AnimeScreen
 import com.example.movopfy.features.details.presentation.ui.DetailsScreen
+import com.example.movopfy.features.favourite.presentation.ui.FavouriteScreen
 import com.example.movopfy.features.home.presentation.ui.HomeScreen
 import com.example.movopfy.features.movies.presentation.ui.MoviesScreen
 import com.example.movopfy.features.player.presentation.ui.PlayerScreen
@@ -73,6 +74,10 @@ fun SetupNavGraph(navController: NavHostController, paddingValues: PaddingValues
             val id = it.arguments?.getInt(PLAYER_ID) ?: 0
             val episode = it.arguments?.getInt(PLAYER_EPISODE) ?: 0
             PlayerScreen(id = id, episode = episode)
+        }
+
+        composable(route = Screen.Favourite.route) {
+            FavouriteScreen(modifier = Modifier.padding(paddingValues))
         }
     }
 }

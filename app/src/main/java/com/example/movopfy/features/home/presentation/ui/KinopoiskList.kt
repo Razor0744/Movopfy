@@ -49,7 +49,7 @@ fun KinopoiskList(
                     .clickable {
                         navController.navigate(
                             route = Screen.Details.passId(
-                                id = list[it].id ?: 0,
+                                id = list[it].id,
                                 category = API_CATEGORY_KINOPOISK
                             )
                         )
