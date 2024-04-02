@@ -9,7 +9,7 @@ import com.example.movopfy.database.models.details.DetailsWithEpisodes
 import com.example.movopfy.database.models.details.Episodes
 
 @Dao
-interface DetailsStateDao {
+interface DetailsDao {
 
     @Transaction
     @Query("SELECT * FROM details_state WHERE id = :id AND category = :category")

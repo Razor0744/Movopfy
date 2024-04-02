@@ -13,11 +13,11 @@ import org.koin.dsl.module
 val detailsModule = module {
 
     single<AnilibriaRepository> {
-        AnilibriaRepositoryImpl(anilibriaService = get(), detailsStateDao = get())
+        AnilibriaRepositoryImpl(anilibriaService = get(), detailsDao = get())
     }
 
     single<KinopoiskRepository> {
-        KinopoiskRepositoryImpl(kinopoiskService = get(), detailsStateDao = get())
+        KinopoiskRepositoryImpl(kinopoiskService = get(), detailsDao = get())
     }
 
     viewModel<DetailsViewModel> {

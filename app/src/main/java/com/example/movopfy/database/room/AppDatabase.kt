@@ -3,7 +3,7 @@ package com.example.movopfy.database.room
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import com.example.movopfy.database.dao.anime.AnimeSchedulesDao
-import com.example.movopfy.database.dao.details.DetailsStateDao
+import com.example.movopfy.database.dao.details.DetailsDao
 import com.example.movopfy.database.dao.favorites.FavouriteDao
 import com.example.movopfy.database.dao.home.AnimeSeriesDao
 import com.example.movopfy.database.dao.home.KinopoiskDocsDao
@@ -33,7 +33,7 @@ abstract class AppDatabase : RoomDatabase() {
 
     abstract fun animeSchedulesDao(): AnimeSchedulesDao
 
-    abstract fun detailsStateDao(): DetailsStateDao
+    abstract fun detailsStateDao(): DetailsDao
 
     abstract fun favouriteDao(): FavouriteDao
 }

@@ -3,7 +3,7 @@ package com.example.movopfy.features.details.data.repository
 import com.example.movopfy.common.constants.API_CATEGORY_ANILIBRIA
 import com.example.movopfy.common.extensions.getSmallImageUrl
 import com.example.movopfy.common.mappers.anilibria.mapToAnilibriaEpisodesList
-import com.example.movopfy.database.dao.details.DetailsStateDao
+import com.example.movopfy.database.dao.details.DetailsDao
 import com.example.movopfy.database.models.details.Details
 import com.example.movopfy.database.models.details.Episodes
 import com.example.movopfy.features.details.domain.models.DetailsData
@@ -17,7 +17,7 @@ import kotlinx.coroutines.withContext
 
 class AnilibriaRepositoryImpl(
     private val anilibriaService: AnilibriaService,
-    private val detailsStateDao: DetailsStateDao
+    private val detailsDao: DetailsDao
 ) : AnilibriaRepository {
 
     private val detailsDataMutex = Mutex()
@@ -29,7 +29,7 @@ class AnilibriaRepositoryImpl(
         detailsDataMutex.withLock {
 
             val localState =
-                if (detailsData == null) detailsStateDao.getTitleById(
+                if (detailsData == null) detailsDao.getTitleById(
                     id = id,
                     category = API_CATEGORY_ANILIBRIA
                 )
@@ -75,7 +75,7 @@ class AnilibriaRepositoryImpl(
                             episodesList = mapToAnilibriaEpisodesList(title.player?.list)
                         )
 
-                        detailsStateDao.addTitle(
+                        detailsDao.addTitle(
                             details = Details(
                                 name = title.anilibriaNames?.ru ?: "",
                                 description = title.description ?: "",
@@ -85,7 +85,7 @@ class AnilibriaRepositoryImpl(
                             )
                         )
 
-                        detailsStateDao.addEpisodes(episodes = mapToAnilibriaEpisodesList(title.player?.list).map {
+                        detailsDao.addEpisodes(episodes = mapToAnilibriaEpisodesList(title.player?.list).map {
                             Episodes(
                                 name = it.name ?: "",
                                 episode = it.episode ?: 0,

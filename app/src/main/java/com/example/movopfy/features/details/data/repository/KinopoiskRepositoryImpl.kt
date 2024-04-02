@@ -1,7 +1,7 @@
 package com.example.movopfy.features.details.data.repository
 
 import com.example.movopfy.common.constants.API_CATEGORY_KINOPOISK
-import com.example.movopfy.database.dao.details.DetailsStateDao
+import com.example.movopfy.database.dao.details.DetailsDao
 import com.example.movopfy.database.models.details.Details
 import com.example.movopfy.features.details.domain.models.DetailsData
 import com.example.movopfy.features.details.domain.repository.KinopoiskRepository
@@ -13,7 +13,7 @@ import kotlinx.coroutines.withContext
 
 class KinopoiskRepositoryImpl(
     private val kinopoiskService: KinopoiskService,
-    private val detailsStateDao: DetailsStateDao
+    private val detailsDao: DetailsDao
 ) : KinopoiskRepository {
 
     private val detailsDataMutex = Mutex()
@@ -24,7 +24,7 @@ class KinopoiskRepositoryImpl(
     override suspend fun getTitle(id: Int): DetailsData? = withContext(Dispatchers.IO) {
         detailsDataMutex.withLock {
             val localState =
-                if (detailsData == null) detailsStateDao.getTitleById(
+                if (detailsData == null) detailsDao.getTitleById(
                     id = id,
                     category = API_CATEGORY_KINOPOISK
                 )
@@ -61,7 +61,7 @@ class KinopoiskRepositoryImpl(
                             episodesList = null
                         )
 
-                        detailsStateDao.addTitle(
+                        detailsDao.addTitle(
                             details = Details(
                                 name = title.name ?: "",
                                 description = title.description ?: "",
