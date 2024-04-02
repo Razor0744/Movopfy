@@ -1,10 +1,10 @@
 package com.example.movopfy.features.favourite.domain.repository
 
-import com.example.movopfy.database.models.favourite.Favourite
+import com.example.movopfy.database.models.favourite.FavouriteModel
 
 interface FavouriteRepository {
 
-    suspend fun getFavourite(): List<Favourite>
+    suspend fun getFavourite(): List<FavouriteModel>
 
-    suspend fun removeFromFavourite(favourite: Favourite)
+    suspend fun removeFromFavourite(favouriteModel: FavouriteModel)
 }

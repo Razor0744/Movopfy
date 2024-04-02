@@ -10,7 +10,7 @@ import com.example.movopfy.database.dao.home.KinopoiskDocsDao
 import com.example.movopfy.database.models.anime.AnimeSchedules
 import com.example.movopfy.database.models.details.Details
 import com.example.movopfy.database.models.details.Episodes
-import com.example.movopfy.database.models.favourite.Favourite
+import com.example.movopfy.database.models.favourite.FavouriteModel
 import com.example.movopfy.database.models.home.Anime
 import com.example.movopfy.database.models.home.Kinopoisk
 
@@ -22,7 +22,7 @@ import com.example.movopfy.database.models.home.Kinopoisk
         AnimeSchedules::class,
         Details::class,
         Episodes::class,
-        Favourite::class
+        FavouriteModel::class
     ]
 )
 abstract class AppDatabase : RoomDatabase() {

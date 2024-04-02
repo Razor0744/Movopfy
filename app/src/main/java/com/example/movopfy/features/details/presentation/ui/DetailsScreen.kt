@@ -21,7 +21,7 @@ import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.example.movopfy.common.constants.API_CATEGORY_ANILIBRIA
 import com.example.movopfy.common.constants.API_CATEGORY_KINOPOISK
-import com.example.movopfy.database.models.favourite.Favourite
+import com.example.movopfy.database.models.favourite.FavouriteModel
 import com.example.movopfy.features.details.presentation.viewmodel.DetailsViewModel
 import com.example.movopfy.uiComponents.components.FavouriteIcon
 import com.example.movopfy.uiComponents.components.ProgressBarLoading
@@ -93,11 +93,11 @@ fun DetailsScreen(
                                             bottom = 4.dp
                                         )
                                     ),
-                                isFavorite = state.detailsState?.favourite != null,
+                                isFavorite = state.detailsState?.favouriteModel != null,
                             ) {
-                                if (state.detailsState?.favourite != null) {
+                                if (state.detailsState?.favouriteModel != null) {
                                     viewModel.removeFromFavourite(
-                                        favourite = state.detailsState.favourite
+                                        favouriteModel = state.detailsState.favouriteModel
                                     )
 
                                     when (category) {
@@ -106,7 +106,7 @@ fun DetailsScreen(
                                     }
                                 } else {
                                     viewModel.addToFavourite(
-                                        favourite = Favourite(
+                                        favouriteModel = FavouriteModel(
                                             name = state.detailsState?.detailsData?.name ?: "",
                                             isWatched = true,
                                             titleId = id

@@ -1,25 +1,25 @@
 package com.example.movopfy.features.details.data.repository
 
 import com.example.movopfy.database.dao.favorites.FavouriteDao
-import com.example.movopfy.database.models.favourite.Favourite
+import com.example.movopfy.database.models.favourite.FavouriteModel
 import com.example.movopfy.features.details.domain.repository.FavouriteRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 class FavouriteRepositoryImpl(private val favouriteDao: FavouriteDao) : FavouriteRepository {
 
-    override suspend fun getFavouriteById(id: Int): Favourite? =
+    override suspend fun getFavouriteById(id: Int): FavouriteModel? =
         withContext(Dispatchers.IO) {
             favouriteDao.getFavouriteById(id = id)
         }
 
-    override suspend fun addToFavourite(favourite: Favourite) =
+    override suspend fun addToFavourite(favouriteModel: FavouriteModel) =
         withContext(Dispatchers.IO) {
-            favouriteDao.addToFavourite(favourite = favourite)
+            favouriteDao.addToFavourite(favouriteModel = favouriteModel)
         }
 
-    override suspend fun removeFromFavourite(favourite: Favourite) =
+    override suspend fun removeFromFavourite(favouriteModel: FavouriteModel) =
         withContext(Dispatchers.IO) {
-            favouriteDao.removeFromFavourite(favourite = favourite)
+            favouriteDao.removeFromFavourite(favouriteModel = favouriteModel)
         }
 }

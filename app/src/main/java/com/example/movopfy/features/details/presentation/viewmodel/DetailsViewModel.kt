@@ -2,7 +2,7 @@ package com.example.movopfy.features.details.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.movopfy.database.models.favourite.Favourite
+import com.example.movopfy.database.models.favourite.FavouriteModel
 import com.example.movopfy.features.details.domain.models.DetailsState
 import com.example.movopfy.features.details.domain.repository.AnilibriaRepository
 import com.example.movopfy.features.details.domain.repository.FavouriteRepository
@@ -31,7 +31,7 @@ class DetailsViewModel(
                 DetailsUiState.Loaded(
                     detailsState = DetailsState(
                         detailsData = data,
-                        favourite = favourite
+                        favouriteModel = favourite
                     )
                 )
             )
@@ -48,22 +48,22 @@ class DetailsViewModel(
                 DetailsUiState.Loaded(
                     detailsState = DetailsState(
                         detailsData = data,
-                        favourite = favourite
+                        favouriteModel = favourite
                     )
                 )
             )
         }
     }
 
-    fun addToFavourite(favourite: Favourite) {
+    fun addToFavourite(favouriteModel: FavouriteModel) {
         viewModelScope.launch {
-            favouriteRepository.addToFavourite(favourite = favourite)
+            favouriteRepository.addToFavourite(favouriteModel = favouriteModel)
         }
     }
 
-    fun removeFromFavourite(favourite: Favourite) {
+    fun removeFromFavourite(favouriteModel: FavouriteModel) {
         viewModelScope.launch {
-            favouriteRepository.removeFromFavourite(favourite = favourite)
+            favouriteRepository.removeFromFavourite(favouriteModel = favouriteModel)
         }
     }
 

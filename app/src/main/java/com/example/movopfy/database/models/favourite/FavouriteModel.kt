@@ -5,7 +5,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "favourite")
-data class Favourite(
+data class FavouriteModel(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id") val id: Long? = null,
     @ColumnInfo(name = "name") val name: String,
