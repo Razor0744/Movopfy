@@ -26,7 +26,7 @@ fun FavouriteScreen(
 
             is FavouriteViewModel.FavoritesUiState.Loaded -> {
                 LazyColumn {
-                    items(state.list) { item ->
+                    items(state.favouriteState.list) { item ->
                         FavouriteItem(
                             item = item,
                             viewModel = viewModel

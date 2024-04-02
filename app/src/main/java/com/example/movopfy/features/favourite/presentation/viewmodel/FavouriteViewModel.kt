@@ -3,6 +3,7 @@ package com.example.movopfy.features.favourite.presentation.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.movopfy.database.models.favourite.FavouriteModel
+import com.example.movopfy.features.favourite.domain.models.FavouriteState
 import com.example.movopfy.features.favourite.domain.repository.FavouriteRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -18,7 +19,7 @@ class FavouriteViewModel(private val favouriteRepository: FavouriteRepository) :
         viewModelScope.launch {
             val list = favouriteRepository.getFavourite()
 
-            _uiState.emit(FavoritesUiState.Loaded(list = list))
+            _uiState.emit(FavoritesUiState.Loaded(favouriteState = FavouriteState(list = list)))
         }
     }
 
@@ -28,13 +29,13 @@ class FavouriteViewModel(private val favouriteRepository: FavouriteRepository) :
 
             val list = favouriteRepository.getFavourite()
 
-            _uiState.emit(FavoritesUiState.Loaded(list = list))
+            _uiState.emit(FavoritesUiState.Loaded(favouriteState = FavouriteState(list = list)))
         }
     }
 
     sealed interface FavoritesUiState {
         data object Loading : FavoritesUiState
 
-        data class Loaded(val list: List<FavouriteModel>) : FavoritesUiState
+        data class Loaded(val favouriteState: FavouriteState) : FavoritesUiState
     }
 }
