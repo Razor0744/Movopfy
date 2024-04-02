@@ -75,16 +75,6 @@ fun TopBar(isBackEnabled: Boolean, navController: NavController) {
                     .padding(end = 12.dp),
                 tint = MaterialTheme.colorScheme.onPrimary
             )
-
-            Icon(
-                painter = painterResource(id = R.drawable.ic_accout),
-                contentDescription = null,
-                modifier = Modifier
-                    .height(51.dp)
-                    .width(51.dp)
-                    .padding(end = MaterialTheme.dimensions.paddingEnd),
-                tint = MaterialTheme.colorScheme.onPrimary
-            )
         }
     }
 }
