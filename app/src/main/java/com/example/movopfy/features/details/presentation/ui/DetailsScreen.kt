@@ -1,12 +1,14 @@
 package com.example.movopfy.features.details.presentation.ui
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
@@ -145,19 +147,27 @@ fun DetailsScreen(
                     }
 
                     state.detailsState?.detailsData?.episodesList?.let {
-                        itemsIndexed(it.reversed()) { index, item ->
-                            Episode(
-                                episode = item.episode,
-                                name = item.name ?: "",
-                                color = if (index % 2 == 0) MaterialTheme.colorScheme.onSecondary
-                                else MaterialTheme.colorScheme.background
-                            ) {
-                                navController.navigate(
-                                    Screen.Player.passId(
-                                        id = id,
-                                        episode = item.episode?.minus(1) ?: 0
-                                    )
+                        item {
+                            LazyRow(
+                                horizontalArrangement = Arrangement.spacedBy(space = MaterialTheme.dimensions.lazySpace),
+                                contentPadding = PaddingValues(
+                                    start = MaterialTheme.dimensions.paddingStart,
+                                    end = MaterialTheme.dimensions.paddingEnd
                                 )
+                            ) {
+                                items(it) { item ->
+                                    Episode(
+                                        episode = item.episode,
+                                        name = item.name
+                                    ) {
+                                        navController.navigate(
+                                            Screen.Player.passId(
+                                                id = id,
+                                                episode = item.episode?.minus(1) ?: 0
+                                            )
+                                        )
+                                    }
+                                }
                             }
                         }
                     }
