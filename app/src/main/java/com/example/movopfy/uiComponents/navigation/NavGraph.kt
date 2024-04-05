@@ -17,6 +17,7 @@ import com.example.movopfy.features.favourite.presentation.ui.FavouriteScreen
 import com.example.movopfy.features.home.presentation.ui.HomeScreen
 import com.example.movopfy.features.movies.presentation.ui.MoviesScreen
 import com.example.movopfy.features.player.presentation.ui.PlayerScreen
+import com.example.movopfy.features.search.presentation.ui.SearchScreen
 
 @OptIn(UnstableApi::class)
 @Composable
@@ -81,6 +82,10 @@ fun SetupNavGraph(navController: NavHostController, paddingValues: PaddingValues
                 modifier = Modifier.padding(paddingValues),
                 navController = navController
             )
+        }
+
+        composable(route = Screen.Search.route) {
+            SearchScreen(navController = navController)
         }
     }
 }

@@ -20,6 +20,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.movopfy.R
+import com.example.movopfy.uiComponents.navigation.Screen
 import com.example.movopfy.uiComponents.theme.dimensions
 
 @Composable
@@ -67,12 +68,15 @@ fun TopBar(isBackEnabled: Boolean, navController: NavController) {
                 .height(height = 52.dp)
         ) {
             Icon(
-                painter = painterResource(id = R.drawable.ic_search),
-                contentDescription = null,
                 modifier = Modifier
                     .height(45.dp)
                     .width(45.dp)
-                    .padding(end = 12.dp),
+                    .padding(end = 12.dp)
+                    .clickable {
+                        navController.navigate(Screen.Search.route)
+                    },
+                painter = painterResource(id = R.drawable.ic_search),
+                contentDescription = null,
                 tint = MaterialTheme.colorScheme.onPrimary
             )
         }

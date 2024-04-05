@@ -2,6 +2,7 @@ package com.example.movopfy.network.kinopoisk.service
 
 import com.example.movopfy.BuildConfig
 import com.example.movopfy.network.kinopoisk.models.KinopoiskList
+import com.example.movopfy.network.kinopoisk.models.KinopoiskSearch
 import com.example.movopfy.network.kinopoisk.models.KinopoiskTitle
 import retrofit2.Response
 import retrofit2.http.GET
@@ -25,4 +26,12 @@ interface KinopoiskService {
     @GET("movie/{id}")
     @Headers("accept: application/json", "X-API-KEY: ${BuildConfig.KINOPOISK_API_KEY}")
     suspend fun getTitle(@Path("id") id: Int): Response<KinopoiskTitle>
+
+    @GET("movie/search")
+    @Headers("accept: application/json", "X-API-KEY: ${BuildConfig.KINOPOISK_API_KEY}")
+    suspend fun searchTitles(
+        @Query("page") page: Int,
+        @Query("limit") limit: Int = LIMIT,
+        @Query("query") query: String
+    ) : Response<KinopoiskSearch>
 }
