@@ -18,13 +18,15 @@ class KinopoiskRepositoryImpl(private val kinopoiskService: KinopoiskService) :
 
             val responseBody = if (response.isSuccessful) response.body() else null
 
-            responseBody?.docs?.map {
-                SearchTitle(
-                    id = it.id,
-                    name = it.name,
-                    imageUrl = it.poster.previewUrl ?: "",
-                    category = API_CATEGORY_KINOPOISK
-                )
-            } ?: emptyList()
+            responseBody?.docs
+                ?.map {
+                    SearchTitle(
+                        id = it.id,
+                        name = it.name,
+                        imageUrl = it.poster.previewUrl ?: "",
+                        category = API_CATEGORY_KINOPOISK
+                    )
+                }
+                ?.filter { it.name.isNotEmpty() && it.imageUrl.isNotEmpty() } ?: emptyList()
         }
 }
