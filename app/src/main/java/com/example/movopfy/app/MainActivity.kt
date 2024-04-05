@@ -47,6 +47,7 @@ class MainActivity : ComponentActivity() {
 
                 showTopBar = when (navBackStackEntry?.destination?.route) {
                     Screen.Player.route -> false
+                    Screen.Search.route -> false
                     else -> true
                 }
 
