@@ -14,14 +14,13 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.navigation.NavController
 import com.example.movopfy.R
 import com.example.movopfy.features.search.presentation.viewmodel.SearchViewModel
 
 @Composable
 fun SearchField(
-    navController: NavController,
-    viewModel: SearchViewModel
+    viewModel: SearchViewModel,
+    onClick: () -> Unit
 ) {
     var query by remember { mutableStateOf("") }
 
@@ -51,15 +50,7 @@ fun SearchField(
         trailingIcon = {
             Icon(
                 modifier = Modifier
-                    .clickable {
-                        if (query.isNotEmpty()) {
-                            query = ""
-
-                            viewModel.searchTitles(searchText = query)
-                        } else {
-                            navController.popBackStack()
-                        }
-                    },
+                    .clickable { onClick() },
                 painter = painterResource(id = R.drawable.ic_close),
                 contentDescription = null,
                 tint = MaterialTheme.colorScheme.onPrimary

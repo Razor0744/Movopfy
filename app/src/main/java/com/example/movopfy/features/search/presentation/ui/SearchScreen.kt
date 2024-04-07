@@ -28,13 +28,25 @@ fun SearchScreen(
             is SearchViewModel.SearchUiState.Loaded -> {
                 Column {
                     SearchField(
+                        viewModel = viewModel
+                    ) {
+                        if (state.list.isNotEmpty()) {
+                            viewModel.searchTitles(searchText = "")
+                        } else {
+                            navController.popBackStack()
+                        }
+                    }
+
+                    RecentItems(
                         navController = navController,
+                        list = state.recentList,
                         viewModel = viewModel
                     )
 
                     SearchItems(
                         navController = navController,
-                        list = state.list
+                        list = state.list,
+                        viewModel = viewModel
                     )
                 }
             }

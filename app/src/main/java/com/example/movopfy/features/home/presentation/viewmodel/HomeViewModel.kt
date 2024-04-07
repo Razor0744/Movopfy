@@ -15,7 +15,11 @@ class HomeViewModel(private val getHomeDataUseCase: GetDataUseCase) : ViewModel(
     private val _uiState = MutableStateFlow<HomeUiState>(HomeUiState.Loading)
     val uiState: StateFlow<HomeUiState> = _uiState.asStateFlow()
 
-    private fun getCurrentDay() = Calendar.getInstance().get(Calendar.DAY_OF_WEEK) - 2
+    private fun getCurrentDay(): Int {
+        val calendarDay = Calendar.getInstance().get(Calendar.DAY_OF_WEEK)
+
+        return if (calendarDay - 2 == -1) 6 else calendarDay - 2
+    }
 
     init {
         viewModelScope.launch {
