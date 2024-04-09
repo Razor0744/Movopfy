@@ -30,7 +30,7 @@ fun SearchScreen(
                     SearchField(
                         viewModel = viewModel
                     ) {
-                        if (state.list.isNotEmpty()) {
+                        if (state.searchTitles.isNotEmpty()) {
                             viewModel.searchTitles(searchText = "")
                         } else {
                             navController.popBackStack()
@@ -39,13 +39,13 @@ fun SearchScreen(
 
                     RecentItems(
                         navController = navController,
-                        list = state.recentList,
+                        recentModels = state.recentModels,
                         viewModel = viewModel
                     )
 
                     SearchItems(
                         navController = navController,
-                        list = state.list,
+                        list = state.searchTitles,
                         viewModel = viewModel
                     )
                 }

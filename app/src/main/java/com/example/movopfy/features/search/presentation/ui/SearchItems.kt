@@ -39,7 +39,6 @@ fun SearchItems(navController: NavController, list: List<SearchTitle>, viewModel
                 .clickable {
                     viewModel.addToRecent(
                         recentModel = RecentModel(
-                            id = 0,
                             name = it.name,
                             titleId = it.id,
                             category = it.category,

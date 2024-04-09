@@ -12,7 +12,7 @@ class RoomRepositoryImpl(private val recentDao: RecentDao) : RoomRepository {
     override suspend fun getRecent(): List<RecentModel> = withContext(Dispatchers.IO) {
         recentDao.getRecent().map {
             RecentModel(
-                id = it.id ?: 0,
+                id = it.id,
                 name = it.name,
                 titleId = it.titleId,
                 category = it.category,
