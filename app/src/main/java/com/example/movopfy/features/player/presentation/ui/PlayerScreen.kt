@@ -19,7 +19,7 @@ fun PlayerScreen(
     val uiState by viewModel.uiState.collectAsState()
 
     LaunchedEffect(Unit) {
-        viewModel.getTitle(id = id)
+        viewModel.getTitle(id = id, episode = episode)
     }
 
     when (val state = uiState) {
@@ -32,6 +32,7 @@ fun PlayerScreen(
                 modifier = modifier,
                 title = state.title,
                 episode = episode,
+                lastTime = state.currentTime,
                 viewModel = viewModel
             )
         }

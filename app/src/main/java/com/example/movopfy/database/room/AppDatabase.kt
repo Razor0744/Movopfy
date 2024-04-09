@@ -7,6 +7,7 @@ import com.example.movopfy.database.dao.details.DetailsDao
 import com.example.movopfy.database.dao.favorites.FavouriteDao
 import com.example.movopfy.database.dao.home.AnimeSeriesDao
 import com.example.movopfy.database.dao.home.KinopoiskDocsDao
+import com.example.movopfy.database.dao.player.PlayerMarksDao
 import com.example.movopfy.database.dao.search.RecentDao
 import com.example.movopfy.database.models.anime.AnimeSchedules
 import com.example.movopfy.database.models.details.Details
@@ -14,10 +15,11 @@ import com.example.movopfy.database.models.details.Episodes
 import com.example.movopfy.database.models.favourite.FavouriteModel
 import com.example.movopfy.database.models.home.Anime
 import com.example.movopfy.database.models.home.Kinopoisk
+import com.example.movopfy.database.models.player.PlayerMarks
 import com.example.movopfy.database.models.search.Recent
 
 @Database(
-    version = 7,
+    version = 8,
     entities = [
         Anime::class,
         Kinopoisk::class,
@@ -25,7 +27,8 @@ import com.example.movopfy.database.models.search.Recent
         Details::class,
         Episodes::class,
         FavouriteModel::class,
-        Recent::class
+        Recent::class,
+        PlayerMarks::class
     ]
 )
 abstract class AppDatabase : RoomDatabase() {
@@ -41,4 +44,6 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun favouriteDao(): FavouriteDao
 
     abstract fun recentDao(): RecentDao
+
+    abstract fun playerMarksDao(): PlayerMarksDao
 }
