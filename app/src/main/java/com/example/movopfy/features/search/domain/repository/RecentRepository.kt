@@ -2,7 +2,7 @@ package com.example.movopfy.features.search.domain.repository
 
 import com.example.movopfy.features.search.domain.models.RecentModel
 
-interface RoomRepository {
+interface RecentRepository {
 
     suspend fun getRecent(): List<RecentModel>
 

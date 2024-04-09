@@ -6,7 +6,7 @@ import com.example.movopfy.features.search.domain.models.RecentModel
 import com.example.movopfy.features.search.domain.models.SearchTitle
 import com.example.movopfy.features.search.domain.repository.AnilibriaRepository
 import com.example.movopfy.features.search.domain.repository.KinopoiskRepository
-import com.example.movopfy.features.search.domain.repository.RoomRepository
+import com.example.movopfy.features.search.domain.repository.RecentRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -15,7 +15,7 @@ import kotlinx.coroutines.launch
 class SearchViewModel(
     private val anilibriaRepository: AnilibriaRepository,
     private val kinopoiskRepository: KinopoiskRepository,
-    private val roomRepository: RoomRepository
+    private val recentRepository: RecentRepository
 ) : ViewModel() {
 
     private var _uiState = MutableStateFlow<SearchUiState>(SearchUiState.Loading)
@@ -40,7 +40,7 @@ class SearchViewModel(
         } else {
             viewModelScope.launch {
                 if (recentList.isEmpty()) {
-                    recentList = roomRepository.getRecent()
+                    recentList = recentRepository.getRecent()
                 }
 
                 _uiState.emit(
@@ -55,9 +55,9 @@ class SearchViewModel(
 
     fun removeFromRecent(recentModel: RecentModel) {
         viewModelScope.launch {
-            roomRepository.removeFromRecent(recentModel = recentModel)
+            recentRepository.removeFromRecent(recentModel = recentModel)
 
-            recentList = roomRepository.getRecent()
+            recentList = recentRepository.getRecent()
 
             _uiState.emit(
                 SearchUiState.Loaded(
@@ -70,7 +70,7 @@ class SearchViewModel(
 
     fun addToRecent(recentModel: RecentModel) {
         viewModelScope.launch {
-            roomRepository.addToRecent(recentModel = recentModel)
+            recentRepository.addToRecent(recentModel = recentModel)
         }
     }
 

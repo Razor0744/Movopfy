@@ -3,11 +3,11 @@ package com.example.movopfy.features.search.data.repository
 import com.example.movopfy.database.dao.search.RecentDao
 import com.example.movopfy.database.models.search.Recent
 import com.example.movopfy.features.search.domain.models.RecentModel
-import com.example.movopfy.features.search.domain.repository.RoomRepository
+import com.example.movopfy.features.search.domain.repository.RecentRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-class RoomRepositoryImpl(private val recentDao: RecentDao) : RoomRepository {
+class RecentRepositoryImpl(private val recentDao: RecentDao) : RecentRepository {
 
     override suspend fun getRecent(): List<RecentModel> = withContext(Dispatchers.IO) {
         recentDao.getRecent().map {
