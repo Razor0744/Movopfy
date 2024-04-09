@@ -6,6 +6,7 @@ import com.example.movopfy.database.dao.details.DetailsDao
 import com.example.movopfy.database.dao.favorites.FavouriteDao
 import com.example.movopfy.database.dao.home.AnimeSeriesDao
 import com.example.movopfy.database.dao.home.KinopoiskDocsDao
+import com.example.movopfy.database.dao.player.PlayerMarksDao
 import com.example.movopfy.database.dao.search.RecentDao
 import com.example.movopfy.database.room.AppDatabase
 import org.koin.dsl.module
@@ -44,5 +45,9 @@ val databaseModule = module {
 
     single<RecentDao> {
         get<AppDatabase>().recentDao()
+    }
+
+    single<PlayerMarksDao> {
+        get<AppDatabase>().playerMarksDao()
     }
 }

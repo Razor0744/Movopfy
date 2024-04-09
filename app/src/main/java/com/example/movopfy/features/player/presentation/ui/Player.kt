@@ -32,6 +32,7 @@ import com.example.movopfy.common.extensions.getUrl
 import com.example.movopfy.common.extensions.setLandscape
 import com.example.movopfy.common.extensions.setPortrait
 import com.example.movopfy.common.mappers.anilibria.mapToAnilibriaEpisodesList
+import com.example.movopfy.features.player.domain.PlayerMark
 import com.example.movopfy.features.player.presentation.viewmodel.PlayerViewModel
 import com.example.movopfy.network.anilibria.models.AnilibriaTitle
 import kotlinx.coroutines.delay
@@ -46,6 +47,7 @@ fun Player(
     modifier: Modifier = Modifier,
     title: AnilibriaTitle?,
     episode: Int,
+    lastTime: Long,
     viewModel: PlayerViewModel
 ) {
     val context = LocalContext.current
@@ -60,11 +62,9 @@ fun Player(
 
     var totalDuration by remember { mutableLongStateOf(0L) }
 
-    var currentTime by rememberSaveable { mutableLongStateOf(0L) }
+    var currentTime by rememberSaveable { mutableLongStateOf(lastTime) }
 
     var isVisible by remember { mutableStateOf(false) }
-
-
 
     val exoPlayer = remember {
         ExoPlayer.Builder(context).build().apply {
@@ -93,6 +93,8 @@ fun Player(
     )
 
     LaunchedEffect(Unit) {
+        exoPlayer.seekTo(currentTime)
+
         while (true) {
             delay(1.seconds)
             currentTime = exoPlayer.currentPosition.coerceAtLeast(0L)
@@ -122,6 +124,14 @@ fun Player(
         }
 
         onDispose {
+            viewModel.setCurrentTime(
+                playerMark = PlayerMark(
+                    id = title?.id,
+                    currentTime = currentTime,
+                    episodeId = episode
+                )
+            )
+
             exoPlayer.apply {
                 removeListener(listener)
                 release()
