@@ -20,12 +20,14 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
+import com.example.movopfy.features.search.domain.models.RecentModel
 import com.example.movopfy.features.search.domain.models.SearchTitle
+import com.example.movopfy.features.search.presentation.viewmodel.SearchViewModel
 import com.example.movopfy.uiComponents.navigation.Screen
 import com.example.movopfy.uiComponents.theme.dimensions
 
 @Composable
-fun SearchItems(navController: NavController, list: List<SearchTitle>) {
+fun SearchItems(navController: NavController, list: List<SearchTitle>, viewModel: SearchViewModel) {
     LazyColumn(
         verticalArrangement = Arrangement.spacedBy(space = MaterialTheme.dimensions.lazySpace),
         contentPadding = PaddingValues(top = MaterialTheme.dimensions.paddingTop)
@@ -35,6 +37,15 @@ fun SearchItems(navController: NavController, list: List<SearchTitle>) {
                 .height(height = 50.dp)
                 .fillMaxWidth()
                 .clickable {
+                    viewModel.addToRecent(
+                        recentModel = RecentModel(
+                            name = it.name,
+                            titleId = it.id,
+                            category = it.category,
+                            url = it.imageUrl
+                        )
+                    )
+
                     navController.navigate(
                         Screen.Details.passId(
                             id = it.id,
