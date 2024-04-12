@@ -49,7 +49,9 @@ class AnilibriaRepositoryImpl(
 
                     responseBody?.let {
                         listSchedules =
-                            it.map { item -> mapToAnimeSeriesList(anilibriaSchedule = item) }
+                            it.map { item ->
+                                mapToAnimeSeriesList(anilibriaSchedule = item) ?: emptyList()
+                            }
 
                         for (i in listSchedules) {
                             animeSchedulesDao.addAnimeSchedules(animeSchedules = i.map { item ->

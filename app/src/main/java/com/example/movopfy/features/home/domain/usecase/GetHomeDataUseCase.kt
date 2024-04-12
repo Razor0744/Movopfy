@@ -16,7 +16,7 @@ const val DRAMA_CATEGORY = "драма"
 const val MELODRAMA_CATEGORY = "!мелодрама"
 const val KINOPOISK_PAGE = 1
 
-class GetDataUseCase(
+class GetHomeDataUseCase(
     private val anilibriaRepository: AnilibriaRepository,
     private val kinopoiskRepository: KinopoiskRepository
 ) {

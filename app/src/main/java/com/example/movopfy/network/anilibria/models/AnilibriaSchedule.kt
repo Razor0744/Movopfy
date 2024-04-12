@@ -6,5 +6,5 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class AnilibriaSchedule(
     @SerialName("day") val day: Int?,
-    @SerialName("list") val list: List<AnilibriaTitle>
+    @SerialName("list") val list: List<AnilibriaTitle>?
 )

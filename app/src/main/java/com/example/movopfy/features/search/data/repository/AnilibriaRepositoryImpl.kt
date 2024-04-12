@@ -19,7 +19,7 @@ class AnilibriaRepositoryImpl(private val anilibriaService: AnilibriaService) :
 
             responseBody?.list?.map {
                 SearchTitle(
-                    id = it.id,
+                    id = it.id ?: 0,
                     name = it.anilibriaNames?.ru ?: "",
                     imageUrl = it.getSmallImageUrl() ?: "",
                     category = API_CATEGORY_ANILIBRIA
