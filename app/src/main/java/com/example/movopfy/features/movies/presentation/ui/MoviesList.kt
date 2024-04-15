@@ -18,14 +18,14 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.example.movopfy.common.constants.API_CATEGORY_KINOPOISK
-import com.example.movopfy.features.movies.domain.models.KinopoiskItems
+import com.example.movopfy.features.movies.domain.models.KinopoiskItem
 import com.example.movopfy.uiComponents.navigation.Screen
 import com.example.movopfy.uiComponents.theme.dimensions
 
 @Composable
 fun MoviesList(
     modifier: Modifier = Modifier,
-    kinopoiskItems: List<KinopoiskItems>,
+    kinopoiskItems: List<KinopoiskItem>,
     state: LazyGridState,
     navController: NavController
 ) {
