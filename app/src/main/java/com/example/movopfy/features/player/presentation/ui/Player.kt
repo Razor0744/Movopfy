@@ -32,7 +32,7 @@ import com.example.movopfy.common.extensions.getUrl
 import com.example.movopfy.common.extensions.setLandscape
 import com.example.movopfy.common.extensions.setPortrait
 import com.example.movopfy.common.mappers.anilibria.mapToAnilibriaEpisodesList
-import com.example.movopfy.features.player.domain.PlayerMark
+import com.example.movopfy.features.player.domain.models.PlayerMark
 import com.example.movopfy.features.player.presentation.viewmodel.PlayerViewModel
 import com.example.movopfy.network.anilibria.models.AnilibriaTitle
 import kotlinx.coroutines.delay
