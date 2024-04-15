@@ -40,7 +40,7 @@ fun MoviesScreen(
 
                 MoviesList(
                     modifier = Modifier.padding(padding),
-                    list = state.list,
+                    kinopoiskItems = state.kinopoiskItems,
                     state = gridState,
                     navController = navController
                 )

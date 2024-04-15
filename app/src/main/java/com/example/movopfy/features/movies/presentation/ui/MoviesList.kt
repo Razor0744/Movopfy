@@ -18,13 +18,14 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.example.movopfy.common.constants.API_CATEGORY_KINOPOISK
+import com.example.movopfy.features.movies.domain.models.KinopoiskItems
 import com.example.movopfy.uiComponents.navigation.Screen
 import com.example.movopfy.uiComponents.theme.dimensions
 
 @Composable
 fun MoviesList(
     modifier: Modifier = Modifier,
-    list: List<com.example.movopfy.features.movies.domain.models.KinopoiskItems>,
+    kinopoiskItems: List<KinopoiskItems>,
     state: LazyGridState,
     navController: NavController
 ) {
@@ -39,7 +40,7 @@ fun MoviesList(
         state = state,
         columns = GridCells.Fixed(count = 3)
     ) {
-        items(list) { item ->
+        items(kinopoiskItems) { item ->
             AsyncImage(
                 model = item.previewUrl,
                 contentDescription = null,
