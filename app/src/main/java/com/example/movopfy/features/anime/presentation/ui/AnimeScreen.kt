@@ -39,11 +39,11 @@ fun AnimeScreen(
                         .padding(padding),
                     verticalArrangement = Arrangement.spacedBy(space = 10.dp)
                 ) {
-                    itemsIndexed(state.list) { index, item ->
+                    itemsIndexed(state.animeSchedules) { index, item ->
                         DayTitle(text = stringArrayResource(id = R.array.day_list)[index])
 
                         AnimeList(
-                            list = item,
+                            animeSchedulesDay = item,
                             navController = navController
                         )
                     }

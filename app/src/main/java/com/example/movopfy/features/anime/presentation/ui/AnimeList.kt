@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -23,7 +24,7 @@ import com.example.movopfy.uiComponents.theme.dimensions
 
 @Composable
 fun AnimeList(
-    list: List<AnimeSeries>,
+    animeSchedulesDay: List<AnimeSeries>,
     navController: NavController
 ) {
     LazyRow(
@@ -36,9 +37,9 @@ fun AnimeList(
             end = MaterialTheme.dimensions.paddingEnd
         )
     ) {
-        items(count = list.size) {
+        items(animeSchedulesDay) {
             AsyncImage(
-                model = list[it].pictureUrl,
+                model = it.pictureUrl,
                 contentDescription = null,
                 contentScale = ContentScale.FillBounds,
                 modifier = Modifier
@@ -48,7 +49,7 @@ fun AnimeList(
                     .clickable {
                         navController.navigate(
                             Screen.Details.passId(
-                                id = list[it].id ?: 0,
+                                id = it.id,
                                 category = API_CATEGORY_ANILIBRIA
                             )
                         )
