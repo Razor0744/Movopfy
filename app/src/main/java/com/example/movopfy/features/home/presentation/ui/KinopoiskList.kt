@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -17,13 +18,13 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.example.movopfy.common.constants.API_CATEGORY_KINOPOISK
-import com.example.movopfy.features.home.domain.models.KinopoiskItems
+import com.example.movopfy.features.home.domain.models.KinopoiskItem
 import com.example.movopfy.uiComponents.navigation.Screen
 import com.example.movopfy.uiComponents.theme.dimensions
 
 @Composable
 fun KinopoiskList(
-    list: List<KinopoiskItems>,
+    kinopoiskItems: List<KinopoiskItem>,
     navController: NavController
 ) {
     LazyRow(
@@ -37,9 +38,9 @@ fun KinopoiskList(
             end = MaterialTheme.dimensions.paddingEnd
         )
     ) {
-        items(count = list.size) {
+        items(kinopoiskItems) {
             AsyncImage(
-                model = list[it].previewUrl,
+                model = it.previewUrl,
                 contentDescription = null,
                 contentScale = ContentScale.FillBounds,
                 modifier = Modifier
@@ -49,7 +50,7 @@ fun KinopoiskList(
                     .clickable {
                         navController.navigate(
                             route = Screen.Details.passId(
-                                id = list[it].id,
+                                id = it.id,
                                 category = API_CATEGORY_KINOPOISK
                             )
                         )

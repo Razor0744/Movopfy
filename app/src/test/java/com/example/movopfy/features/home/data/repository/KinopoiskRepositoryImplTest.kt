@@ -3,7 +3,7 @@ package com.example.movopfy.features.home.data.repository
 import com.example.movopfy.common.mappers.kinopoisk.HORRORS_CATEGORY
 import com.example.movopfy.database.dao.home.KinopoiskDocsDao
 import com.example.movopfy.database.models.home.Kinopoisk
-import com.example.movopfy.features.home.domain.models.KinopoiskItems
+import com.example.movopfy.features.home.domain.models.KinopoiskItem
 import com.example.movopfy.network.kinopoisk.models.KinopoiskDocs
 import com.example.movopfy.network.kinopoisk.models.KinopoiskList
 import com.example.movopfy.network.kinopoisk.models.KinopoiskMoviePoster
@@ -44,7 +44,7 @@ class KinopoiskRepositoryImplTest {
         val actual = repositoryImpl.getList(page = 1, category = HORRORS_CATEGORY)
 
         val expected = localData.map {
-            KinopoiskItems(
+            KinopoiskItem(
                 id = it.id,
                 previewUrl = it.previewUrl
             )
@@ -81,7 +81,7 @@ class KinopoiskRepositoryImplTest {
 
         val actual = repositoryImpl.getList(page = 1, category = HORRORS_CATEGORY)
 
-        val expected = emptyList<KinopoiskItems>()
+        val expected = emptyList<KinopoiskItem>()
 
         verify(kinopoiskDocsDao).getKinopoiskDocsByCategory(category = HORRORS_CATEGORY)
         verify(kinopoiskService).getList(page = 1, category = HORRORS_CATEGORY)
@@ -123,7 +123,7 @@ class KinopoiskRepositoryImplTest {
         val expected = responseData.docs
             ?.filter { it.id != null && it.poster != null && it.poster?.previewUrl != null }
             ?.map {
-                KinopoiskItems(
+                KinopoiskItem(
                     id = it.id ?: 0,
                     previewUrl = it.poster?.previewUrl ?: ""
                 )

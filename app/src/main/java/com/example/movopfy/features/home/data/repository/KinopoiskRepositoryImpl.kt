@@ -2,7 +2,7 @@ package com.example.movopfy.features.home.data.repository
 
 import com.example.movopfy.database.dao.home.KinopoiskDocsDao
 import com.example.movopfy.database.models.home.Kinopoisk
-import com.example.movopfy.features.home.domain.models.KinopoiskItems
+import com.example.movopfy.features.home.domain.models.KinopoiskItem
 import com.example.movopfy.features.home.domain.repository.KinopoiskRepository
 import com.example.movopfy.network.kinopoisk.service.KinopoiskService
 import kotlinx.coroutines.Dispatchers
@@ -17,27 +17,27 @@ class KinopoiskRepositoryImpl(
 
     private val kinopoiskItemsListMutex = Mutex()
 
-    private var kinopoiskItemsList: List<KinopoiskItems> = emptyList()
+    private var kinopoiskItemList: List<KinopoiskItem> = emptyList()
 
-    override suspend fun getList(page: Int, category: String): List<KinopoiskItems> =
+    override suspend fun getList(page: Int, category: String): List<KinopoiskItem> =
         withContext(Dispatchers.IO) {
             kinopoiskItemsListMutex.withLock {
                 val localList =
-                    if (kinopoiskItemsList.isEmpty()) kinopoiskDocsDao.getKinopoiskDocsByCategory(
+                    if (kinopoiskItemList.isEmpty()) kinopoiskDocsDao.getKinopoiskDocsByCategory(
                         category = category
                     )
                     else emptyList()
 
                 when {
                     localList.isNotEmpty() -> {
-                        kinopoiskItemsList = localList.map {
-                            KinopoiskItems(
+                        kinopoiskItemList = localList.map {
+                            KinopoiskItem(
                                 id = it.id,
                                 previewUrl = it.previewUrl
                             )
                         }
 
-                        kinopoiskItemsList
+                        kinopoiskItemList
                     }
 
                     else -> {
@@ -46,10 +46,10 @@ class KinopoiskRepositoryImpl(
                         val responseBody = if (response.isSuccessful) response.body() else null
 
                         responseBody?.let { item ->
-                            kinopoiskItemsList = item.docs
+                            kinopoiskItemList = item.docs
                                 ?.filter { it.id != null && it.poster != null && it.poster.previewUrl != null }
                                 ?.map {
-                                    KinopoiskItems(
+                                    KinopoiskItem(
                                         id = it.id ?: 0,
                                         previewUrl = it.poster?.previewUrl ?: ""
                                     )
@@ -69,7 +69,7 @@ class KinopoiskRepositoryImpl(
                                 ?.let { kinopoiskDocsDao.addKinopoiskDocs(kinopoisk = it) }
                         }
 
-                        kinopoiskItemsList
+                        kinopoiskItemList
                     }
                 }
             }
