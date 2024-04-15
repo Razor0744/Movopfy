@@ -23,7 +23,7 @@ import com.example.movopfy.uiComponents.theme.dimensions
 @Composable
 fun FavouriteItem(
     modifier: Modifier = Modifier,
-    list: List<FavouriteItem>,
+    favouriteItems: List<FavouriteItem>,
     navController: NavController
 ) {
     LazyVerticalGrid(
@@ -36,7 +36,7 @@ fun FavouriteItem(
         horizontalArrangement = Arrangement.spacedBy(space = MaterialTheme.dimensions.lazySpace),
         verticalArrangement = Arrangement.spacedBy(space = MaterialTheme.dimensions.lazySpace)
     ) {
-        items(list) { item ->
+        items(favouriteItems) { item ->
             AsyncImage(
                 model = item.url,
                 contentDescription = null,
