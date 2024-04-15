@@ -2,9 +2,8 @@ package com.example.movopfy.features.home.data.repository
 
 import com.example.movopfy.database.dao.home.KinopoiskDocsDao
 import com.example.movopfy.database.models.home.Kinopoisk
+import com.example.movopfy.features.home.domain.models.KinopoiskItems
 import com.example.movopfy.features.home.domain.repository.KinopoiskRepository
-import com.example.movopfy.network.kinopoisk.models.KinopoiskDocs
-import com.example.movopfy.network.kinopoisk.models.KinopoiskMoviePoster
 import com.example.movopfy.network.kinopoisk.service.KinopoiskService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.sync.Mutex
@@ -16,32 +15,29 @@ class KinopoiskRepositoryImpl(
     private val kinopoiskDocsDao: KinopoiskDocsDao
 ) : KinopoiskRepository {
 
-    private val kinopoiskDocsListMutex = Mutex()
+    private val kinopoiskItemsListMutex = Mutex()
 
-    private var kinopoiskDocsList: List<KinopoiskDocs> = emptyList()
+    private var kinopoiskItemsList: List<KinopoiskItems> = emptyList()
 
-    override suspend fun getList(page: Int, category: String): List<KinopoiskDocs> =
+    override suspend fun getList(page: Int, category: String): List<KinopoiskItems> =
         withContext(Dispatchers.IO) {
-            kinopoiskDocsListMutex.withLock {
+            kinopoiskItemsListMutex.withLock {
                 val localList =
-                    if (kinopoiskDocsList.isEmpty()) kinopoiskDocsDao.getKinopoiskDocsByCategory(
+                    if (kinopoiskItemsList.isEmpty()) kinopoiskDocsDao.getKinopoiskDocsByCategory(
                         category = category
                     )
                     else emptyList()
 
                 when {
                     localList.isNotEmpty() -> {
-                        kinopoiskDocsList = localList.map {
-                            KinopoiskDocs(
+                        kinopoiskItemsList = localList.map {
+                            KinopoiskItems(
                                 id = it.id,
-                                poster = KinopoiskMoviePoster(
-                                    url = null,
-                                    previewUrl = it.previewUrl
-                                )
+                                previewUrl = it.previewUrl
                             )
                         }
 
-                        kinopoiskDocsList
+                        kinopoiskItemsList
                     }
 
                     else -> {
@@ -50,18 +46,30 @@ class KinopoiskRepositoryImpl(
                         val responseBody = if (response.isSuccessful) response.body() else null
 
                         responseBody?.let { item ->
-                            kinopoiskDocsList = responseBody.docs
+                            kinopoiskItemsList = item.docs
+                                ?.filter { it.id != null && it.poster != null && it.poster.previewUrl != null }
+                                ?.map {
+                                    KinopoiskItems(
+                                        id = it.id ?: 0,
+                                        previewUrl = it.poster?.previewUrl ?: ""
+                                    )
+                                }
+                                ?: emptyList()
 
-                            kinopoiskDocsDao.addKinopoiskDocs(kinopoiskDocs = item.docs.map {
-                                Kinopoisk(
-                                    id = it.id,
-                                    category = category,
-                                    previewUrl = it.poster?.previewUrl ?: ""
-                                )
-                            }.toTypedArray())
+                            item.docs
+                                ?.filter { it.id != null && it.poster != null && it.poster.previewUrl != null }
+                                ?.map {
+                                    Kinopoisk(
+                                        id = it.id ?: 0,
+                                        category = category,
+                                        previewUrl = it.poster?.previewUrl ?: ""
+                                    )
+                                }
+                                ?.toTypedArray()
+                                ?.let { kinopoiskDocsDao.addKinopoiskDocs(kinopoisk = it) }
                         }
 
-                        kinopoiskDocsList
+                        kinopoiskItemsList
                     }
                 }
             }

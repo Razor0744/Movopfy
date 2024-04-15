@@ -17,13 +17,13 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.example.movopfy.common.constants.API_CATEGORY_KINOPOISK
-import com.example.movopfy.network.kinopoisk.models.KinopoiskDocs
+import com.example.movopfy.features.home.domain.models.KinopoiskItems
 import com.example.movopfy.uiComponents.navigation.Screen
 import com.example.movopfy.uiComponents.theme.dimensions
 
 @Composable
 fun KinopoiskList(
-    list: List<KinopoiskDocs>,
+    list: List<KinopoiskItems>,
     navController: NavController
 ) {
     LazyRow(
@@ -39,7 +39,7 @@ fun KinopoiskList(
     ) {
         items(count = list.size) {
             AsyncImage(
-                model = list[it].poster?.previewUrl,
+                model = list[it].previewUrl,
                 contentDescription = null,
                 contentScale = ContentScale.FillBounds,
                 modifier = Modifier

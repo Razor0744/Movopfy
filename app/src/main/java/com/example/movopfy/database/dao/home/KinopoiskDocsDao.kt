@@ -13,5 +13,5 @@ interface KinopoiskDocsDao {
     fun getKinopoiskDocsByCategory(category: String): List<Kinopoisk>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun addKinopoiskDocs(vararg kinopoiskDocs: Kinopoisk)
+    fun addKinopoiskDocs(vararg kinopoisk: Kinopoisk)
 }

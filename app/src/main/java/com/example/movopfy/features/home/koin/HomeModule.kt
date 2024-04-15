@@ -4,7 +4,7 @@ import com.example.movopfy.features.home.data.repository.AnilibriaRepositoryImpl
 import com.example.movopfy.features.home.data.repository.KinopoiskRepositoryImpl
 import com.example.movopfy.features.home.domain.repository.AnilibriaRepository
 import com.example.movopfy.features.home.domain.repository.KinopoiskRepository
-import com.example.movopfy.features.home.domain.usecase.GetDataUseCase
+import com.example.movopfy.features.home.domain.usecase.GetHomeDataUseCase
 import com.example.movopfy.features.home.presentation.viewmodel.HomeViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -26,8 +26,8 @@ val homeModule = module {
         KinopoiskRepositoryImpl(kinopoiskService = get(), kinopoiskDocsDao = get())
     }
 
-    factory<GetDataUseCase> {
-        GetDataUseCase(
+    factory<GetHomeDataUseCase> {
+        GetHomeDataUseCase(
             anilibriaRepository = get(),
             kinopoiskRepository = get()
         )

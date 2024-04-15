@@ -48,6 +48,7 @@ class AnilibriaRepositoryImpl(
                         responseBody?.let {
                             animeSeriesList =
                                 mapToAnimeSeriesList(anilibriaSchedule = it[currentDay])
+                                    ?: emptyList()
 
                             animeSeriesDao.addAnimeSeries(animeSeries = animeSeriesList.map { item ->
                                 Anime(

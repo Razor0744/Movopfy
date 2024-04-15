@@ -5,6 +5,6 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class KinopoiskDocs(
-    @SerialName("id") val id: Int,
+    @SerialName("id") val id: Int?,
     @SerialName("poster") val poster: KinopoiskMoviePoster?
 )
