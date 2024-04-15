@@ -1,8 +1,8 @@
 package com.example.movopfy.features.movies.domain.repository
 
-import com.example.movopfy.network.kinopoisk.models.KinopoiskDocs
+import com.example.movopfy.features.movies.domain.models.KinopoiskItems
 
 interface KinopoiskRepository {
 
-    suspend fun getList(page: Int, category: String): List<KinopoiskDocs>
+    suspend fun getList(page: Int, category: String): List<KinopoiskItems>
 }
