@@ -39,13 +39,13 @@ fun SearchScreen(
 
                     RecentItems(
                         navController = navController,
-                        recentModels = state.recentModels,
+                        recentTitles = state.recentTitles,
                         viewModel = viewModel
                     )
 
                     SearchItems(
                         navController = navController,
-                        list = state.searchTitles,
+                        searchTitles = state.searchTitles,
                         viewModel = viewModel
                     )
                 }

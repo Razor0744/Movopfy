@@ -33,7 +33,7 @@ class SearchViewModel(
                 _uiState.emit(
                     SearchUiState.Loaded(
                         searchTitles = anilibriaList + kinopoiskList,
-                        recentModels = emptyList()
+                        recentTitles = emptyList()
                     )
                 )
             }
@@ -46,7 +46,7 @@ class SearchViewModel(
                 _uiState.emit(
                     SearchUiState.Loaded(
                         searchTitles = emptyList(),
-                        recentModels = recentList
+                        recentTitles = recentList
                     )
                 )
             }
@@ -62,7 +62,7 @@ class SearchViewModel(
             _uiState.emit(
                 SearchUiState.Loaded(
                     searchTitles = emptyList(),
-                    recentModels = recentList
+                    recentTitles = recentList
                 )
             )
         }
@@ -84,7 +84,7 @@ class SearchViewModel(
 
         data class Loaded(
             val searchTitles: List<SearchTitle>,
-            val recentModels: List<RecentModel>
+            val recentTitles: List<RecentModel>
         ) : SearchUiState
     }
 }

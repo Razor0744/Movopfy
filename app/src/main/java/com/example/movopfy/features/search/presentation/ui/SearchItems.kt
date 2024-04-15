@@ -27,12 +27,16 @@ import com.example.movopfy.uiComponents.navigation.Screen
 import com.example.movopfy.uiComponents.theme.dimensions
 
 @Composable
-fun SearchItems(navController: NavController, list: List<SearchTitle>, viewModel: SearchViewModel) {
+fun SearchItems(
+    navController: NavController,
+    searchTitles: List<SearchTitle>,
+    viewModel: SearchViewModel
+) {
     LazyColumn(
         verticalArrangement = Arrangement.spacedBy(space = MaterialTheme.dimensions.lazySpace),
         contentPadding = PaddingValues(top = MaterialTheme.dimensions.paddingTop)
     ) {
-        items(list) {
+        items(searchTitles) {
             Row(modifier = Modifier
                 .height(height = 50.dp)
                 .fillMaxWidth()

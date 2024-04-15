@@ -32,14 +32,14 @@ import com.example.movopfy.uiComponents.theme.dimensions
 @Composable
 fun RecentItems(
     navController: NavController,
-    recentModels: List<RecentModel>,
+    recentTitles: List<RecentModel>,
     viewModel: SearchViewModel
 ) {
     LazyColumn(
         verticalArrangement = Arrangement.spacedBy(space = MaterialTheme.dimensions.lazySpace),
         contentPadding = PaddingValues(top = MaterialTheme.dimensions.paddingTop)
     ) {
-        items(recentModels) {
+        items(recentTitles) {
             Box(
                 modifier = Modifier
                     .height(height = 50.dp)
