@@ -67,7 +67,13 @@ fun DetailsScreen(
                     }
 
                     item {
-                        PlayerButton(navController = navController, id = id, episode = 0)
+                        when (category) {
+                            API_CATEGORY_ANILIBRIA -> PlayerButton(
+                                navController = navController,
+                                id = id,
+                                episode = 0
+                            )
+                        }
                     }
 
                     item {
