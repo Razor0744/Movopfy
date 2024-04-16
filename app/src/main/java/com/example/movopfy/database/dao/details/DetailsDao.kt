@@ -2,6 +2,7 @@ package com.example.movopfy.database.dao.details
 
 import androidx.room.Dao
 import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Transaction
 import com.example.movopfy.database.models.details.Details
@@ -12,12 +13,12 @@ import com.example.movopfy.database.models.details.Episodes
 interface DetailsDao {
 
     @Transaction
-    @Query("SELECT * FROM details_state WHERE id = :id AND category = :category")
+    @Query("SELECT * FROM details_state WHERE title_id = :id AND category = :category")
     fun getTitleById(id: Int, category: String): DetailsWithEpisodes?
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun addTitle(details: Details)
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun addEpisodes(vararg episodes: Episodes)
 }
