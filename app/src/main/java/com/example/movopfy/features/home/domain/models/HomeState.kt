@@ -4,5 +4,5 @@ import com.example.movopfy.common.models.AnimeSeries
 
 data class HomeState(
     val animeSeriesList: List<AnimeSeries>,
-    val movieList: MutableList<Pair<String, List<KinopoiskItems>>>
+    val movieList: MutableList<Pair<String, List<KinopoiskItem>>>
 )

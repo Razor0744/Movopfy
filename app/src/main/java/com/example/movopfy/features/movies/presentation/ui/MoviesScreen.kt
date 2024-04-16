@@ -1,8 +1,7 @@
 package com.example.movopfy.features.movies.presentation.ui
 
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
-import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -26,7 +25,7 @@ fun MoviesScreen(
         viewModel.getKinopoiskList(category = category)
     }
 
-    Scaffold(modifier = modifier) { padding ->
+    Surface(modifier = modifier) {
         when (val state = uiState) {
             is MoviesViewModel.MoviesUiState.Loading -> {
                 ProgressBarLoading()
@@ -39,7 +38,7 @@ fun MoviesScreen(
                 }
 
                 MoviesList(
-                    modifier = Modifier.padding(padding),
+                    modifier = modifier,
                     kinopoiskItems = state.kinopoiskItems,
                     state = gridState,
                     navController = navController

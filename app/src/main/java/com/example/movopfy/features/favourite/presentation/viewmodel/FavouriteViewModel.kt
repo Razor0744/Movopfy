@@ -16,9 +16,9 @@ class FavouriteViewModel(private val favouriteRepository: FavouriteRepository) :
 
     init {
         viewModelScope.launch {
-            val list = favouriteRepository.getFavourite()
+            val favouriteModels = favouriteRepository.getFavourites()
 
-            _uiState.emit(FavoritesUiState.Loaded(favouriteItems = list.map {
+            _uiState.emit(FavoritesUiState.Loaded(favouriteItems = favouriteModels.map {
                 FavouriteItem(
                     titleId = it.titleId,
                     url = it.url,

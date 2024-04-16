@@ -2,7 +2,7 @@ package com.example.movopfy.features.player.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.movopfy.features.player.domain.PlayerMark
+import com.example.movopfy.features.player.domain.models.PlayerMark
 import com.example.movopfy.features.player.domain.repository.AnilibriaRepository
 import com.example.movopfy.features.player.domain.repository.PlayerMarksRepository
 import com.example.movopfy.network.anilibria.models.AnilibriaTitle

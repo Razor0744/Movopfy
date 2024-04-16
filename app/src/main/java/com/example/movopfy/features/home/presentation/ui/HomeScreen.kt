@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
@@ -53,28 +54,28 @@ fun HomeScreen(
                         }
 
                         SchedulesList(
-                            list = state.homeState.animeSeriesList,
+                            animeSeriesList = state.homeState.animeSeriesList,
                             navController = navController
                         )
                     }
 
-                    items(count = state.homeState.movieList.size) { item ->
+                    items(state.homeState.movieList) { item ->
                         Row(
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .padding(top = MaterialTheme.dimensions.paddingTop),
                             verticalAlignment = Alignment.CenterVertically
                         ) {
-                            Title(text = state.homeState.movieList[item].first)
+                            Title(text = item.first)
 
                             MoviesButton(
                                 navController = navController,
-                                state.homeState.movieList[item].first
+                                category = item.first
                             )
                         }
 
                         KinopoiskList(
-                            list = state.homeState.movieList[item].second,
+                            kinopoiskItems = item.second,
                             navController = navController
                         )
                     }

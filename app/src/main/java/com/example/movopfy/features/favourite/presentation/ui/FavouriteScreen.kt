@@ -25,7 +25,7 @@ fun FavouriteScreen(
             }
 
             is FavouriteViewModel.FavoritesUiState.Loaded -> {
-                FavouriteItem(list = state.favouriteItems, navController = navController)
+                FavouriteItem(favouriteItems = state.favouriteItems, navController = navController)
             }
         }
     }

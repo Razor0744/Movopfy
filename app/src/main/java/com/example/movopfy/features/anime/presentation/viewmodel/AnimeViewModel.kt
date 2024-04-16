@@ -16,9 +16,9 @@ class AnimeViewModel(private val anilibriaRepository: AnilibriaRepository) : Vie
 
     init {
         viewModelScope.launch {
-            val list = anilibriaRepository.getSchedules()
+            val animeSchedules = anilibriaRepository.getSchedules()
 
-            _uiState.emit(AnimeUiState.Loaded(list = list))
+            _uiState.emit(AnimeUiState.Loaded(animeSchedules = animeSchedules))
         }
     }
 
@@ -26,6 +26,6 @@ class AnimeViewModel(private val anilibriaRepository: AnilibriaRepository) : Vie
 
         data object Loading : AnimeUiState
 
-        data class Loaded(val list: List<List<AnimeSeries>>): AnimeUiState
+        data class Loaded(val animeSchedules: List<List<AnimeSeries>>): AnimeUiState
     }
 }

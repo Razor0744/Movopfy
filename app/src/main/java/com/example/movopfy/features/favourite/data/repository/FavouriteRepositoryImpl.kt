@@ -8,7 +8,7 @@ import kotlinx.coroutines.withContext
 
 class FavouriteRepositoryImpl(private val favouriteDao: FavouriteDao) : FavouriteRepository {
 
-    override suspend fun getFavourite(): List<FavouriteModel> =
+    override suspend fun getFavourites(): List<FavouriteModel> =
         withContext(Dispatchers.IO) {
             favouriteDao.getFavourite()
         }

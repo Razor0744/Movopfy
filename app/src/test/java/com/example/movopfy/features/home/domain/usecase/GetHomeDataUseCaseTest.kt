@@ -2,7 +2,7 @@ package com.example.movopfy.features.home.domain.usecase
 
 import com.example.movopfy.common.models.AnimeSeries
 import com.example.movopfy.features.home.domain.models.HomeState
-import com.example.movopfy.features.home.domain.models.KinopoiskItems
+import com.example.movopfy.features.home.domain.models.KinopoiskItem
 import com.example.movopfy.features.home.domain.repository.AnilibriaRepository
 import com.example.movopfy.features.home.domain.repository.KinopoiskRepository
 import junit.framework.TestCase.assertEquals
@@ -22,10 +22,10 @@ class GetHomeDataUseCaseTest {
     @Test
     fun shouldReturnHomeState() = runBlocking {
         val animeList = listOf<AnimeSeries>()
-        val horrorList = listOf<KinopoiskItems>()
-        val comedyList = listOf<KinopoiskItems>()
-        val dramaList = listOf<KinopoiskItems>()
-        val melodramaList = listOf<KinopoiskItems>()
+        val horrorList = listOf<KinopoiskItem>()
+        val comedyList = listOf<KinopoiskItem>()
+        val dramaList = listOf<KinopoiskItem>()
+        val melodramaList = listOf<KinopoiskItem>()
 
         `when`(anilibriaRepository.getAnimeSeriesList(anyInt())).thenReturn(animeList)
         `when`(kinopoiskRepository.getList(anyInt(), anyString()))

@@ -4,7 +4,7 @@ import com.example.movopfy.database.models.favourite.FavouriteModel
 
 interface FavouriteRepository {
 
-    suspend fun getFavourite(): List<FavouriteModel>
+    suspend fun getFavourites(): List<FavouriteModel>
 
     suspend fun removeFromFavourite(favouriteModel: FavouriteModel)
 }
