@@ -38,7 +38,7 @@ fun MoviesScreen(
                 }
 
                 MoviesList(
-                    modifier = modifier,
+                    modifier = Modifier,
                     kinopoiskItems = state.kinopoiskItems,
                     state = gridState,
                     navController = navController
