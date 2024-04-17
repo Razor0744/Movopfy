@@ -19,7 +19,7 @@
 
     <string name="episode_anime_list">Серия %1$s</string>
 
-    <string name="favourite_item_remove">Remove from favourite</string>
+    <string name="favourite_is_empty">You don\'t have any favorites yet</string>
 
     <string name="placeholder_search_text">Search</string>
 </resources>
