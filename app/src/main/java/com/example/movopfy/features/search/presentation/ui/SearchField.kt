@@ -50,7 +50,10 @@ fun SearchField(
         trailingIcon = {
             Icon(
                 modifier = Modifier
-                    .clickable { onClick() },
+                    .clickable {
+                        query = ""
+                        onClick()
+                    },
                 painter = painterResource(id = R.drawable.ic_close),
                 contentDescription = null,
                 tint = MaterialTheme.colorScheme.onPrimary
