@@ -1,8 +1,7 @@
 package com.example.movopfy.features.favourite.presentation.ui
 
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -33,11 +32,7 @@ fun FavouriteScreen(
 
             is FavouriteViewModel.FavoritesUiState.Loaded -> {
                 if (state.favouriteItems.isEmpty()) {
-                    Box(
-                        modifier = Modifier
-                            .fillMaxHeight()
-                            .fillMaxWidth()
-                    ) {
+                    Box(modifier = Modifier.fillMaxSize()) {
                         Text(
                             modifier = Modifier.align(alignment = Alignment.Center),
                             text = stringResource(
