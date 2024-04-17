@@ -19,11 +19,13 @@ class KinopoiskRepositoryImpl(
 
     private var kinopoiskItemList: List<KinopoiskItem> = emptyList()
 
+    private var lastCategory: String? = null
+
     override suspend fun getList(page: Int, category: String): List<KinopoiskItem> =
         withContext(Dispatchers.IO) {
             kinopoiskItemsListMutex.withLock {
                 val localList =
-                    if (kinopoiskItemList.isEmpty()) kinopoiskDocsDao.getKinopoiskDocsByCategory(
+                    if (kinopoiskItemList.isEmpty() || lastCategory != category) kinopoiskDocsDao.getKinopoiskDocsByCategory(
                         category = category
                     )
                     else emptyList()
@@ -36,6 +38,8 @@ class KinopoiskRepositoryImpl(
                                 previewUrl = it.previewUrl
                             )
                         }
+
+                        lastCategory = category
 
                         kinopoiskItemList
                     }

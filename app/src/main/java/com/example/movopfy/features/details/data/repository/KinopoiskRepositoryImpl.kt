@@ -24,7 +24,7 @@ class KinopoiskRepositoryImpl(
     override suspend fun getTitle(id: Int): DetailsData? = withContext(Dispatchers.IO) {
         detailsDataMutex.withLock {
             val localState =
-                if (detailsData == null) detailsDao.getTitleById(
+                if (detailsData == null || lastTitleId != id) detailsDao.getTitleById(
                     id = id,
                     category = API_CATEGORY_KINOPOISK
                 )
