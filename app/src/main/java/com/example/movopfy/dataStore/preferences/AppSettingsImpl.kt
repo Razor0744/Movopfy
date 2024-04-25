@@ -16,18 +16,14 @@ val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "se
 class AppSettingsImpl(private val context: Context): AppSettings {
 
     override suspend fun getInt(key: String): Flow<Int?> = withContext(Dispatchers.Default) {
-        val intKey = intPreferencesKey(name = key)
-
         context.dataStore.data.map {
-            it[intKey]
+            it[intPreferencesKey(name = key)]
         }
     }
 
     override suspend fun setInt(key: String, value: Int): Unit = withContext(Dispatchers.Default) {
-        val intKey = intPreferencesKey(name = key)
-
         context.dataStore.edit {
-            it[intKey] = value
+            it[intPreferencesKey(name = key)] = value
         }
     }
 }
