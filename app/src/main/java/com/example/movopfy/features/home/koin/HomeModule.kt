@@ -18,7 +18,8 @@ val homeModule = module {
     single<AnilibriaRepository> {
         AnilibriaRepositoryImpl(
             anilibriaService = get(),
-            animeSeriesDao = get()
+            animeSeriesDao = get(),
+            appSettings = get()
         )
     }
 
