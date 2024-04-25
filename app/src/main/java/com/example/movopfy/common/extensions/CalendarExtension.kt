@@ -1,5 +1,7 @@
 package com.example.movopfy.common.extensions
 
+import android.annotation.SuppressLint
+import android.icu.text.SimpleDateFormat
 import java.util.Calendar
 
 const val SUNDAY_DAY_NUMBER = 1
@@ -11,3 +13,7 @@ fun Calendar.currentDay(): Int {
 
     return if (calendarDay == SUNDAY_DAY_NUMBER) LAST_DAY_NUMBER else calendarDay - MONDAY_DAY_NUMBER
 }
+
+@SuppressLint("SimpleDateFormat")
+fun Calendar.date(): Int =
+    SimpleDateFormat("ddMyyyy").format(this.time).toInt()

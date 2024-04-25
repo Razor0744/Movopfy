@@ -21,9 +21,14 @@ class GetHomeDataUseCase(
     private val kinopoiskRepository: KinopoiskRepository
 ) {
 
-    suspend fun execute(currentDay: Int): HomeState = coroutineScope {
+    suspend fun execute(currentDay: Int, dateTime: Int): HomeState = coroutineScope {
         val animeList =
-            async { anilibriaRepository.getAnimeSeriesList(currentDay = currentDay) }
+            async {
+                anilibriaRepository.getAnimeSeriesList(
+                    currentDay = currentDay,
+                    dateTime = dateTime
+                )
+            }
 
         val horrorList = async {
             Pair(
