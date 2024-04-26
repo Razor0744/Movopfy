@@ -4,5 +4,5 @@ import com.example.movopfy.common.models.AnimeSeries
 
 interface AnilibriaRepository {
 
-    suspend fun getSchedules(): List<List<AnimeSeries>>
+    suspend fun getSchedules(dateTime: Int): List<List<AnimeSeries>>
 }

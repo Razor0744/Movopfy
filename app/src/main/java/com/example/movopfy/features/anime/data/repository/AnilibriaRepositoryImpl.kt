@@ -1,7 +1,9 @@
 package com.example.movopfy.features.anime.data.repository
 
+import com.example.movopfy.common.constants.PreferencesKeys
 import com.example.movopfy.common.mappers.anilibria.mapToAnimeSeriesList
 import com.example.movopfy.common.models.AnimeSeries
+import com.example.movopfy.dataStore.preferences.AppSettings
 import com.example.movopfy.database.dao.anime.AnimeSchedulesDao
 import com.example.movopfy.database.models.anime.AnimeSchedules
 import com.example.movopfy.features.anime.domain.repository.AnilibriaRepository
@@ -15,58 +17,74 @@ const val DAYS_NUMBER = 6
 
 class AnilibriaRepositoryImpl(
     private val anilibriaService: AnilibriaService,
-    private val animeSchedulesDao: AnimeSchedulesDao
+    private val animeSchedulesDao: AnimeSchedulesDao,
+    private val appSettings: AppSettings
 ) : AnilibriaRepository {
 
     private val listSchedulesMutex = Mutex()
 
     private var listSchedules: List<List<AnimeSeries>> = emptyList()
 
-    override suspend fun getSchedules(): List<List<AnimeSeries>> = withContext(Dispatchers.IO) {
-        listSchedulesMutex.withLock {
-            val localSchedules =
-                if (listSchedules.isEmpty()) animeSchedulesDao.getAnimeSchedules() else emptyList()
+    override suspend fun getSchedules(dateTime: Int): List<List<AnimeSeries>> =
+        withContext(Dispatchers.IO) {
+            listSchedulesMutex.withLock {
+                val date = appSettings.getInt(key = PreferencesKeys.ANIME_DATE)
 
-            when {
-                listSchedules.isNotEmpty() -> {
-                    listSchedules
-                }
+                val localSchedules = when {
+                    date != dateTime -> {
+                        appSettings.setInt(key = PreferencesKeys.ANIME_DATE, value = dateTime)
 
-                localSchedules.isNotEmpty() -> {
-                    for (i in 0..DAYS_NUMBER) {
-                        listSchedules += listOf(localSchedules.filter { it.day == i }.map { item ->
-                            AnimeSeries(id = item.id, pictureUrl = item.pictureUrl)
-                        })
+                        emptyList()
                     }
 
-                    listSchedules
+                    listSchedules.isEmpty() -> {
+                        animeSchedulesDao.getAnimeSchedules()
+                    }
+
+                    else -> emptyList()
                 }
 
-                else -> {
-                    val response = anilibriaService.getSchedule()
+                when {
+                    listSchedules.isNotEmpty() -> {
+                        listSchedules
+                    }
 
-                    val responseBody = if (response.isSuccessful) response.body() else null
-
-                    responseBody?.let {
-                        listSchedules =
-                            it.map { item ->
-                                mapToAnimeSeriesList(anilibriaSchedule = item) ?: emptyList()
-                            }
-
-                        for (i in listSchedules) {
-                            animeSchedulesDao.addAnimeSchedules(animeSchedules = i.map { item ->
-                                AnimeSchedules(
-                                    id = item.id,
-                                    pictureUrl = item.pictureUrl,
-                                    day = listSchedules.indexOf(i)
-                                )
-                            }.toTypedArray())
+                    localSchedules.isNotEmpty() -> {
+                        for (i in 0..DAYS_NUMBER) {
+                            listSchedules += listOf(localSchedules.filter { it.day == i }
+                                .map { item ->
+                                    AnimeSeries(id = item.id, pictureUrl = item.pictureUrl)
+                                })
                         }
+
+                        listSchedules
                     }
 
-                    listSchedules
+                    else -> {
+                        val response = anilibriaService.getSchedule()
+
+                        val responseBody = if (response.isSuccessful) response.body() else null
+
+                        responseBody?.let {
+                            listSchedules =
+                                it.map { item ->
+                                    mapToAnimeSeriesList(anilibriaSchedule = item) ?: emptyList()
+                                }
+
+                            for (i in listSchedules) {
+                                animeSchedulesDao.addAnimeSchedules(animeSchedules = i.map { item ->
+                                    AnimeSchedules(
+                                        id = item.id,
+                                        pictureUrl = item.pictureUrl,
+                                        day = listSchedules.indexOf(i)
+                                    )
+                                }.toTypedArray())
+                            }
+                        }
+
+                        listSchedules
+                    }
                 }
             }
         }
-    }
 }
