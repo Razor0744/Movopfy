@@ -19,7 +19,7 @@ import com.example.movopfy.database.models.player.PlayerMarks
 import com.example.movopfy.database.models.search.Recent
 
 @Database(
-    version = 8,
+    version = 9,
     entities = [
         Anime::class,
         Kinopoisk::class,

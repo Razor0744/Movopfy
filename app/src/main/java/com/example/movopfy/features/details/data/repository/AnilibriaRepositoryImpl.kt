@@ -25,79 +25,85 @@ class AnilibriaRepositoryImpl(
     private var detailsData: DetailsData? = null
     private var lastTitleId: Int? = null
 
-    override suspend fun getTitle(id: Int): DetailsData? = withContext(Dispatchers.IO) {
-        detailsDataMutex.withLock {
-            val localState =
-                if (detailsData == null || lastTitleId != id) detailsDao.getTitleById(
-                    id = id,
-                    category = API_CATEGORY_ANILIBRIA
-                )
-                else null
-
-            when {
-                detailsData != null && lastTitleId == id -> {
-                    detailsData
-                }
-
-                localState != null -> {
-                    detailsData = DetailsData(
-                        url = localState.details.pictureUrl,
-                        name = localState.details.name,
-                        description = localState.details.description,
-                        episodesList = localState.episodesList.map {
-                            AnilibriaEpisodesList(
-                                episode = it.episode,
-                                name = it.name,
-                                uuid = null,
-                                createdTimestamp = null,
-                                preview = null,
-                                hls = null
-                            )
-                        }
+    override suspend fun getTitle(id: Int, dateTime: Int): DetailsData? =
+        withContext(Dispatchers.IO) {
+            detailsDataMutex.withLock {
+                var localState =
+                    if (detailsData == null || lastTitleId != id) detailsDao.getTitleById(
+                        id = id,
+                        category = API_CATEGORY_ANILIBRIA
                     )
+                    else null
 
-                    lastTitleId = id
-
-                    detailsData
+                if (localState?.details?.lastUpdate != dateTime){
+                    localState = null
                 }
 
-                else -> {
-                    val response = anilibriaService.getTitle(id = id)
-
-                    val responseBody = if (response.isSuccessful) response.body() else null
-
-                    responseBody?.let { title ->
-                        detailsData = DetailsData(
-                            url = title.getSmallImageUrl(),
-                            name = title.anilibriaNames?.ru,
-                            description = title.description,
-                            episodesList = mapToAnilibriaEpisodesList(title.player?.list)
-                        )
-
-                        detailsDao.addTitle(
-                            details = Details(
-                                name = title.anilibriaNames?.ru ?: "",
-                                description = title.description ?: "",
-                                pictureUrl = title.getSmallImageUrl() ?: "",
-                                titleId = id,
-                                category = API_CATEGORY_ANILIBRIA
-                            )
-                        )
-
-                        detailsDao.addEpisodes(episodes = mapToAnilibriaEpisodesList(title.player?.list).map {
-                            Episodes(
-                                name = it.name ?: "",
-                                episode = it.episode ?: 0,
-                                titleId = id
-                            )
-                        }.toTypedArray())
+                when {
+                    detailsData != null && lastTitleId == id -> {
+                        detailsData
                     }
 
-                    lastTitleId = id
+                    localState != null -> {
+                        detailsData = DetailsData(
+                            url = localState.details.pictureUrl,
+                            name = localState.details.name,
+                            description = localState.details.description,
+                            episodesList = localState.episodesList.map {
+                                AnilibriaEpisodesList(
+                                    episode = it.episode,
+                                    name = it.name,
+                                    uuid = null,
+                                    createdTimestamp = null,
+                                    preview = null,
+                                    hls = null
+                                )
+                            }
+                        )
 
-                    detailsData
+                        lastTitleId = id
+
+                        detailsData
+                    }
+
+                    else -> {
+                        val response = anilibriaService.getTitle(id = id)
+
+                        val responseBody = if (response.isSuccessful) response.body() else null
+
+                        responseBody?.let { title ->
+                            detailsData = DetailsData(
+                                url = title.getSmallImageUrl(),
+                                name = title.anilibriaNames?.ru,
+                                description = title.description,
+                                episodesList = mapToAnilibriaEpisodesList(title.player?.list)
+                            )
+
+                            detailsDao.addTitle(
+                                details = Details(
+                                    name = title.anilibriaNames?.ru ?: "",
+                                    description = title.description ?: "",
+                                    pictureUrl = title.getSmallImageUrl() ?: "",
+                                    titleId = id,
+                                    category = API_CATEGORY_ANILIBRIA,
+                                    lastUpdate = dateTime
+                                )
+                            )
+
+                            detailsDao.addEpisodes(episodes = mapToAnilibriaEpisodesList(title.player?.list).map {
+                                Episodes(
+                                    name = it.name ?: "",
+                                    episode = it.episode ?: 0,
+                                    titleId = id
+                                )
+                            }.toTypedArray())
+                        }
+
+                        lastTitleId = id
+
+                        detailsData
+                    }
                 }
             }
         }
-    }
 }

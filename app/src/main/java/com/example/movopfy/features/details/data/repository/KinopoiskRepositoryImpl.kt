@@ -21,14 +21,18 @@ class KinopoiskRepositoryImpl(
     private var detailsData: DetailsData? = null
     private var lastTitleId: Int? = null
 
-    override suspend fun getTitle(id: Int): DetailsData? = withContext(Dispatchers.IO) {
+    override suspend fun getTitle(id: Int, dateTime: Int): DetailsData? = withContext(Dispatchers.IO) {
         detailsDataMutex.withLock {
-            val localState =
+            var localState =
                 if (detailsData == null || lastTitleId != id) detailsDao.getTitleById(
                     id = id,
                     category = API_CATEGORY_KINOPOISK
                 )
                 else null
+
+            if (localState?.details?.lastUpdate != dateTime){
+                localState = null
+            }
 
             when {
                 detailsData != null && lastTitleId == id -> {
@@ -67,7 +71,8 @@ class KinopoiskRepositoryImpl(
                                 description = title.description ?: "",
                                 pictureUrl = title.poster?.previewUrl ?: "",
                                 titleId = id,
-                                category = API_CATEGORY_KINOPOISK
+                                category = API_CATEGORY_KINOPOISK,
+                                lastUpdate = dateTime
                             )
                         )
                     }

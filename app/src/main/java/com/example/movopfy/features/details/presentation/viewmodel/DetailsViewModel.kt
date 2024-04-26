@@ -2,6 +2,7 @@ package com.example.movopfy.features.details.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.movopfy.common.extensions.date
 import com.example.movopfy.database.models.favourite.FavouriteModel
 import com.example.movopfy.features.details.domain.models.DetailsState
 import com.example.movopfy.features.details.domain.repository.AnilibriaRepository
@@ -11,6 +12,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import java.util.Calendar
 
 class DetailsViewModel(
     private val anilibriaRepository: AnilibriaRepository,
@@ -23,7 +25,11 @@ class DetailsViewModel(
 
     fun getTitleAnilibria(id: Int) {
         viewModelScope.launch {
-            val data = anilibriaRepository.getTitle(id = id)
+            val data =
+                anilibriaRepository.getTitle(
+                    id = id,
+                    dateTime = Calendar.getInstance().date()
+                )
 
             val favourite = favouriteRepository.getFavouriteById(id = id)
 
@@ -40,7 +46,10 @@ class DetailsViewModel(
 
     fun getTitleKinopoisk(id: Int) {
         viewModelScope.launch {
-            val data = kinopoiskRepository.getTitle(id = id)
+            val data = kinopoiskRepository.getTitle(
+                id = id,
+                dateTime = Calendar.getInstance().date()
+            )
 
             val favourite = favouriteRepository.getFavouriteById(id = id)
 

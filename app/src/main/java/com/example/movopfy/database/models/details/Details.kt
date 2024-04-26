@@ -12,5 +12,6 @@ data class Details(
     @ColumnInfo(name = "description") val description: String,
     @ColumnInfo(name = "picture_url") val pictureUrl: String,
     @ColumnInfo(name = "title_id") val titleId: Int,
-    @ColumnInfo(name = "category") val category: String
+    @ColumnInfo(name = "category") val category: String,
+    @ColumnInfo(name = "last_update") val lastUpdate: Int
 )
