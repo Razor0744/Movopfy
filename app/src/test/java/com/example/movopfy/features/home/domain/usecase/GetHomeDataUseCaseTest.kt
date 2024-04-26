@@ -27,7 +27,7 @@ class GetHomeDataUseCaseTest {
         val dramaList = listOf<KinopoiskItem>()
         val melodramaList = listOf<KinopoiskItem>()
 
-        `when`(anilibriaRepository.getAnimeSeriesList(anyInt())).thenReturn(animeList)
+        `when`(anilibriaRepository.getAnimeSeriesList(anyInt(), anyInt())).thenReturn(animeList)
         `when`(kinopoiskRepository.getList(anyInt(), anyString()))
             .thenReturn(horrorList)
             .thenReturn(comedyList)
@@ -36,7 +36,7 @@ class GetHomeDataUseCaseTest {
 
         val useCase = GetHomeDataUseCase(anilibriaRepository, kinopoiskRepository)
 
-        val actual = useCase.execute(currentDay = 1)
+        val actual = useCase.execute(currentDay = 1, dateTime = 1)
 
         val expected = HomeState(
             animeSeriesList = animeList,
@@ -48,7 +48,7 @@ class GetHomeDataUseCaseTest {
             )
         )
 
-        verify(anilibriaRepository).getAnimeSeriesList(currentDay = 1)
+        verify(anilibriaRepository).getAnimeSeriesList(currentDay = 1, dateTime = 1)
         verify(kinopoiskRepository).getList(KINOPOISK_PAGE, HORRORS_CATEGORY)
         verify(kinopoiskRepository).getList(KINOPOISK_PAGE, COMEDY_CATEGORY)
         verify(kinopoiskRepository).getList(KINOPOISK_PAGE, DRAMA_CATEGORY)
