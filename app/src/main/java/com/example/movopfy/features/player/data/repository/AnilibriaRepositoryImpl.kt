@@ -12,7 +12,7 @@ class AnilibriaRepositoryImpl(private val anilibriaService: AnilibriaService) :
     override suspend fun getTitle(id: Int): AnilibriaTitle? {
 
         return when {
-            anilibriaTitle != null -> {
+            anilibriaTitle != null && id == anilibriaTitle?.id -> {
                 anilibriaTitle
             }
 
