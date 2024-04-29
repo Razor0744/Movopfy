@@ -14,7 +14,7 @@ class FavouriteViewModel(private val favouriteRepository: FavouriteRepository) :
     private val _uiState = MutableStateFlow<FavoritesUiState>(FavoritesUiState.Loading)
     val uiState: StateFlow<FavoritesUiState> = _uiState.asStateFlow()
 
-    init {
+    fun getFavourites() {
         viewModelScope.launch {
             val favouriteModels = favouriteRepository.getFavourites()
 
