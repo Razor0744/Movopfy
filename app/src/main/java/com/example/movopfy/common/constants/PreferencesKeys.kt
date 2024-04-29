@@ -1,8 +1,10 @@
 package com.example.movopfy.common.constants
 
+import androidx.datastore.preferences.core.intPreferencesKey
+
 object PreferencesKeys {
 
-    const val HOME_DATE = "home_date"
+    val HOME_DATE = intPreferencesKey("home_date")
 
-    const val ANIME_DATE = "anime_date"
+    val ANIME_DATE = intPreferencesKey("anime_date")
 }
