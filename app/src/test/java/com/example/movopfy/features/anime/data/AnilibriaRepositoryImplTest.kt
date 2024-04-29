@@ -1,7 +1,9 @@
 package com.example.movopfy.features.anime.data
 
+import com.example.movopfy.common.constants.PreferencesKeys
 import com.example.movopfy.common.mappers.anilibria.mapToAnimeSeriesList
 import com.example.movopfy.common.models.AnimeSeries
+import com.example.movopfy.dataStore.preferences.AppSettings
 import com.example.movopfy.database.dao.anime.AnimeSchedulesDao
 import com.example.movopfy.database.models.anime.AnimeSchedules
 import com.example.movopfy.features.anime.data.repository.AnilibriaRepositoryImpl
@@ -28,6 +30,7 @@ class AnilibriaRepositoryImplTest {
 
     private val anilibriaService = mock<AnilibriaService>()
     private val animeSchedulesDao = mock<AnimeSchedulesDao>()
+    private val appSettings = mock<AppSettings>()
 
     @Test
     fun shouldReturnLocalData() = runBlocking {
@@ -35,12 +38,14 @@ class AnilibriaRepositoryImplTest {
 
         val repositoryImpl = AnilibriaRepositoryImpl(
             anilibriaService = anilibriaService,
-            animeSchedulesDao = animeSchedulesDao
+            animeSchedulesDao = animeSchedulesDao,
+            appSettings = appSettings
         )
 
         `when`(animeSchedulesDao.getAnimeSchedules()).thenReturn(localData)
+        `when`(appSettings.getInt(key = PreferencesKeys.ANIME_DATE)).thenReturn(1)
 
-        val actual = repositoryImpl.getSchedules()
+        val actual = repositoryImpl.getSchedules(dateTime = 1)
 
         val expected = mutableListOf<List<AnimeSeries>>()
         for (i in 0..DAYS_NUMBER) {
@@ -51,6 +56,7 @@ class AnilibriaRepositoryImplTest {
 
         verify(animeSchedulesDao).getAnimeSchedules()
         verifyNoInteractions(anilibriaService)
+        verify(appSettings).getInt(PreferencesKeys.ANIME_DATE)
 
         assertEquals(expected, actual)
     }
@@ -61,18 +67,21 @@ class AnilibriaRepositoryImplTest {
 
         val repositoryImpl = AnilibriaRepositoryImpl(
             anilibriaService = anilibriaService,
-            animeSchedulesDao = animeSchedulesDao
+            animeSchedulesDao = animeSchedulesDao,
+            appSettings = appSettings
         )
 
         `when`(animeSchedulesDao.getAnimeSchedules()).thenReturn(emptyList())
         `when`(anilibriaService.getSchedule()).thenReturn(Response.success(responseData))
+        `when`(appSettings.getInt(key = PreferencesKeys.ANIME_DATE)).thenReturn(0)
 
-        val actual = repositoryImpl.getSchedules()
+        val actual = repositoryImpl.getSchedules(dateTime = 1)
 
         val expected = listOf(listOf<AnimeSeries>())
 
-        verify(animeSchedulesDao).getAnimeSchedules()
         verify(anilibriaService).getSchedule()
+        verify(appSettings).getInt(PreferencesKeys.ANIME_DATE)
+        verify(appSettings).setInt(key = PreferencesKeys.ANIME_DATE, value = 1)
 
         assertEquals(expected, actual)
     }
@@ -102,20 +111,23 @@ class AnilibriaRepositoryImplTest {
 
         val repositoryImpl = AnilibriaRepositoryImpl(
             anilibriaService = anilibriaService,
-            animeSchedulesDao = animeSchedulesDao
+            animeSchedulesDao = animeSchedulesDao,
+            appSettings = appSettings
         )
 
         `when`(animeSchedulesDao.getAnimeSchedules()).thenReturn(emptyList())
         `when`(anilibriaService.getSchedule()).thenReturn(Response.success(responseData))
+        `when`(appSettings.getInt(key = PreferencesKeys.ANIME_DATE)).thenReturn(0)
 
-        val actual = repositoryImpl.getSchedules()
+        val actual = repositoryImpl.getSchedules(dateTime = 1)
 
         val expected = responseData.map { item ->
             mapToAnimeSeriesList(anilibriaSchedule = item) ?: emptyList()
         }
 
-        verify(animeSchedulesDao).getAnimeSchedules()
         verify(anilibriaService).getSchedule()
+        verify(appSettings).getInt(key = PreferencesKeys.ANIME_DATE)
+        verify(appSettings).setInt(key = PreferencesKeys.ANIME_DATE, value = 1)
 
         assertEquals(expected, actual)
     }
