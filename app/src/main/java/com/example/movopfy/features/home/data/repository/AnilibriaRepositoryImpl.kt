@@ -3,7 +3,7 @@ package com.example.movopfy.features.home.data.repository
 import com.example.movopfy.common.constants.PreferencesKeys
 import com.example.movopfy.common.mappers.anilibria.mapToAnimeSeriesList
 import com.example.movopfy.common.models.AnimeSeries
-import com.example.movopfy.dataStore.preferences.AppSettings
+import com.example.movopfy.datastore.preferences.AppSettings
 import com.example.movopfy.database.dao.home.AnimeSeriesDao
 import com.example.movopfy.database.models.home.Anime
 import com.example.movopfy.features.home.domain.repository.AnilibriaRepository
