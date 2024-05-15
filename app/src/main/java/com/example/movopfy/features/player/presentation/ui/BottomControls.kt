@@ -23,11 +23,11 @@ import com.example.movopfy.common.extensions.formatMinSec
 
 @Composable
 fun BottomControls(
-    modifier: Modifier = Modifier,
     totalDuration: Long,
     currentTime: Long,
     onSeekChanged: (timeMs: Float) -> Unit,
-    onFullScreenClick: () -> Unit
+    onFullScreenClick: () -> Unit,
+    modifier: Modifier = Modifier
 ) {
     val duration by remember(totalDuration) { mutableLongStateOf(totalDuration) }
     val videoTime by remember(currentTime) { mutableLongStateOf(currentTime) }

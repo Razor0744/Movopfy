@@ -44,11 +44,11 @@ const val SEEK_NUMBER = 10000
 @OptIn(UnstableApi::class)
 @Composable
 fun Player(
-    modifier: Modifier = Modifier,
     title: AnilibriaTitle?,
     episode: Int,
     lastTime: Long,
-    viewModel: PlayerViewModel
+    viewModel: PlayerViewModel,
+    modifier: Modifier = Modifier
 ) {
     val context = LocalContext.current
 

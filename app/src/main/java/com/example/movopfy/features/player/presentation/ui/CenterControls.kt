@@ -17,13 +17,13 @@ import com.example.movopfy.R
 
 @Composable
 fun CenterControls(
-    modifier: Modifier = Modifier,
     isPlaying: Boolean,
     onPreviousClick: () -> Unit,
     onReplayClick: () -> Unit,
     onPlayClick: () -> Unit,
     onForwardClick: () -> Unit,
-    onNextClick: () -> Unit
+    onNextClick: () -> Unit,
+    modifier: Modifier = Modifier
 ) {
     val isPlayingState by remember(isPlaying) { mutableStateOf(isPlaying) }
 

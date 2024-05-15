@@ -21,7 +21,6 @@ import androidx.compose.ui.graphics.Color
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun CustomControls(
-    modifier: Modifier = Modifier,
     isPlaying: Boolean,
     onPreviousClick: () -> Unit,
     onReplayClick: () -> Unit,
@@ -32,7 +31,8 @@ fun CustomControls(
     currentTime: Long,
     onSeekChanged: (timeMs: Float) -> Unit,
     isVisible: Boolean,
-    onFullScreenClick: () -> Unit
+    onFullScreenClick: () -> Unit,
+    modifier: Modifier = Modifier
 ) {
     val isVisibleState by remember(isVisible) { mutableStateOf(isVisible) }
 
