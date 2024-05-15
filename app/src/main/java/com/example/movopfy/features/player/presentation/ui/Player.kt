@@ -1,7 +1,6 @@
 package com.example.movopfy.features.player.presentation.ui
 
 import android.annotation.SuppressLint
-import android.util.Log
 import androidx.annotation.OptIn
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -49,7 +48,7 @@ fun Player(
     modifier: Modifier = Modifier
 ) {
     val context = LocalContext.current
-    Log.i("play", "Player: $episode")
+
     var isPlaying by remember { mutableStateOf(true) }
 
     var totalDuration by remember { mutableLongStateOf(0L) }
@@ -143,8 +142,6 @@ fun Player(
                     titleId = playerMarks?.titleId ?: id
                 )
             )
-            Log.i("play", "Player: $playerMarks")
-            Log.i("play", "Player: $episode")
         }
     }
 
