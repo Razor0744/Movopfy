@@ -1,10 +1,10 @@
 package com.example.movopfy.features.player.domain.repository
 
-import com.example.movopfy.features.player.domain.models.PlayerMark
+import com.example.movopfy.database.models.player.PlayerMarks
 
 interface PlayerMarksRepository {
 
-    suspend fun getTimeById(id: Int, episode: Int): Long
+    suspend fun getTimeById(id: Int, episode: Int): PlayerMarks?
 
-    suspend fun setTime(playerMark: PlayerMark)
+    suspend fun setTime(playerMarks: PlayerMarks)
 }

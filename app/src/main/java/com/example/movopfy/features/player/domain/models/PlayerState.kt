@@ -1,7 +1,9 @@
 package com.example.movopfy.features.player.domain.models
 
+import com.example.movopfy.database.models.player.PlayerMarks
+
 data class PlayerState(
-    val currentTime: Long,
+    val playerMarks: PlayerMarks?,
     val url: String,
     val episodesCount: Int,
     val episode: Int

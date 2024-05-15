@@ -13,7 +13,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -30,7 +29,7 @@ import androidx.media3.ui.PlayerView
 import com.example.movopfy.common.extensions.findActivity
 import com.example.movopfy.common.extensions.setLandscape
 import com.example.movopfy.common.extensions.setPortrait
-import com.example.movopfy.features.player.domain.models.PlayerMark
+import com.example.movopfy.database.models.player.PlayerMarks
 import com.example.movopfy.features.player.presentation.viewmodel.PlayerViewModel
 import kotlinx.coroutines.delay
 import kotlin.time.Duration.Companion.seconds
@@ -45,18 +44,17 @@ fun Player(
     episodesCount: Int,
     id: Int,
     episode: Int,
-    lastTime: Long,
+    playerMarks: PlayerMarks?,
     viewModel: PlayerViewModel,
     modifier: Modifier = Modifier
 ) {
     val context = LocalContext.current
     Log.i("play", "Player: $episode")
-
     var isPlaying by remember { mutableStateOf(true) }
 
     var totalDuration by remember { mutableLongStateOf(0L) }
 
-    var currentTime by rememberSaveable { mutableLongStateOf(lastTime) }
+    var currentTime by remember { mutableLongStateOf(playerMarks?.currentTime ?: 0) }
 
     var isVisible by remember { mutableStateOf(false) }
 
@@ -120,14 +118,6 @@ fun Player(
         }
 
         onDispose {
-            viewModel.setCurrentTime(
-                playerMark = PlayerMark(
-                    id = id,
-                    currentTime = currentTime,
-                    episodeId = episode
-                )
-            )
-
             exoPlayer.apply {
                 removeListener(listener)
                 release()
@@ -140,6 +130,21 @@ fun Player(
                 show(WindowInsetsCompat.Type.navigationBars())
                 systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_DEFAULT
             }
+        }
+    }
+
+    DisposableEffect(episode) {
+        onDispose {
+            viewModel.saveTime(
+                playerMarks = PlayerMarks(
+                    id = playerMarks?.id,
+                    currentTime = currentTime,
+                    episodeId = playerMarks?.episodeId ?: episode,
+                    titleId = playerMarks?.titleId ?: id
+                )
+            )
+            Log.i("play", "Player: $playerMarks")
+            Log.i("play", "Player: $episode")
         }
     }
 

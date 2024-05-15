@@ -34,7 +34,7 @@ fun PlayerScreen(
                 url = state.playerState.url,
                 id = id,
                 episode = state.playerState.episode,
-                lastTime = state.playerState.currentTime,
+                playerMarks = state.playerState.playerMarks,
                 viewModel = viewModel
             )
         }

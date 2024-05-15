@@ -2,7 +2,7 @@ package com.example.movopfy.features.player.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.movopfy.features.player.domain.models.PlayerMark
+import com.example.movopfy.database.models.player.PlayerMarks
 import com.example.movopfy.features.player.domain.models.PlayerState
 import com.example.movopfy.features.player.domain.repository.AnilibriaRepository
 import com.example.movopfy.features.player.domain.repository.PlayerMarksRepository
@@ -25,12 +25,12 @@ class PlayerViewModel(
         viewModelScope.launch {
             val title = anilibriaRepository.getPlayerData(id = id, episode = episode)
 
-            val currentTime = playerMarksRepository.getTimeById(id = id, episode = episode)
+            val playerMarks = playerMarksRepository.getTimeById(id = id, episode = episode)
 
             _uiState.emit(
                 PlayerUiState.Loaded(
                     PlayerState(
-                        currentTime = currentTime,
+                        playerMarks = playerMarks,
                         url = title.url,
                         episodesCount = title.episodesCount,
                         episode = episode
@@ -40,9 +40,9 @@ class PlayerViewModel(
         }
     }
 
-    fun setCurrentTime(playerMark: PlayerMark) {
+    fun saveTime(playerMarks: PlayerMarks) {
         viewModelScope.launch {
-            playerMarksRepository.setTime(playerMark = playerMark)
+            playerMarksRepository.setTime(playerMarks = playerMarks)
         }
     }
 
