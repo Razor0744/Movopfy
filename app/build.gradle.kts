@@ -53,7 +53,7 @@ android {
         buildConfig = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = libs.versions.compose.option.get()
+        kotlinCompilerExtensionVersion = "1.5.8"
     }
     packaging {
         resources {
