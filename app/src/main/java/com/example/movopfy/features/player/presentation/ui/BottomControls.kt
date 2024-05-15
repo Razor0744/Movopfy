@@ -12,6 +12,8 @@ import androidx.compose.material3.Slider
 import androidx.compose.material3.SliderDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -22,14 +24,13 @@ import com.example.movopfy.common.extensions.formatMinSec
 @Composable
 fun BottomControls(
     modifier: Modifier = Modifier,
-    totalDuration: () -> Long,
-    currentTime: () -> Long,
+    totalDuration: Long,
+    currentTime: Long,
     onSeekChanged: (timeMs: Float) -> Unit,
     onFullScreenClick: () -> Unit
 ) {
-    val duration = remember(totalDuration()) { totalDuration() }
-
-    val videoTime = remember(currentTime()) { currentTime() }
+    val duration by remember(totalDuration) { mutableLongStateOf(totalDuration) }
+    val videoTime by remember(currentTime) { mutableLongStateOf(currentTime) }
 
     Column(modifier = modifier.padding(bottom = 32.dp)) {
         Slider(

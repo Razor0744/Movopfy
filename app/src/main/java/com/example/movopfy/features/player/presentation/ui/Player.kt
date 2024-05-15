@@ -72,9 +72,11 @@ fun Player(
         }
     }
 
-    exoPlayer.apply {
-        setMediaItem(MediaItem.fromUri(url))
-        prepare()
+    LaunchedEffect(url) {
+        exoPlayer.apply {
+            setMediaItem(MediaItem.fromUri(url))
+            prepare()
+        }
     }
 
     AndroidView(
@@ -148,7 +150,7 @@ fun Player(
     }
 
     CustomControls(
-        isPlaying = { isPlaying },
+        isPlaying = isPlaying,
         onPreviousClick = { if (currentEpisode != 0) currentEpisode -= 1 },
         onReplayClick = {
             val seekReplay = exoPlayer.currentPosition - SEEK_NUMBER
@@ -171,10 +173,10 @@ fun Player(
             else exoPlayer.seekTo(exoPlayer.duration)
         },
         onNextClick = { if (currentEpisode != mapToAnilibriaEpisodesList(title?.player?.list).size - 1) currentEpisode += 1 },
-        totalDuration = { totalDuration },
-        currentTime = { currentTime },
+        totalDuration = totalDuration,
+        currentTime = currentTime,
         onSeekChanged = { timeMs: Float -> exoPlayer.seekTo(timeMs.toLong()) },
-        isVisible = { isVisible },
+        isVisible = isVisible,
         onFullScreenClick = {
             if (!viewModel.isFullScreen) {
                 context.setLandscape()
