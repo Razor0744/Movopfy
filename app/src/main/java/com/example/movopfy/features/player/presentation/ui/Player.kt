@@ -1,6 +1,7 @@
 package com.example.movopfy.features.player.presentation.ui
 
 import android.annotation.SuppressLint
+import android.util.Log
 import androidx.annotation.OptIn
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -9,7 +10,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -28,13 +28,10 @@ import androidx.media3.common.util.UnstableApi
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.ui.PlayerView
 import com.example.movopfy.common.extensions.findActivity
-import com.example.movopfy.common.extensions.getUrl
 import com.example.movopfy.common.extensions.setLandscape
 import com.example.movopfy.common.extensions.setPortrait
-import com.example.movopfy.common.mappers.anilibria.mapToAnilibriaEpisodesList
 import com.example.movopfy.features.player.domain.models.PlayerMark
 import com.example.movopfy.features.player.presentation.viewmodel.PlayerViewModel
-import com.example.movopfy.network.anilibria.models.AnilibriaTitle
 import kotlinx.coroutines.delay
 import kotlin.time.Duration.Companion.seconds
 
@@ -44,19 +41,16 @@ const val SEEK_NUMBER = 10000
 @OptIn(UnstableApi::class)
 @Composable
 fun Player(
-    title: AnilibriaTitle?,
+    url: String,
+    episodesCount: Int,
+    id: Int,
     episode: Int,
     lastTime: Long,
     viewModel: PlayerViewModel,
     modifier: Modifier = Modifier
 ) {
     val context = LocalContext.current
-
-    var currentEpisode by remember { mutableIntStateOf(episode) }
-
-    val url = remember(currentEpisode) {
-        mapToAnilibriaEpisodesList(title?.player?.list)[currentEpisode].hls?.getUrl() ?: ""
-    }
+    Log.i("play", "Player: $episode")
 
     var isPlaying by remember { mutableStateOf(true) }
 
@@ -128,7 +122,7 @@ fun Player(
         onDispose {
             viewModel.setCurrentTime(
                 playerMark = PlayerMark(
-                    id = title?.id,
+                    id = id,
                     currentTime = currentTime,
                     episodeId = episode
                 )
@@ -151,7 +145,12 @@ fun Player(
 
     CustomControls(
         isPlaying = isPlaying,
-        onPreviousClick = { if (currentEpisode != 0) currentEpisode -= 1 },
+        onPreviousClick = {
+            if (episode != 0) viewModel.getPlayerState(
+                id = id,
+                episode = episode - 1
+            )
+        },
         onReplayClick = {
             val seekReplay = exoPlayer.currentPosition - SEEK_NUMBER
 
@@ -172,7 +171,12 @@ fun Player(
             if (seekForward <= exoPlayer.duration) exoPlayer.seekTo(seekForward)
             else exoPlayer.seekTo(exoPlayer.duration)
         },
-        onNextClick = { if (currentEpisode != mapToAnilibriaEpisodesList(title?.player?.list).size - 1) currentEpisode += 1 },
+        onNextClick = {
+            if (episode != episodesCount) viewModel.getPlayerState(
+                id = id,
+                episode = episode + 1
+            )
+        },
         totalDuration = totalDuration,
         currentTime = currentTime,
         onSeekChanged = { timeMs: Float -> exoPlayer.seekTo(timeMs.toLong()) },

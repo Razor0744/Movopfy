@@ -3,9 +3,9 @@ package com.example.movopfy.features.player.presentation.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.movopfy.features.player.domain.models.PlayerMark
+import com.example.movopfy.features.player.domain.models.PlayerState
 import com.example.movopfy.features.player.domain.repository.AnilibriaRepository
 import com.example.movopfy.features.player.domain.repository.PlayerMarksRepository
-import com.example.movopfy.network.anilibria.models.AnilibriaTitle
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -21,16 +21,20 @@ class PlayerViewModel(
 
     var isFullScreen = false
 
-    fun getTitle(id: Int, episode: Int) {
+    fun getPlayerState(id: Int, episode: Int) {
         viewModelScope.launch {
-            val title = anilibriaRepository.getTitle(id = id)
+            val title = anilibriaRepository.getPlayerData(id = id, episode = episode)
 
             val currentTime = playerMarksRepository.getTimeById(id = id, episode = episode)
 
             _uiState.emit(
                 PlayerUiState.Loaded(
-                    title = title,
-                    currentTime = currentTime
+                    PlayerState(
+                        currentTime = currentTime,
+                        url = title.url,
+                        episodesCount = title.episodesCount,
+                        episode = episode
+                    )
                 )
             )
         }
@@ -47,8 +51,7 @@ class PlayerViewModel(
         data object Loading : PlayerUiState
 
         data class Loaded(
-            val title: AnilibriaTitle?,
-            val currentTime: Long
+            val playerState: PlayerState
         ) : PlayerUiState
     }
 }
