@@ -11,6 +11,8 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -19,24 +21,20 @@ import androidx.compose.ui.graphics.Color
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun CustomControls(
-    modifier: Modifier = Modifier,
-    isPlaying: () -> Boolean,
+    isPlaying: Boolean,
     onPreviousClick: () -> Unit,
     onReplayClick: () -> Unit,
     onPlayClick: () -> Unit,
     onForwardClick: () -> Unit,
     onNextClick: () -> Unit,
-    totalDuration: () -> Long,
-    currentTime: () -> Long,
+    totalDuration: Long,
+    currentTime: Long,
     onSeekChanged: (timeMs: Float) -> Unit,
-    isVisible: () -> Boolean,
-    onFullScreenClick: () -> Unit
+    isVisible: Boolean,
+    onFullScreenClick: () -> Unit,
+    modifier: Modifier = Modifier
 ) {
-    val isVisibleState = remember(isVisible()) { isVisible() }
-
-    val isPlayingState = remember(isPlaying()) { isPlaying() }
-
-    val currentTimeState = remember(currentTime()) { currentTime() }
+    val isVisibleState by remember(isVisible) { mutableStateOf(isVisible) }
 
     AnimatedVisibility(
         modifier = modifier,
@@ -53,7 +51,7 @@ fun CustomControls(
                 modifier = Modifier
                     .align(alignment = Alignment.Center)
                     .fillMaxWidth(),
-                isPlaying = { isPlayingState },
+                isPlaying = isPlaying,
                 onPreviousClick = { onPreviousClick() },
                 onReplayClick = { onReplayClick() },
                 onPlayClick = { onPlayClick() },
@@ -77,8 +75,8 @@ fun CustomControls(
                             }
                         )
                     ),
-                totalDuration = { totalDuration() },
-                currentTime = { currentTimeState },
+                totalDuration = totalDuration,
+                currentTime = currentTime,
                 onSeekChanged = { timeMs: Float -> onSeekChanged(timeMs) },
                 onFullScreenClick = { onFullScreenClick() })
 

@@ -7,6 +7,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -15,15 +17,15 @@ import com.example.movopfy.R
 
 @Composable
 fun CenterControls(
-    modifier: Modifier = Modifier,
-    isPlaying: () -> Boolean,
+    isPlaying: Boolean,
     onPreviousClick: () -> Unit,
     onReplayClick: () -> Unit,
     onPlayClick: () -> Unit,
     onForwardClick: () -> Unit,
-    onNextClick: () -> Unit
+    onNextClick: () -> Unit,
+    modifier: Modifier = Modifier
 ) {
-    val isPlayingState = remember(isPlaying) { isPlaying() }
+    val isPlayingState by remember(isPlaying) { mutableStateOf(isPlaying) }
 
     Row(
         modifier = modifier,
