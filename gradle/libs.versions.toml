@@ -28,6 +28,8 @@ navigation-ui-ktx = "2.7.7"
 retrofit = "2.9.0"
 retrofit2-kotlinx-serialization-converter = "1.0.0"
 room-runtime = "2.6.1"
+google-gms-google-services = "4.4.1"
+firebase-auth = "23.0.0"
 
 
 [libraries]
@@ -70,6 +72,7 @@ mockito-core = { module = "org.mockito:mockito-core", version.ref = "mockito-cor
 mockito-kotlin = { module = "org.mockito.kotlin:mockito-kotlin", version.ref = "mockito-kotlin" }
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 retrofit2-kotlinx-serialization-converter = { module = "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter", version.ref = "retrofit2-kotlinx-serialization-converter" }
+firebase-auth = { group = "com.google.firebase", name = "firebase-auth", version.ref = "firebase-auth" }
 
 
 [plugins]
@@ -77,3 +80,4 @@ android-application = { id = "com.android.application", version.ref = "agp" }
 jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 google-devtools-ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 jetbrains-kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kps" }
+google-gms-google-services = { id = "com.google.gms.google-services", version.ref = "google-gms-google-services" }

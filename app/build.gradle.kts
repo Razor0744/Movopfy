@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.google.devtools.ksp)
     alias(libs.plugins.jetbrains.kotlin.serialization)
+    alias(libs.plugins.google.gms.google.services)
 }
 
 android {
@@ -72,6 +73,7 @@ dependencies {
     implementation(libs.androidx.compose.graphics)
     implementation(libs.androidx.compose.preview)
     implementation(libs.androidx.compose.material3)
+    implementation(libs.firebase.auth)
     testImplementation(libs.junit)
     testImplementation(libs.mockito.core)
     testImplementation(libs.mockito.kotlin)
