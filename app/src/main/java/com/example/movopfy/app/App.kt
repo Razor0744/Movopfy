@@ -4,6 +4,7 @@ import android.app.Application
 import com.example.movopfy.datastore.koin.dataStoreModule
 import com.example.movopfy.database.koin.databaseModule
 import com.example.movopfy.features.anime.koin.animeModule
+import com.example.movopfy.features.auth.koin.authModule
 import com.example.movopfy.features.details.koin.detailsModule
 import com.example.movopfy.features.favourite.koin.favoritesModule
 import com.example.movopfy.features.home.koin.homeModule
@@ -35,7 +36,8 @@ class App : Application() {
                     favoritesModule,
                     databaseModule,
                     searchModule,
-                    dataStoreModule
+                    dataStoreModule,
+                    authModule
                 )
             )
         }

@@ -35,6 +35,7 @@ class MainActivity : ComponentActivity() {
                 showBottomBar = when (navBackStackEntry?.destination?.route) {
                     Screen.Details.route -> false
                     Screen.Player.route -> false
+                    Screen.Auth.route -> false
                     else -> true
                 }
 
