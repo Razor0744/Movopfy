@@ -1,7 +1,5 @@
 package com.example.movopfy.common.mappers.anilibria
 
-import android.util.Log
-import com.example.movopfy.common.constants.JSON_ERROR
 import com.example.movopfy.network.anilibria.models.AnilibriaEpisodesList
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonArray
@@ -17,7 +15,6 @@ fun mapToAnilibriaEpisodesList(jsonElement: JsonElement?): List<AnilibriaEpisode
         is JsonArray -> convertJsonArray(jsonArray = jsonElement)
 
         else -> {
-            Log.e(JSON_ERROR, "mapToAnilibriaEpisodesList: cannot convert Json")
             emptyList()
         }
     }
