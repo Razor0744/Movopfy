@@ -7,58 +7,50 @@ import com.example.movopfy.features.auth.domain.repository.FirebaseRepository
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.suspendCancellableCoroutine
+import kotlin.coroutines.resume
 
 class FirebaseRepositoryImpl : FirebaseRepository {
 
     private lateinit var auth: FirebaseAuth
 
-    private lateinit var createUserResult: CreateUserResult
-    private lateinit var signInUserResult: SignInUserResult
-
     override suspend fun createUser(
         email: String,
         password: String,
         activity: Activity
-    ): CreateUserResult =
-        withContext(Dispatchers.IO) {
-            auth = Firebase.auth
+    ): CreateUserResult = suspendCancellableCoroutine {
+        auth = Firebase.auth
 
-            auth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(activity) { task ->
-                    createUserResult = if (task.isSuccessful) {
-                        CreateUserResult.Success
-                    } else {
-                        CreateUserResult.Fail
-                    }
+        auth.createUserWithEmailAndPassword(email, password)
+            .addOnCompleteListener(activity) { task ->
+                if (task.isSuccessful) {
+                    it.resume(CreateUserResult.Success)
+                } else {
+                    it.resume(CreateUserResult.Fail(exception = task.exception?.message.toString()))
                 }
-
-            createUserResult
-        }
+            }
+    }
 
     override suspend fun signInUser(
         email: String,
         password: String,
         activity: Activity
-    ): SignInUserResult = withContext(Dispatchers.IO) {
+    ): SignInUserResult = suspendCancellableCoroutine {
         auth = Firebase.auth
 
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener(activity) { task ->
-                signInUserResult = if (task.isSuccessful) {
-                    SignInUserResult.Success
+                if (task.isSuccessful) {
+                    it.resume(SignInUserResult.Success)
                 } else {
-                    SignInUserResult.Fail
+                    it.resume(value = SignInUserResult.Fail(exception = task.exception?.message.toString()))
                 }
             }
-
-        signInUserResult
     }
 
-    override suspend fun checkUser(): Boolean = withContext(Dispatchers.Default) {
+    override fun checkUser(): Boolean {
         auth = Firebase.auth
 
-        auth.currentUser != null
+        return auth.currentUser != null
     }
 }

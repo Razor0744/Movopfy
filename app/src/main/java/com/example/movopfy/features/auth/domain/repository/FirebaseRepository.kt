@@ -10,5 +10,5 @@ interface FirebaseRepository {
 
     suspend fun signInUser(email: String, password: String, activity: Activity): SignInUserResult
 
-    suspend fun checkUser(): Boolean
+    fun checkUser(): Boolean
 }
