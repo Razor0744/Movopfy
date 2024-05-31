@@ -23,12 +23,13 @@
 
     <string name="placeholder_search_text">Search</string>
 
-    <string name="auth_welcome">Welcome</string>
+    <string name="auth_welcome_text">Welcome</string>
     <string name="auth_email_placeholder">Email</string>
     <string name="auth_password_placeholder">Password</string>
+    <string name="auth_name_placeholder">Name</string>
 
     <string name="create_user_button">Create account</string>
-    <string name="sign_in_user_button">SignIn</string>
+    <string name="sign_in_user_button">Sign In</string>
 
     <string name="create_user_text">Or Create Account</string>
     <string name="sign_in_user_text">Or Sign in Account</string>

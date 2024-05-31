@@ -14,7 +14,7 @@ fun WelcomeText(modifier: Modifier = Modifier) {
     Text(
         modifier = modifier
             .padding(top = 50.dp),
-        text = stringResource(id = R.string.auth_welcome),
+        text = stringResource(id = R.string.auth_welcome_text),
         style = MaterialTheme.typography.titleLarge,
         color = MaterialTheme.colorScheme.onPrimary
     )

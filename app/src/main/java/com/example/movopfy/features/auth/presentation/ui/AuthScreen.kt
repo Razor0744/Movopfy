@@ -2,29 +2,25 @@ package com.example.movopfy.features.auth.presentation.ui
 
 import android.app.Activity
 import android.widget.Toast
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.example.movopfy.R
 import com.example.movopfy.features.auth.presentation.viewModel.AuthViewModel
 import com.example.movopfy.uiComponents.navigation.Screen
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
+
+const val ANIMATION_DURATION = 500
 
 @Composable
 fun AuthScreen(
@@ -38,136 +34,85 @@ fun AuthScreen(
 
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
+    var name by remember { mutableStateOf("") }
 
     Surface(modifier = modifier) {
         when (val state = uiState) {
-            is AuthViewModel.AuthUiState.CheckingUser -> {
-                viewModel.checkUser()
-            }
-
-            is AuthViewModel.AuthUiState.HasUser -> {
-                navController.navigate(Screen.Home.route)
-            }
-
             is AuthViewModel.AuthUiState.SignInUser -> {
-                if (state.toastMessage.isNotEmpty())
-                    Toast.makeText(activity, state.toastMessage, Toast.LENGTH_LONG).show()
-
-                Box(modifier = Modifier.fillMaxSize()) {
-                    Column(modifier = Modifier.fillMaxWidth()) {
-                        WelcomeText(modifier = Modifier.align(alignment = Alignment.CenterHorizontally))
-
-                        AuthTextField(
-                            modifier = Modifier.padding(top = 30.dp),
-                            value = email,
-                            onValueChange = { value ->
-                                email = value
-                            },
-                            placeHolder = { Text(text = stringResource(id = R.string.auth_email_placeholder)) })
-
-                        AuthTextField(
-                            modifier = Modifier.padding(top = 10.dp),
-                            value = password,
-                            onValueChange = { value ->
-                                password = value
-                            },
-                            placeHolder = { Text(text = stringResource(id = R.string.auth_password_placeholder)) })
-
-                        ChangeAuthOptionText(
-                            modifier = Modifier.align(alignment = Alignment.CenterHorizontally),
-                            text = stringResource(id = R.string.create_user_text),
-                            onClick = { viewModel.changeScreen(isLoginState = true) })
-                    }
-
-                    ButtonSignIn(
-                        modifier = Modifier
-                            .align(alignment = Alignment.BottomCenter),
-                        onClick = {
-                            viewModel.signInUser(
-                                email = email,
-                                password = password,
-                                activity = activity
-                            )
-                        },
-                        textButton = stringResource(id = R.string.sign_in_user_button)
-                    )
+                LaunchedEffect(key1 = state.toastMessage) {
+                    if (state.toastMessage.isNotEmpty())
+                        Toast.makeText(activity, state.toastMessage, Toast.LENGTH_LONG).show()
                 }
+
+                SignInUserUI(
+                    email = email,
+                    password = password,
+                    onEmailChange = { email = it },
+                    onPasswordChange = { password = it },
+                    changeAuthOptionClick = { viewModel.changeScreen(isLoginState = true) },
+                    signInButtonClick = {
+                        viewModel.signInUser(
+                            email = email,
+                            password = password,
+                            activity = activity
+                        )
+                    }
+                )
             }
 
             is AuthViewModel.AuthUiState.CreateUser -> {
-                if (state.toastMessage.isNotEmpty())
-                    Toast.makeText(activity, state.toastMessage, Toast.LENGTH_LONG).show()
-
-                Box(modifier = Modifier.fillMaxSize()) {
-                    Column(modifier = Modifier.fillMaxWidth()) {
-                        WelcomeText(modifier = Modifier.align(alignment = Alignment.CenterHorizontally))
-
-                        AuthTextField(
-                            modifier = Modifier.padding(top = 30.dp),
-                            value = email,
-                            onValueChange = { value ->
-                                email = value
-                            },
-                            placeHolder = { Text(text = stringResource(id = R.string.auth_email_placeholder)) })
-
-                        AuthTextField(
-                            modifier = Modifier.padding(top = 10.dp),
-                            value = password,
-                            onValueChange = { value ->
-                                password = value
-                            },
-                            placeHolder = { Text(text = stringResource(id = R.string.auth_password_placeholder)) })
-
-                        ChangeAuthOptionText(
-                            modifier = Modifier.align(alignment = Alignment.CenterHorizontally),
-                            text = stringResource(id = R.string.sign_in_user_text),
-                            onClick = { viewModel.changeScreen(isLoginState = false) })
-                    }
-
-                    ButtonSignIn(
-                        modifier = Modifier
-                            .align(alignment = Alignment.BottomCenter),
-                        onClick = {
-                            viewModel.createUser(
-                                email = email,
-                                password = password,
-                                activity = activity
-                            )
-                        },
-                        textButton = stringResource(id = R.string.create_user_button)
-                    )
+                LaunchedEffect(key1 = state.toastMessage) {
+                    if (state.toastMessage.isNotEmpty())
+                        Toast.makeText(activity, state.toastMessage, Toast.LENGTH_LONG).show()
                 }
+
+                var isAnimationVisible by remember { mutableStateOf(false) }
+                LaunchedEffect(Unit) {
+                    isAnimationVisible = true
+                }
+
+                val coroutineScope = rememberCoroutineScope()
+
+                CreateUserUI(
+                    email = email,
+                    password = password,
+                    name = name,
+                    onEmailChange = { email = it },
+                    onPasswordChange = { password = it },
+                    onNameChange = { name = it },
+                    changeAuthOptionClick = {
+                        coroutineScope.launch {
+                            isAnimationVisible = false
+
+                            delay(timeMillis = ANIMATION_DURATION.toLong())
+
+                            viewModel.changeScreen(isLoginState = false)
+                        }
+                    },
+                    createUserButtonClick = {
+                        viewModel.createUser(
+                            email = email,
+                            password = password,
+                            activity = activity
+                        )
+                    },
+                    isAnimationVisible = isAnimationVisible
+                )
             }
 
-            is AuthViewModel.AuthUiState.CreatingOrSignInUser -> {
-                Box(modifier = Modifier.fillMaxSize()) {
-                    Column(modifier = Modifier.fillMaxWidth()) {
-                        WelcomeText(modifier = Modifier.align(alignment = Alignment.CenterHorizontally))
+            is AuthViewModel.AuthUiState.CreatingUser -> {
+                CreatingUserUI(
+                    email = email,
+                    password = password,
+                    name = name
+                )
+            }
 
-                        AuthTextField(
-                            modifier = Modifier.padding(top = 30.dp),
-                            value = email,
-                            onValueChange = { value ->
-                                email = value
-                            },
-                            placeHolder = { Text(text = stringResource(id = R.string.auth_email_placeholder)) })
-
-                        AuthTextField(
-                            modifier = Modifier.padding(top = 10.dp),
-                            value = password,
-                            onValueChange = { value ->
-                                password = value
-                            },
-                            placeHolder = { Text(text = stringResource(id = R.string.auth_password_placeholder)) })
-                    }
-
-                    ButtonSignIn(
-                        modifier = Modifier
-                            .align(alignment = Alignment.BottomCenter),
-                        onClick = { },
-                        textButton = ""
-                    )
-                }
+            is AuthViewModel.AuthUiState.SigningInUser -> {
+                SigningInUserUI(
+                    email = email,
+                    password = password,
+                )
             }
 
             is AuthViewModel.AuthUiState.SuccessfulResult -> {

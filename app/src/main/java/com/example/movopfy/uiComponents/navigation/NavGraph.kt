@@ -1,11 +1,9 @@
 package com.example.movopfy.uiComponents.navigation
 
-import androidx.annotation.OptIn
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.media3.common.util.UnstableApi
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -19,13 +17,19 @@ import com.example.movopfy.features.home.presentation.ui.HomeScreen
 import com.example.movopfy.features.movies.presentation.ui.MoviesScreen
 import com.example.movopfy.features.player.presentation.ui.PlayerScreen
 import com.example.movopfy.features.search.presentation.ui.SearchScreen
+import com.example.movopfy.firebase.user.UserManager
 
-@OptIn(UnstableApi::class)
 @Composable
-fun SetupNavGraph(navController: NavHostController, paddingValues: PaddingValues) {
+fun SetupNavGraph(
+    navController: NavHostController,
+    paddingValues: PaddingValues,
+    userManager: UserManager
+) {
+    val startRoute = if (userManager.getCurrentUser() != null) Screen.Home.route else Screen.Auth.route
+
     NavHost(
         navController = navController,
-        startDestination = Screen.Auth.route
+        startDestination = startRoute
     ) {
         composable(route = Screen.Home.route) {
             HomeScreen(modifier = Modifier.padding(paddingValues), navController = navController)

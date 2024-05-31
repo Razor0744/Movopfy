@@ -11,6 +11,7 @@ import androidx.compose.runtime.setValue
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.example.movopfy.firebase.user.UserManager
 import com.example.movopfy.uiComponents.components.TopBar
 import com.example.movopfy.uiComponents.navigation.BottomNavItem
 import com.example.movopfy.uiComponents.navigation.BottomNavigationBar
@@ -49,6 +50,7 @@ class MainActivity : ComponentActivity() {
                 showTopBar = when (navBackStackEntry?.destination?.route) {
                     Screen.Player.route -> false
                     Screen.Search.route -> false
+                    Screen.Auth.route -> false
                     else -> true
                 }
 
@@ -70,7 +72,11 @@ class MainActivity : ComponentActivity() {
                         }
                     }
                 ) { padding ->
-                    SetupNavGraph(navController = navController, paddingValues = padding)
+                    SetupNavGraph(
+                        navController = navController,
+                        paddingValues = padding,
+                        userManager = UserManager()
+                    )
                 }
             }
         }

@@ -13,12 +13,12 @@ import kotlinx.coroutines.launch
 
 class AuthViewModel(private val firebaseRepository: FirebaseRepository) : ViewModel() {
 
-    private var _uiState = MutableStateFlow<AuthUiState>(AuthUiState.CheckingUser)
+    private var _uiState = MutableStateFlow<AuthUiState>(AuthUiState.SignInUser(toastMessage = ""))
     val uiState: StateFlow<AuthUiState> = _uiState.asStateFlow()
 
     fun createUser(email: String, password: String, activity: Activity) {
         viewModelScope.launch {
-            _uiState.emit(AuthUiState.CreatingOrSignInUser)
+            _uiState.emit(AuthUiState.CreatingUser)
 
             val result = firebaseRepository.createUser(
                 email = email,
@@ -40,7 +40,7 @@ class AuthViewModel(private val firebaseRepository: FirebaseRepository) : ViewMo
 
     fun signInUser(email: String, password: String, activity: Activity) {
         viewModelScope.launch {
-            _uiState.emit(AuthUiState.CreatingOrSignInUser)
+            _uiState.emit(AuthUiState.SigningInUser)
 
             val result = firebaseRepository.signInUser(
                 email = email,
@@ -57,7 +57,6 @@ class AuthViewModel(private val firebaseRepository: FirebaseRepository) : ViewMo
                     _uiState.emit(AuthUiState.SignInUser(toastMessage = result.exception))
                 }
             }
-
         }
     }
 
@@ -68,27 +67,15 @@ class AuthViewModel(private val firebaseRepository: FirebaseRepository) : ViewMo
         }
     }
 
-    fun checkUser() {
-        viewModelScope.launch {
-            if (firebaseRepository.checkUser()) {
-                _uiState.emit(AuthUiState.HasUser)
-            } else {
-                _uiState.emit(AuthUiState.SignInUser(toastMessage = ""))
-            }
-        }
-    }
-
     sealed interface AuthUiState {
-
-        data object CheckingUser : AuthUiState
-
-        data object HasUser : AuthUiState
 
         data class CreateUser(val toastMessage: String) : AuthUiState
 
         data class SignInUser(val toastMessage: String) : AuthUiState
 
-        data object CreatingOrSignInUser : AuthUiState
+        data object CreatingUser : AuthUiState
+
+        data object SigningInUser : AuthUiState
 
         data object SuccessfulResult : AuthUiState
     }
