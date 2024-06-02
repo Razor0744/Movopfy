@@ -44,7 +44,7 @@ fun AuthScreen(
                         Toast.makeText(activity, state.toastMessage, Toast.LENGTH_LONG).show()
                 }
 
-                SignInUserUI(
+                SignInUserScreen(
                     email = email,
                     password = password,
                     onEmailChange = { email = it },
@@ -73,7 +73,7 @@ fun AuthScreen(
 
                 val coroutineScope = rememberCoroutineScope()
 
-                CreateUserUI(
+                CreateUserScreen(
                     email = email,
                     password = password,
                     name = name,
@@ -101,7 +101,7 @@ fun AuthScreen(
             }
 
             is AuthViewModel.AuthUiState.CreatingUser -> {
-                CreatingUserUI(
+                CreatingUserScreen(
                     email = email,
                     password = password,
                     name = name
@@ -109,7 +109,7 @@ fun AuthScreen(
             }
 
             is AuthViewModel.AuthUiState.SigningInUser -> {
-                SigningInUserUI(
+                SigningInUserScreen(
                     email = email,
                     password = password,
                 )

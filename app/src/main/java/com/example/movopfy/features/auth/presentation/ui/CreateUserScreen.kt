@@ -18,7 +18,7 @@ import androidx.compose.ui.unit.dp
 import com.example.movopfy.R
 
 @Composable
-fun CreateUserUI(
+fun CreateUserScreen(
     email: String,
     password: String,
     name: String,

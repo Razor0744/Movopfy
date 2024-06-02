@@ -14,7 +14,7 @@ import androidx.compose.ui.unit.dp
 import com.example.movopfy.R
 
 @Composable
-fun SignInUserUI(
+fun SignInUserScreen(
     email: String,
     password: String,
     onEmailChange: (text: String) -> Unit,
