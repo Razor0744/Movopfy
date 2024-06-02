@@ -9,6 +9,4 @@ interface FirebaseRepository {
     suspend fun createUser(email: String, password: String, activity: Activity): CreateUserResult
 
     suspend fun signInUser(email: String, password: String, activity: Activity): SignInUserResult
-
-    fun checkUser(): Boolean
 }

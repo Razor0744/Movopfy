@@ -13,6 +13,6 @@ val authModule = module {
     }
 
     single<FirebaseRepository> {
-        FirebaseRepositoryImpl()
+        FirebaseRepositoryImpl(userManager = get())
     }
 }
