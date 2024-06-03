@@ -63,7 +63,11 @@ class MainActivity : ComponentActivity() {
                     bottomBar = {
                         if (showBottomBar) {
                             BottomNavigationBar(
-                                items = listOf(BottomNavItem.Home, BottomNavItem.Favorites),
+                                items = listOf(
+                                    BottomNavItem.Home,
+                                    BottomNavItem.Favorites,
+                                    BottomNavItem.Settings
+                                ),
                                 navController = navController,
                                 onItemClick = {
                                     navController.navigate(it.route)

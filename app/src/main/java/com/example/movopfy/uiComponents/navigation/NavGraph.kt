@@ -17,6 +17,7 @@ import com.example.movopfy.features.home.presentation.ui.HomeScreen
 import com.example.movopfy.features.movies.presentation.ui.MoviesScreen
 import com.example.movopfy.features.player.presentation.ui.PlayerScreen
 import com.example.movopfy.features.search.presentation.ui.SearchScreen
+import com.example.movopfy.features.settings.presentation.ui.SettingsScreen
 import com.example.movopfy.firebase.user.UserManager
 
 @Composable
@@ -25,7 +26,8 @@ fun SetupNavGraph(
     paddingValues: PaddingValues,
     userManager: UserManager
 ) {
-    val startRoute = if (userManager.getCurrentUser() != null) Screen.Home.route else Screen.Auth.route
+    val startRoute =
+        if (userManager.getCurrentUser() != null) Screen.Home.route else Screen.Auth.route
 
     NavHost(
         navController = navController,
@@ -96,6 +98,14 @@ fun SetupNavGraph(
         composable(route = Screen.Auth.route) {
             AuthScreen(
                 modifier = Modifier.padding(paddingValues = paddingValues),
+                navController = navController
+            )
+        }
+
+        composable(route = Screen.Settings.route) {
+            SettingsScreen(
+                modifier = Modifier.padding(paddingValues = paddingValues),
+                userManager = userManager,
                 navController = navController
             )
         }

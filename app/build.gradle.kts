@@ -74,6 +74,7 @@ dependencies {
     implementation(libs.androidx.compose.preview)
     implementation(libs.androidx.compose.material3)
     implementation(libs.firebase.auth)
+    implementation(libs.firebase.firestore.ktx)
     testImplementation(libs.junit)
     testImplementation(libs.mockito.core)
     testImplementation(libs.mockito.kotlin)

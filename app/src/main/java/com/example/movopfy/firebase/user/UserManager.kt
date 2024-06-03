@@ -13,4 +13,6 @@ class UserManager {
     }
 
     fun getFirebaseAuth() = auth
+
+    fun logOut() = auth.signOut()
 }

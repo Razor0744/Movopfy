@@ -39,4 +39,6 @@ sealed class Screen(val route: String) {
     data object Search : Screen(route = "search_screen")
 
     data object Auth : Screen(route = "auth_screen")
+
+    data object Settings: Screen(route = "settings_screen")
 }

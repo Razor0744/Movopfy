@@ -33,4 +33,7 @@
 
     <string name="create_user_text">Or Create Account</string>
     <string name="sign_in_user_text">Or Sign in Account</string>
+
+    <string name="setting_text">Settings</string>
+    <string name="login_out_button">Log out</string>
 </resources>
