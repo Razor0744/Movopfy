@@ -15,4 +15,6 @@ class UserManager {
     fun getFirebaseAuth() = auth
 
     fun logOut() = auth.signOut()
+
+    fun getUID(): String = auth.uid ?: ""
 }
