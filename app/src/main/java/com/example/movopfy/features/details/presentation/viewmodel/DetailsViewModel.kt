@@ -2,6 +2,8 @@ package com.example.movopfy.features.details.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.movopfy.common.constants.API_CATEGORY_ANILIBRIA
+import com.example.movopfy.common.constants.API_CATEGORY_KINOPOISK
 import com.example.movopfy.common.extensions.date
 import com.example.movopfy.database.models.favourite.FavouriteModel
 import com.example.movopfy.features.details.domain.models.DetailsState
@@ -67,12 +69,22 @@ class DetailsViewModel(
     fun addToFavourite(favouriteModel: FavouriteModel) {
         viewModelScope.launch {
             favouriteRepository.addToFavourite(favouriteModel = favouriteModel)
+
+            when (favouriteModel.category) {
+                API_CATEGORY_ANILIBRIA -> getTitleAnilibria(id = favouriteModel.titleId)
+                API_CATEGORY_KINOPOISK -> getTitleKinopoisk(id = favouriteModel.titleId)
+            }
         }
     }
 
     fun removeFromFavourite(favouriteModel: FavouriteModel) {
         viewModelScope.launch {
             favouriteRepository.removeFromFavourite(favouriteModel = favouriteModel)
+
+            when (favouriteModel.category) {
+                API_CATEGORY_ANILIBRIA -> getTitleAnilibria(id = favouriteModel.titleId)
+                API_CATEGORY_KINOPOISK -> getTitleKinopoisk(id = favouriteModel.titleId)
+            }
         }
     }
 

@@ -13,9 +13,9 @@ import com.example.movopfy.uiComponents.theme.Yellow
 
 @Composable
 fun FavouriteIcon(
-    modifier: Modifier = Modifier,
     isFavorite: Boolean,
-    onIconClick: () -> Unit
+    onIconClick: () -> Unit,
+    modifier: Modifier = Modifier
 ) {
     if (!isFavorite) {
         Icon(

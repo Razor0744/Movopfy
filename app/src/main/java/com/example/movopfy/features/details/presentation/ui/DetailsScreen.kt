@@ -33,10 +33,10 @@ import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun DetailsScreen(
-    viewModel: DetailsViewModel = koinViewModel(),
     id: Int,
     category: String,
-    navController: NavController
+    navController: NavController,
+    viewModel: DetailsViewModel = koinViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsState()
 
@@ -102,31 +102,22 @@ fun DetailsScreen(
                                         )
                                     ),
                                 isFavorite = state.detailsState?.favouriteModel != null,
-                            ) {
-                                if (state.detailsState?.favouriteModel != null) {
-                                    viewModel.removeFromFavourite(
-                                        favouriteModel = state.detailsState.favouriteModel
-                                    )
-
-                                    when (category) {
-                                        API_CATEGORY_ANILIBRIA -> viewModel.getTitleAnilibria(id = id)
-                                        API_CATEGORY_KINOPOISK -> viewModel.getTitleKinopoisk(id = id)
-                                    }
-                                } else {
-                                    viewModel.addToFavourite(
-                                        favouriteModel = FavouriteModel(
-                                            titleId = id,
-                                            url = state.detailsState?.detailsData?.url ?: "",
-                                            category = category
+                                onIconClick = {
+                                    if (state.detailsState?.favouriteModel != null) {
+                                        viewModel.removeFromFavourite(
+                                            favouriteModel = state.detailsState.favouriteModel
                                         )
-                                    )
-
-                                    when (category) {
-                                        API_CATEGORY_ANILIBRIA -> viewModel.getTitleAnilibria(id = id)
-                                        API_CATEGORY_KINOPOISK -> viewModel.getTitleKinopoisk(id = id)
+                                    } else {
+                                        viewModel.addToFavourite(
+                                            favouriteModel = FavouriteModel(
+                                                titleId = id,
+                                                url = state.detailsState?.detailsData?.url ?: "",
+                                                category = category
+                                            )
+                                        )
                                     }
                                 }
-                            }
+                            )
                         }
                     }
 
