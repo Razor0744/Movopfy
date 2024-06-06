@@ -62,6 +62,8 @@ class SplashViewModel(
                                 )
                             }
 
+                        firestoreFavourites.deleteAllDocumentsAnilibria()
+                        firestoreFavourites.deleteAllDocumentsKinopoisk()
                         firestoreFavourites.setFavourites(favourites = fireStoreFavouritesData)
                     }
 

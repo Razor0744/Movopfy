@@ -136,4 +136,38 @@ class FirestoreFavourites(private val userManager: UserManager) {
                 it.resume(emptyList())
             }
         }
+
+    suspend fun deleteAllDocumentsAnilibria(): Boolean = suspendCancellableCoroutine {
+        db
+            .collection(userManager.getUID())
+            .document(FAVOURITES_DOCUMENT)
+            .collection(API_CATEGORY_ANILIBRIA)
+            .get()
+            .addOnSuccessListener { documents ->
+                for (document in documents) {
+                    document.reference.delete()
+                }
+                it.resume(true)
+            }
+            .addOnFailureListener { _ ->
+                it.resume(false)
+            }
+    }
+
+    suspend fun deleteAllDocumentsKinopoisk(): Boolean = suspendCancellableCoroutine {
+        db
+            .collection(userManager.getUID())
+            .document(FAVOURITES_DOCUMENT)
+            .collection(API_CATEGORY_KINOPOISK)
+            .get()
+            .addOnSuccessListener { documents ->
+                for (document in documents) {
+                    document.reference.delete()
+                }
+                it.resume(true)
+            }
+            .addOnFailureListener { _ ->
+                it.resume(false)
+            }
+    }
 }
