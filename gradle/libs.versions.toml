@@ -32,6 +32,7 @@ room-runtime = "2.6.1"
 google-gms-google-services = "4.4.2"
 firebase-auth = "23.0.0"
 firebase-firestore-ktx = "25.0.0"
+work-runtime-ktx = "2.9.0"
 
 
 [libraries]
@@ -54,6 +55,7 @@ androidx-navigation-compose = { module = "androidx.navigation:navigation-compose
 androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "room-runtime" }
 androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "room-runtime" }
 androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "room-runtime" }
+androidx-work-runtime-ktx = { module = "androidx.work:work-runtime-ktx", version.ref = "work-runtime-ktx" }
 coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coil" }
 firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebase-bom" }
 google-firebase-auth = { module = "com.google.firebase:firebase-auth" }

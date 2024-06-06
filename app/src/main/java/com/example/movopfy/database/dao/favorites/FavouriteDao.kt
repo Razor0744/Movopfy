@@ -11,14 +11,17 @@ import com.example.movopfy.database.models.favourite.FavouriteModel
 interface FavouriteDao {
 
     @Query("SELECT * FROM favourite")
-    fun getFavourite(): List<FavouriteModel>
+    fun getFavourites(): List<FavouriteModel>
 
     @Query("SELECT * FROM favourite WHERE title_id = :id")
     fun getFavouriteById(id: Int): FavouriteModel?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun addToFavourite(favouriteModel: FavouriteModel)
+    fun addToFavourite(vararg favouriteModel: FavouriteModel)
 
     @Delete
     fun removeFromFavourite(favouriteModel: FavouriteModel)
+
+    @Query("DELETE FROM favourite")
+    fun deleteAllFavourites()
 }

@@ -16,4 +16,7 @@ fun Calendar.currentDay(): Int {
 
 @SuppressLint("SimpleDateFormat")
 fun Calendar.date(): Int =
-    SimpleDateFormat("ddMyyyy").format(this.time).toInt()
+    SimpleDateFormat("yyyyMdd").format(this.time).toInt()
+
+@SuppressLint("SimpleDateFormat")
+fun Calendar.dateWithTime(): Int = SimpleDateFormat("yyMddHHmm").format(this.time).toInt()

@@ -110,4 +110,5 @@ dependencies {
     implementation(libs.androidx.core.splashscreen)
     implementation(platform(libs.firebase.bom))
     implementation(libs.google.firebase.auth)
+    implementation (libs.androidx.work.runtime.ktx)
 }

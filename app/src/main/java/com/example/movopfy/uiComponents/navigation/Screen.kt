@@ -40,5 +40,7 @@ sealed class Screen(val route: String) {
 
     data object Auth : Screen(route = "auth_screen")
 
-    data object Settings: Screen(route = "settings_screen")
+    data object Settings : Screen(route = "settings_screen")
+
+    data object Splash : Screen(route = "splash_screen")
 }
