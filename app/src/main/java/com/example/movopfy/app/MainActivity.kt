@@ -1,6 +1,7 @@
 package com.example.movopfy.app
 
 import android.os.Bundle
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.material3.Scaffold
@@ -8,6 +9,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
@@ -23,8 +25,16 @@ class MainActivity : ComponentActivity() {
 
     private lateinit var navController: NavHostController
 
+    private val viewModel by viewModel<MainViewModel>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        installSplashScreen().apply {
+            setKeepOnScreenCondition {
+                viewModel.uiState.value
+            }
+        }
+
         setContent {
             MovopfyTheme {
                 navController = rememberNavController()

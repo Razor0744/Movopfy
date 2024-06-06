@@ -1,4 +1,4 @@
-package com.example.movopfy.features.splash.presentation.viewModel
+package com.example.movopfy.app
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -17,15 +17,14 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import java.util.Calendar
 
-class SplashViewModel(
+class MainViewModel(
     private val firestoreFavourites: FirestoreFavourites,
     private val favouriteDao: FavouriteDao,
     private val appSettings: AppSettings,
-) :
-    ViewModel() {
+) : ViewModel() {
 
-    private val _uiState = MutableStateFlow<SplashUiState>(SplashUiState.Synchronization)
-    val uiState: StateFlow<SplashUiState> = _uiState.asStateFlow()
+    private val _uiState = MutableStateFlow(true)
+    val uiState: StateFlow<Boolean> = _uiState.asStateFlow()
 
     init {
         viewModelScope.launch(Dispatchers.IO) {
@@ -73,20 +72,13 @@ class SplashViewModel(
                         value = Calendar.getInstance().dateWithTime()
                     )
 
-                    _uiState.emit(SplashUiState.Synchronized)
+                    _uiState.value = false
                 }
 
                 is FirestoreDataNewerResult.Fail -> {
-                    _uiState.emit(SplashUiState.Synchronized)
+                    _uiState.value = false
                 }
             }
         }
-    }
-
-    sealed interface SplashUiState {
-
-        data object Synchronization : SplashUiState
-
-        data object Synchronized : SplashUiState
     }
 }
