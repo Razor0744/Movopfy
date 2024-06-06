@@ -10,7 +10,7 @@ class FavouriteRepositoryImpl(private val favouriteDao: FavouriteDao) : Favourit
 
     override suspend fun getFavourites(): List<FavouriteModel> =
         withContext(Dispatchers.IO) {
-            favouriteDao.getFavourite()
+            favouriteDao.getFavourites()
         }
 
     override suspend fun removeFromFavourite(favouriteModel: FavouriteModel) =
