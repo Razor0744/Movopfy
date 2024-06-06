@@ -9,7 +9,6 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import com.example.movopfy.features.splash.presentation.ui.SplashScreen
 import com.example.movopfy.features.anime.presentation.ui.AnimeScreen
 import com.example.movopfy.features.auth.presentation.ui.AuthScreen
 import com.example.movopfy.features.details.presentation.ui.DetailsScreen
@@ -27,9 +26,11 @@ fun SetupNavGraph(
     paddingValues: PaddingValues,
     userManager: UserManager
 ) {
+    val startDestination =
+        if (userManager.getCurrentUser() != null) Screen.Home.route else Screen.Auth.route
     NavHost(
         navController = navController,
-        startDestination = Screen.Splash.route
+        startDestination = startDestination
     ) {
         composable(route = Screen.Home.route) {
             HomeScreen(modifier = Modifier.padding(paddingValues), navController = navController)
@@ -105,14 +106,6 @@ fun SetupNavGraph(
                 modifier = Modifier.padding(paddingValues = paddingValues),
                 userManager = userManager,
                 navController = navController
-            )
-        }
-
-        composable(route = Screen.Splash.route) {
-            SplashScreen(
-                modifier = Modifier.padding(paddingValues = paddingValues),
-                navController = navController,
-                userManager = userManager
             )
         }
     }
