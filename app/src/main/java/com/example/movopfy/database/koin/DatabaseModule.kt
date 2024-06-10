@@ -4,7 +4,6 @@ import androidx.room.Room
 import com.example.movopfy.database.dao.anime.AnimeSchedulesDao
 import com.example.movopfy.database.dao.details.DetailsDao
 import com.example.movopfy.database.dao.favorites.FavouriteDao
-import com.example.movopfy.database.dao.home.AnimeSeriesDao
 import com.example.movopfy.database.dao.home.KinopoiskDocsDao
 import com.example.movopfy.database.dao.player.PlayerMarksDao
 import com.example.movopfy.database.dao.search.RecentDao
@@ -21,10 +20,6 @@ val databaseModule = module {
         )
             .fallbackToDestructiveMigration()
             .build()
-    }
-
-    single<AnimeSeriesDao> {
-        get<AppDatabase>().animeSeriesDao()
     }
 
     single<KinopoiskDocsDao> {

@@ -3,9 +3,9 @@ package com.example.movopfy.features.home.data.repository
 import com.example.movopfy.common.constants.PreferencesKeys
 import com.example.movopfy.common.mappers.anilibria.mapToAnimeSeriesList
 import com.example.movopfy.common.models.AnimeSeries
+import com.example.movopfy.database.dao.anime.AnimeSchedulesDao
+import com.example.movopfy.database.models.anime.AnimeSchedules
 import com.example.movopfy.datastore.preferences.AppSettings
-import com.example.movopfy.database.dao.home.AnimeSeriesDao
-import com.example.movopfy.database.models.home.Anime
 import com.example.movopfy.features.home.domain.repository.AnilibriaRepository
 import com.example.movopfy.network.anilibria.service.AnilibriaService
 import kotlinx.coroutines.Dispatchers
@@ -15,7 +15,7 @@ import kotlinx.coroutines.withContext
 
 class AnilibriaRepositoryImpl(
     private val anilibriaService: AnilibriaService,
-    private val animeSeriesDao: AnimeSeriesDao,
+    private val animeSchedulesDao: AnimeSchedulesDao,
     private val appSettings: AppSettings
 ) : AnilibriaRepository {
 
@@ -36,7 +36,7 @@ class AnilibriaRepositoryImpl(
                     }
 
                     animeSeriesList.isEmpty() -> {
-                        animeSeriesDao.getAnimeSeriesList(currentDay = currentDay)
+                        animeSchedulesDao.getAnimeListByDay(currentDay = currentDay)
                     }
 
                     else -> emptyList()
@@ -65,8 +65,8 @@ class AnilibriaRepositoryImpl(
                                 mapToAnimeSeriesList(anilibriaSchedule = it[currentDay])
                                     ?: emptyList()
 
-                            animeSeriesDao.addAnimeSeries(animeSeries = animeSeriesList.map { item ->
-                                Anime(
+                            animeSchedulesDao.addAnimeSchedules(animeSchedules = animeSeriesList.map { item ->
+                                AnimeSchedules(
                                     id = item.id,
                                     pictureUrl = item.pictureUrl,
                                     day = currentDay

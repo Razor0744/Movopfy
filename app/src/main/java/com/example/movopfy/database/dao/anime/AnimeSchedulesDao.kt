@@ -2,6 +2,7 @@ package com.example.movopfy.database.dao.anime
 
 import androidx.room.Dao
 import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.example.movopfy.database.models.anime.AnimeSchedules
 
@@ -11,6 +12,9 @@ interface AnimeSchedulesDao {
     @Query("SELECT * FROM anime_schedules")
     fun getAnimeSchedules(): List<AnimeSchedules>
 
-    @Insert
+    @Query("SELECT * FROM anime_schedules WHERE day = :currentDay")
+    fun getAnimeListByDay(currentDay: Int): List<AnimeSchedules>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun addAnimeSchedules(vararg animeSchedules: AnimeSchedules)
 }
