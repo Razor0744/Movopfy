@@ -3,9 +3,9 @@ package com.example.movopfy.features.home.data.repository
 import com.example.movopfy.common.constants.PreferencesKeys
 import com.example.movopfy.common.mappers.anilibria.mapToAnimeSeriesList
 import com.example.movopfy.common.models.AnimeSeries
+import com.example.movopfy.database.dao.anime.AnimeSchedulesDao
+import com.example.movopfy.database.models.anime.AnimeSchedules
 import com.example.movopfy.datastore.preferences.AppSettings
-import com.example.movopfy.database.dao.home.AnimeSeriesDao
-import com.example.movopfy.database.models.home.Anime
 import com.example.movopfy.network.anilibria.models.AnilibriaSchedule
 import com.example.movopfy.network.anilibria.models.AnilibriaTitle
 import com.example.movopfy.network.anilibria.service.AnilibriaService
@@ -22,27 +22,27 @@ import retrofit2.Response
 class AnilibriaRepositoryImplTest {
 
     private val anilibriaService = mock<AnilibriaService>()
-    private val animeSeriesDao = mock<AnimeSeriesDao>()
+    private val animeSchedulesDao = mock<AnimeSchedulesDao>()
     private val appSettings = mock<AppSettings>()
 
     @Test
     fun shouldReturnLocalData() = runBlocking {
-        val localData = arrayListOf(Anime(id = 0, pictureUrl = "nice", day = 1))
+        val localData = arrayListOf(AnimeSchedules(id = 0, pictureUrl = "nice", day = 1))
 
         val repositoryImpl = AnilibriaRepositoryImpl(
             anilibriaService = anilibriaService,
-            animeSeriesDao = animeSeriesDao,
+            animeSchedulesDao = animeSchedulesDao,
             appSettings = appSettings
         )
 
-        `when`(animeSeriesDao.getAnimeSeriesList(currentDay = anyInt())).thenReturn(localData)
+        `when`(animeSchedulesDao.getAnimeListByDay(currentDay = anyInt())).thenReturn(localData)
         `when`(appSettings.getInt(key = PreferencesKeys.HOME_DATE)).thenReturn(1)
 
         val actual = repositoryImpl.getAnimeSeriesList(currentDay = 1, dateTime = 1)
 
         val expected = localData.map { AnimeSeries(id = it.id, pictureUrl = it.pictureUrl) }
 
-        verify(animeSeriesDao).getAnimeSeriesList(currentDay = 1)
+        verify(animeSchedulesDao).getAnimeListByDay(currentDay = 1)
         verifyNoInteractions(anilibriaService)
         verify(appSettings).getInt(PreferencesKeys.HOME_DATE)
 
@@ -55,7 +55,7 @@ class AnilibriaRepositoryImplTest {
 
         val repositoryImpl = AnilibriaRepositoryImpl(
             anilibriaService = anilibriaService,
-            animeSeriesDao = animeSeriesDao,
+            animeSchedulesDao = animeSchedulesDao,
             appSettings = appSettings
         )
 
@@ -68,7 +68,7 @@ class AnilibriaRepositoryImplTest {
 
         verify(anilibriaService).getSchedule()
         verify(appSettings).getInt(PreferencesKeys.HOME_DATE)
-        verify(animeSeriesDao).addAnimeSeries()
+        verify(animeSchedulesDao).addAnimeSchedules()
 
         assertEquals(expected, actual)
     }
@@ -93,11 +93,11 @@ class AnilibriaRepositoryImplTest {
 
         val repositoryImpl = AnilibriaRepositoryImpl(
             anilibriaService = anilibriaService,
-            animeSeriesDao = animeSeriesDao,
+            animeSchedulesDao = animeSchedulesDao,
             appSettings = appSettings
         )
 
-        `when`(animeSeriesDao.getAnimeSeriesList(currentDay = anyInt())).thenReturn(emptyList())
+        `when`(animeSchedulesDao.getAnimeListByDay(currentDay = anyInt())).thenReturn(emptyList())
         `when`(anilibriaService.getSchedule()).thenReturn(Response.success(responseData))
         `when`(appSettings.getInt(key = PreferencesKeys.HOME_DATE)).thenReturn(0)
 
