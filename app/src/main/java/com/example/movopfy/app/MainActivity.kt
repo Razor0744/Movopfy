@@ -20,6 +20,7 @@ import com.example.movopfy.uiComponents.navigation.BottomNavigationBar
 import com.example.movopfy.uiComponents.navigation.Screen
 import com.example.movopfy.uiComponents.navigation.SetupNavGraph
 import com.example.movopfy.uiComponents.theme.MovopfyTheme
+import com.example.movopfy.workManager.AnimeWorkUpdate
 
 class MainActivity : ComponentActivity() {
 
@@ -34,6 +35,9 @@ class MainActivity : ComponentActivity() {
                 viewModel.uiState.value
             }
         }
+
+
+        AnimeWorkUpdate().startWork(context = this)
 
         setContent {
             MovopfyTheme {
