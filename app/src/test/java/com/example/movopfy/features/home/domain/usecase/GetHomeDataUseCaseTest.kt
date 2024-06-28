@@ -1,6 +1,6 @@
 package com.example.movopfy.features.home.domain.usecase
 
-import com.example.movopfy.common.models.AnimeSeries
+import com.example.common.models.AnimeSeries
 import com.example.movopfy.features.home.domain.models.HomeState
 import com.example.movopfy.features.home.domain.models.KinopoiskItem
 import com.example.movopfy.features.home.domain.repository.AnilibriaRepository
@@ -21,7 +21,7 @@ class GetHomeDataUseCaseTest {
 
     @Test
     fun shouldReturnHomeState() = runBlocking {
-        val animeList = listOf<AnimeSeries>()
+        val animeList = listOf<com.example.common.models.AnimeSeries>()
         val horrorList = listOf<KinopoiskItem>()
         val comedyList = listOf<KinopoiskItem>()
         val dramaList = listOf<KinopoiskItem>()

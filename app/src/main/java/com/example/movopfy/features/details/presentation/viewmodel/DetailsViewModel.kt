@@ -2,9 +2,9 @@ package com.example.movopfy.features.details.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.movopfy.common.constants.API_CATEGORY_ANILIBRIA
-import com.example.movopfy.common.constants.API_CATEGORY_KINOPOISK
-import com.example.movopfy.common.extensions.date
+import com.example.common.constants.API_CATEGORY_ANILIBRIA
+import com.example.common.constants.API_CATEGORY_KINOPOISK
+import com.example.common.extensions.date
 import com.example.movopfy.database.models.favourite.FavouriteModel
 import com.example.movopfy.features.details.domain.models.DetailsState
 import com.example.movopfy.features.details.domain.repository.AnilibriaRepository
@@ -71,8 +71,8 @@ class DetailsViewModel(
             favouriteRepository.addToFavourite(favouriteModel = favouriteModel)
 
             when (favouriteModel.category) {
-                API_CATEGORY_ANILIBRIA -> getTitleAnilibria(id = favouriteModel.titleId)
-                API_CATEGORY_KINOPOISK -> getTitleKinopoisk(id = favouriteModel.titleId)
+                com.example.common.constants.API_CATEGORY_ANILIBRIA -> getTitleAnilibria(id = favouriteModel.titleId)
+                com.example.common.constants.API_CATEGORY_KINOPOISK -> getTitleKinopoisk(id = favouriteModel.titleId)
             }
         }
     }
@@ -82,8 +82,8 @@ class DetailsViewModel(
             favouriteRepository.removeFromFavourite(favouriteModel = favouriteModel)
 
             when (favouriteModel.category) {
-                API_CATEGORY_ANILIBRIA -> getTitleAnilibria(id = favouriteModel.titleId)
-                API_CATEGORY_KINOPOISK -> getTitleKinopoisk(id = favouriteModel.titleId)
+                com.example.common.constants.API_CATEGORY_ANILIBRIA -> getTitleAnilibria(id = favouriteModel.titleId)
+                com.example.common.constants.API_CATEGORY_KINOPOISK -> getTitleKinopoisk(id = favouriteModel.titleId)
             }
         }
     }

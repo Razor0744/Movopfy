@@ -2,8 +2,8 @@ package com.example.movopfy.features.home.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.movopfy.common.extensions.currentDay
-import com.example.movopfy.common.extensions.date
+import com.example.common.extensions.currentDay
+import com.example.common.extensions.date
 import com.example.movopfy.features.home.domain.models.HomeState
 import com.example.movopfy.features.home.domain.usecase.GetHomeDataUseCase
 import kotlinx.coroutines.flow.MutableStateFlow

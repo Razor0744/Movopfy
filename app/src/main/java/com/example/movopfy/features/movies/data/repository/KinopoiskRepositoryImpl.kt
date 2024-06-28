@@ -2,7 +2,7 @@ package com.example.movopfy.features.movies.data.repository
 
 import com.example.movopfy.features.movies.domain.models.KinopoiskItem
 import com.example.movopfy.features.movies.domain.repository.KinopoiskRepository
-import com.example.movopfy.network.kinopoisk.service.KinopoiskService
+import com.example.network.kinopoisk.service.KinopoiskService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -14,7 +14,7 @@ class KinopoiskRepositoryImpl(private val kinopoiskService: KinopoiskService) :
             val response = kinopoiskService.getList(page = page, category = category)
 
             if (response.isSuccessful) response.body()?.docs
-                ?.filter { it.id != null && it.poster != null && it.poster.previewUrl != null }
+                ?.filter { it.id != null && it.poster != null && it.poster!!.previewUrl != null }
                 ?.map { KinopoiskItem(id = it.id ?: 0, previewUrl = it.poster?.previewUrl ?: "") }
                 ?: emptyList()
             else emptyList()

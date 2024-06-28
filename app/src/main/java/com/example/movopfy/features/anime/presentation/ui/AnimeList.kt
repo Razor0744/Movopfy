@@ -17,8 +17,8 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
-import com.example.movopfy.common.constants.API_CATEGORY_ANILIBRIA
-import com.example.movopfy.common.models.AnimeSeries
+import com.example.common.constants.API_CATEGORY_ANILIBRIA
+import com.example.common.models.AnimeSeries
 import com.example.movopfy.uiComponents.navigation.Screen
 import com.example.movopfy.uiComponents.theme.dimensions
 

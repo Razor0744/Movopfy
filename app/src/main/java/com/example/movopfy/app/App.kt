@@ -12,7 +12,7 @@ import com.example.movopfy.features.movies.koin.moviesModule
 import com.example.movopfy.features.player.koin.playerModule
 import com.example.movopfy.features.search.koin.searchModule
 import com.example.movopfy.firebase.koin.firebaseModule
-import com.example.movopfy.network.koin.networkModule
+import com.example.network.koin.networkModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -29,7 +29,7 @@ class App : Application() {
             modules(
                 listOf(
                     homeModule,
-                    networkModule,
+                    com.example.network.koin.networkModule,
                     detailsModule,
                     moviesModule,
                     animeModule,

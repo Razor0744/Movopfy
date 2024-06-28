@@ -4,7 +4,7 @@ import com.example.movopfy.database.dao.home.KinopoiskDocsDao
 import com.example.movopfy.database.models.home.Kinopoisk
 import com.example.movopfy.features.home.domain.models.KinopoiskItem
 import com.example.movopfy.features.home.domain.repository.KinopoiskRepository
-import com.example.movopfy.network.kinopoisk.service.KinopoiskService
+import com.example.network.kinopoisk.service.KinopoiskService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
@@ -51,7 +51,7 @@ class KinopoiskRepositoryImpl(
 
                         responseBody?.let { item ->
                             kinopoiskItemList = item.docs
-                                ?.filter { it.id != null && it.poster != null && it.poster.previewUrl != null }
+                                ?.filter { it.id != null && it.poster != null && it.poster!!.previewUrl != null }
                                 ?.map {
                                     KinopoiskItem(
                                         id = it.id ?: 0,
@@ -61,7 +61,7 @@ class KinopoiskRepositoryImpl(
                                 ?: emptyList()
 
                             item.docs
-                                ?.filter { it.id != null && it.poster != null && it.poster.previewUrl != null }
+                                ?.filter { it.id != null && it.poster != null && it.poster!!.previewUrl != null }
                                 ?.map {
                                     Kinopoisk(
                                         id = it.id ?: 0,

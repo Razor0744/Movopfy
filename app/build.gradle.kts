@@ -1,5 +1,3 @@
-import java.util.Properties
-
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
@@ -23,14 +21,6 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
-
-        val properties = Properties()
-        properties.load(project.rootProject.file("local.properties").inputStream())
-        buildConfigField(
-            "String",
-            "KINOPOISK_API_KEY",
-            properties.getProperty("KINOPOISK_API_KEY")
-        )
     }
 
     buildTypes {
@@ -75,6 +65,8 @@ dependencies {
     implementation(libs.androidx.compose.material3)
     implementation(libs.firebase.auth)
     implementation(libs.firebase.firestore.ktx)
+    implementation(project(":common"))
+    implementation(project(":network"))
     testImplementation(libs.junit)
     testImplementation(libs.mockito.core)
     testImplementation(libs.mockito.kotlin)

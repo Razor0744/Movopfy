@@ -17,7 +17,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
-import com.example.movopfy.common.constants.API_CATEGORY_KINOPOISK
+import com.example.common.constants.API_CATEGORY_KINOPOISK
 import com.example.movopfy.features.movies.domain.models.KinopoiskItem
 import com.example.movopfy.uiComponents.navigation.Screen
 import com.example.movopfy.uiComponents.theme.dimensions
@@ -53,7 +53,7 @@ fun MoviesList(
                         navController.navigate(
                             Screen.Details.passId(
                                 id = item.id,
-                                category = API_CATEGORY_KINOPOISK
+                                category = com.example.common.constants.API_CATEGORY_KINOPOISK
                             )
                         )
                     }

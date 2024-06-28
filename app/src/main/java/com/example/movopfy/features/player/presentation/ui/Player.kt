@@ -25,9 +25,9 @@ import androidx.media3.common.Player
 import androidx.media3.common.util.UnstableApi
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.ui.PlayerView
-import com.example.movopfy.common.extensions.findActivity
-import com.example.movopfy.common.extensions.setLandscape
-import com.example.movopfy.common.extensions.setPortrait
+import com.example.common.extensions.findActivity
+import com.example.common.extensions.setLandscape
+import com.example.common.extensions.setPortrait
 import com.example.movopfy.database.models.player.PlayerMarks
 import com.example.movopfy.features.player.presentation.viewmodel.PlayerViewModel
 import kotlinx.coroutines.delay

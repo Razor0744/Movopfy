@@ -2,8 +2,8 @@ package com.example.movopfy.features.anime.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.movopfy.common.extensions.date
-import com.example.movopfy.common.models.AnimeSeries
+import com.example.common.extensions.date
+import com.example.common.models.AnimeSeries
 import com.example.movopfy.features.anime.domain.repository.AnilibriaRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

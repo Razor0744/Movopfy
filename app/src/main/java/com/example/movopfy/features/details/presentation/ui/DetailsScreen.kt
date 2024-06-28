@@ -21,8 +21,8 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
-import com.example.movopfy.common.constants.API_CATEGORY_ANILIBRIA
-import com.example.movopfy.common.constants.API_CATEGORY_KINOPOISK
+import com.example.common.constants.API_CATEGORY_ANILIBRIA
+import com.example.common.constants.API_CATEGORY_KINOPOISK
 import com.example.movopfy.database.models.favourite.FavouriteModel
 import com.example.movopfy.features.details.presentation.viewmodel.DetailsViewModel
 import com.example.movopfy.uiComponents.components.FavouriteIcon
@@ -42,8 +42,8 @@ fun DetailsScreen(
 
     LaunchedEffect(Unit) {
         when (category) {
-            API_CATEGORY_ANILIBRIA -> viewModel.getTitleAnilibria(id = id)
-            API_CATEGORY_KINOPOISK -> viewModel.getTitleKinopoisk(id = id)
+            com.example.common.constants.API_CATEGORY_ANILIBRIA -> viewModel.getTitleAnilibria(id = id)
+            com.example.common.constants.API_CATEGORY_KINOPOISK -> viewModel.getTitleKinopoisk(id = id)
         }
     }
 
@@ -68,7 +68,7 @@ fun DetailsScreen(
 
                     item {
                         when (category) {
-                            API_CATEGORY_ANILIBRIA -> PlayerButton(
+                            com.example.common.constants.API_CATEGORY_ANILIBRIA -> PlayerButton(
                                 navController = navController,
                                 id = id,
                                 episode = 0

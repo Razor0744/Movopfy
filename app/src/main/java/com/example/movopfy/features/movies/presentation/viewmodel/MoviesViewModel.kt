@@ -2,7 +2,7 @@ package com.example.movopfy.features.movies.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.movopfy.common.mappers.kinopoisk.mapToKinopoiskCategory
+import com.example.common.mappers.kinopoisk.mapToKinopoiskCategory
 import com.example.movopfy.features.movies.domain.models.KinopoiskItem
 import com.example.movopfy.features.movies.domain.repository.KinopoiskRepository
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -22,7 +22,7 @@ class MoviesViewModel(private val kinopoiskRepository: KinopoiskRepository) : Vi
         viewModelScope.launch {
             items += kinopoiskRepository.getList(
                 page = page,
-                category = mapToKinopoiskCategory(category = category)
+                category = com.example.common.mappers.kinopoisk.mapToKinopoiskCategory(category = category)
             )
             page += 1
 

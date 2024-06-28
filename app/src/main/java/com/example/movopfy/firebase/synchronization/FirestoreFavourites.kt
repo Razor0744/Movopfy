@@ -1,8 +1,8 @@
 package com.example.movopfy.firebase.synchronization
 
-import com.example.movopfy.common.constants.API_CATEGORY_ANILIBRIA
-import com.example.movopfy.common.constants.API_CATEGORY_KINOPOISK
-import com.example.movopfy.common.extensions.dateWithTime
+import com.example.common.constants.API_CATEGORY_ANILIBRIA
+import com.example.common.constants.API_CATEGORY_KINOPOISK
+import com.example.common.extensions.dateWithTime
 import com.example.movopfy.firebase.model.FirestoreFavouriteModel
 import com.example.movopfy.firebase.model.FirestoreDataNewerResult
 import com.example.movopfy.firebase.user.UserManager
@@ -44,14 +44,14 @@ class FirestoreFavourites(private val userManager: UserManager) {
 
     fun setFavourites(favourites: List<FirestoreFavouriteModel>) {
         if (userManager.getUID().isNotEmpty()) {
-            val anilibriaFavourites = favourites.filter { it.category == API_CATEGORY_ANILIBRIA }
-            val kinopoiskFavourites = favourites.filter { it.category == API_CATEGORY_KINOPOISK }
+            val anilibriaFavourites = favourites.filter { it.category == com.example.common.constants.API_CATEGORY_ANILIBRIA }
+            val kinopoiskFavourites = favourites.filter { it.category == com.example.common.constants.API_CATEGORY_KINOPOISK }
 
             for (i in anilibriaFavourites) {
                 db
                     .collection(userManager.getUID())
                     .document(FAVOURITES_DOCUMENT)
-                    .collection(API_CATEGORY_ANILIBRIA)
+                    .collection(com.example.common.constants.API_CATEGORY_ANILIBRIA)
                     .document(i.titleId.toString())
                     .set(hashMapOf(Pair("url", i.url)))
             }
@@ -60,7 +60,7 @@ class FirestoreFavourites(private val userManager: UserManager) {
                 db
                     .collection(userManager.getUID())
                     .document(FAVOURITES_DOCUMENT)
-                    .collection(API_CATEGORY_KINOPOISK)
+                    .collection(com.example.common.constants.API_CATEGORY_KINOPOISK)
                     .document(i.titleId.toString())
                     .set(hashMapOf(Pair("url", i.url)))
             }
@@ -85,7 +85,7 @@ class FirestoreFavourites(private val userManager: UserManager) {
                 db
                     .collection(userManager.getUID())
                     .document(FAVOURITES_DOCUMENT)
-                    .collection(API_CATEGORY_ANILIBRIA)
+                    .collection(com.example.common.constants.API_CATEGORY_ANILIBRIA)
                     .get()
                     .addOnSuccessListener { documents ->
                         for (document in documents) {
@@ -93,7 +93,7 @@ class FirestoreFavourites(private val userManager: UserManager) {
                                 FirestoreFavouriteModel(
                                     titleId = document.id.toInt(),
                                     url = document.get("url").toString(),
-                                    category = API_CATEGORY_ANILIBRIA
+                                    category = com.example.common.constants.API_CATEGORY_ANILIBRIA
                                 )
                             )
                         }
@@ -115,7 +115,7 @@ class FirestoreFavourites(private val userManager: UserManager) {
                 db
                     .collection(userManager.getUID())
                     .document(FAVOURITES_DOCUMENT)
-                    .collection(API_CATEGORY_KINOPOISK)
+                    .collection(com.example.common.constants.API_CATEGORY_KINOPOISK)
                     .get()
                     .addOnSuccessListener { documents ->
                         for (document in documents) {
@@ -123,7 +123,7 @@ class FirestoreFavourites(private val userManager: UserManager) {
                                 FirestoreFavouriteModel(
                                     titleId = document.id.toInt(),
                                     url = document.get("url").toString(),
-                                    category = API_CATEGORY_KINOPOISK
+                                    category = com.example.common.constants.API_CATEGORY_KINOPOISK
                                 )
                             )
                         }
@@ -141,7 +141,7 @@ class FirestoreFavourites(private val userManager: UserManager) {
         db
             .collection(userManager.getUID())
             .document(FAVOURITES_DOCUMENT)
-            .collection(API_CATEGORY_ANILIBRIA)
+            .collection(com.example.common.constants.API_CATEGORY_ANILIBRIA)
             .get()
             .addOnSuccessListener { documents ->
                 for (document in documents) {
@@ -158,7 +158,7 @@ class FirestoreFavourites(private val userManager: UserManager) {
         db
             .collection(userManager.getUID())
             .document(FAVOURITES_DOCUMENT)
-            .collection(API_CATEGORY_KINOPOISK)
+            .collection(com.example.common.constants.API_CATEGORY_KINOPOISK)
             .get()
             .addOnSuccessListener { documents ->
                 for (document in documents) {

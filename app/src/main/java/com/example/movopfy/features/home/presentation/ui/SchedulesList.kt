@@ -17,14 +17,14 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
-import com.example.movopfy.common.constants.API_CATEGORY_ANILIBRIA
-import com.example.movopfy.common.models.AnimeSeries
+import com.example.common.constants.API_CATEGORY_ANILIBRIA
+import com.example.common.models.AnimeSeries
 import com.example.movopfy.uiComponents.navigation.Screen
 import com.example.movopfy.uiComponents.theme.dimensions
 
 @Composable
 fun SchedulesList(
-    animeSeriesList: List<AnimeSeries>,
+    animeSeriesList: List<com.example.common.models.AnimeSeries>,
     navController: NavController
 ) {
     LazyRow(
@@ -50,7 +50,7 @@ fun SchedulesList(
                         navController.navigate(
                             route = Screen.Details.passId(
                                 id = it.id,
-                                category = API_CATEGORY_ANILIBRIA
+                                category = com.example.common.constants.API_CATEGORY_ANILIBRIA
                             )
                         )
                     }

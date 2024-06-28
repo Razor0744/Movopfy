@@ -1,13 +1,13 @@
 package com.example.movopfy.features.home.data.repository
 
-import com.example.movopfy.common.mappers.kinopoisk.HORRORS_CATEGORY
+import com.example.common.mappers.kinopoisk.HORRORS_CATEGORY
 import com.example.movopfy.database.dao.home.KinopoiskDocsDao
 import com.example.movopfy.database.models.home.Kinopoisk
 import com.example.movopfy.features.home.domain.models.KinopoiskItem
-import com.example.movopfy.network.kinopoisk.models.KinopoiskDocs
-import com.example.movopfy.network.kinopoisk.models.KinopoiskList
-import com.example.movopfy.network.kinopoisk.models.KinopoiskMoviePoster
-import com.example.movopfy.network.kinopoisk.service.KinopoiskService
+import com.example.network.kinopoisk.models.KinopoiskDocs
+import com.example.network.kinopoisk.models.KinopoiskList
+import com.example.network.kinopoisk.models.KinopoiskMoviePoster
+import com.example.network.kinopoisk.service.KinopoiskService
 import junit.framework.TestCase.assertEquals
 import kotlinx.coroutines.runBlocking
 import org.junit.Test
@@ -20,7 +20,7 @@ import retrofit2.Response
 
 class KinopoiskRepositoryImplTest {
 
-    private val kinopoiskService = mock<KinopoiskService>()
+    private val kinopoiskService = mock<com.example.network.kinopoisk.service.KinopoiskService>()
     private val kinopoiskDocsDao = mock<KinopoiskDocsDao>()
 
     @Test
@@ -28,7 +28,7 @@ class KinopoiskRepositoryImplTest {
         val localData = arrayListOf(
             Kinopoisk(
                 id = 0,
-                category = HORRORS_CATEGORY,
+                category = com.example.common.mappers.kinopoisk.HORRORS_CATEGORY,
                 previewUrl = "nice"
             )
         )
@@ -41,7 +41,7 @@ class KinopoiskRepositoryImplTest {
         `when`(kinopoiskDocsDao.getKinopoiskDocsByCategory(category = anyString()))
             .thenReturn(localData)
 
-        val actual = repositoryImpl.getList(page = 1, category = HORRORS_CATEGORY)
+        val actual = repositoryImpl.getList(page = 1, category = com.example.common.mappers.kinopoisk.HORRORS_CATEGORY)
 
         val expected = localData.map {
             KinopoiskItem(
@@ -50,7 +50,7 @@ class KinopoiskRepositoryImplTest {
             )
         }
 
-        verify(kinopoiskDocsDao).getKinopoiskDocsByCategory(category = HORRORS_CATEGORY)
+        verify(kinopoiskDocsDao).getKinopoiskDocsByCategory(category = com.example.common.mappers.kinopoisk.HORRORS_CATEGORY)
         verifyNoInteractions(kinopoiskService)
 
         assertEquals(expected, actual)
@@ -58,7 +58,7 @@ class KinopoiskRepositoryImplTest {
 
     @Test
     fun shouldReturnEmptyList() = runBlocking {
-        val responseData = KinopoiskList(
+        val responseData = com.example.network.kinopoisk.models.KinopoiskList(
             docs = null,
             total = null,
             limit = null,
@@ -79,23 +79,26 @@ class KinopoiskRepositoryImplTest {
             )
         )
 
-        val actual = repositoryImpl.getList(page = 1, category = HORRORS_CATEGORY)
+        val actual = repositoryImpl.getList(page = 1, category = com.example.common.mappers.kinopoisk.HORRORS_CATEGORY)
 
         val expected = emptyList<KinopoiskItem>()
 
-        verify(kinopoiskDocsDao).getKinopoiskDocsByCategory(category = HORRORS_CATEGORY)
-        verify(kinopoiskService).getList(page = 1, category = HORRORS_CATEGORY)
+        verify(kinopoiskDocsDao).getKinopoiskDocsByCategory(category = com.example.common.mappers.kinopoisk.HORRORS_CATEGORY)
+        verify(kinopoiskService).getList(page = 1, category = com.example.common.mappers.kinopoisk.HORRORS_CATEGORY)
 
         assertEquals(expected, actual)
     }
 
     @Test
     fun shouldReturnResponseData() = runBlocking {
-        val responseData = KinopoiskList(
+        val responseData = com.example.network.kinopoisk.models.KinopoiskList(
             docs = arrayListOf(
-                KinopoiskDocs(
+                com.example.network.kinopoisk.models.KinopoiskDocs(
                     id = 1,
-                    poster = KinopoiskMoviePoster(url = "", previewUrl = "")
+                    poster = com.example.network.kinopoisk.models.KinopoiskMoviePoster(
+                        url = "",
+                        previewUrl = ""
+                    )
                 )
             ),
             total = 40,
@@ -118,7 +121,7 @@ class KinopoiskRepositoryImplTest {
             )
         ).thenReturn(Response.success(responseData))
 
-        val actual = repositoryImpl.getList(page = 1, category = HORRORS_CATEGORY)
+        val actual = repositoryImpl.getList(page = 1, category = com.example.common.mappers.kinopoisk.HORRORS_CATEGORY)
 
         val expected = responseData.docs
             ?.filter { it.id != null && it.poster != null && it.poster?.previewUrl != null }
@@ -129,10 +132,10 @@ class KinopoiskRepositoryImplTest {
                 )
             }
 
-        verify(kinopoiskDocsDao).getKinopoiskDocsByCategory(category = HORRORS_CATEGORY)
+        verify(kinopoiskDocsDao).getKinopoiskDocsByCategory(category = com.example.common.mappers.kinopoisk.HORRORS_CATEGORY)
         verify(kinopoiskService).getList(
             page = 1,
-            category = HORRORS_CATEGORY,
+            category = com.example.common.mappers.kinopoisk.HORRORS_CATEGORY,
             limit = 20,
             selectFields = listOf("id", "poster")
         )

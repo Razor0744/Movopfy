@@ -3,10 +3,10 @@ package com.example.movopfy.workManager
 import android.content.Context
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
-import com.example.movopfy.common.extensions.getSmallImageUrl
+import com.example.common.extensions.getSmallImageUrl
 import com.example.movopfy.database.dao.anime.AnimeSchedulesDao
 import com.example.movopfy.database.models.anime.AnimeSchedules
-import com.example.movopfy.network.anilibria.service.AnilibriaService
+import com.example.network.anilibria.service.AnilibriaService
 
 class AnimeWorker(
     context: Context,
@@ -25,7 +25,7 @@ class AnimeWorker(
                 for (i in responseBody) {
                     if (i.list != null)
                         animeSchedulesDao.addAnimeSchedules(
-                            animeSchedules = i.list
+                            animeSchedules = i.list!!
                                 .map {
                                     AnimeSchedules(
                                         id = it.id ?: -1,

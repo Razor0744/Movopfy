@@ -1,6 +1,6 @@
 package com.example.movopfy.features.anime.domain.repository
 
-import com.example.movopfy.common.models.AnimeSeries
+import com.example.common.models.AnimeSeries
 
 interface AnilibriaRepository {
 

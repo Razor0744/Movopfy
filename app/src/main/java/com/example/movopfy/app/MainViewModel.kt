@@ -2,8 +2,8 @@ package com.example.movopfy.app
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.movopfy.common.constants.PreferencesKeys
-import com.example.movopfy.common.extensions.dateWithTime
+import com.example.common.constants.PreferencesKeys
+import com.example.common.extensions.dateWithTime
 import com.example.movopfy.database.dao.favorites.FavouriteDao
 import com.example.movopfy.database.models.favourite.FavouriteModel
 import com.example.movopfy.datastore.preferences.AppSettings
@@ -29,7 +29,7 @@ class MainViewModel(
     init {
         viewModelScope.launch(Dispatchers.IO) {
             val firestoreDataNewer =
-                firestoreFavourites.firestoreDataNewer(date = appSettings.getInt(key = PreferencesKeys.SYNCHRONIZATION_DATE))
+                firestoreFavourites.firestoreDataNewer(date = appSettings.getInt(key = com.example.common.constants.PreferencesKeys.SYNCHRONIZATION_DATE))
 
             when (firestoreDataNewer) {
                 is FirestoreDataNewerResult.Success -> {
@@ -68,7 +68,7 @@ class MainViewModel(
 
                     firestoreFavourites.setDateSync()
                     appSettings.setInt(
-                        key = PreferencesKeys.SYNCHRONIZATION_DATE,
+                        key = com.example.common.constants.PreferencesKeys.SYNCHRONIZATION_DATE,
                         value = Calendar.getInstance().dateWithTime()
                     )
 

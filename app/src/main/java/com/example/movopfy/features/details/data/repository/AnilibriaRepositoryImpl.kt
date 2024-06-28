@@ -1,22 +1,22 @@
 package com.example.movopfy.features.details.data.repository
 
-import com.example.movopfy.common.constants.API_CATEGORY_ANILIBRIA
-import com.example.movopfy.common.extensions.getSmallImageUrl
-import com.example.movopfy.common.mappers.anilibria.mapToAnilibriaEpisodesList
+import com.example.common.constants.API_CATEGORY_ANILIBRIA
+import com.example.common.extensions.getSmallImageUrl
+import com.example.common.mappers.anilibria.mapToAnilibriaEpisodesList
 import com.example.movopfy.database.dao.details.DetailsDao
 import com.example.movopfy.database.models.details.Details
 import com.example.movopfy.database.models.details.Episodes
 import com.example.movopfy.features.details.domain.models.DetailsData
 import com.example.movopfy.features.details.domain.repository.AnilibriaRepository
-import com.example.movopfy.network.anilibria.models.AnilibriaEpisodesList
-import com.example.movopfy.network.anilibria.service.AnilibriaService
+import com.example.network.anilibria.models.AnilibriaEpisodesList
+import com.example.network.anilibria.service.AnilibriaService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
 
 class AnilibriaRepositoryImpl(
-    private val anilibriaService: AnilibriaService,
+    private val anilibriaService: com.example.network.anilibria.service.AnilibriaService,
     private val detailsDao: DetailsDao
 ) : AnilibriaRepository {
 
@@ -31,7 +31,7 @@ class AnilibriaRepositoryImpl(
                 var localState =
                     if (detailsData == null || lastTitleId != id) detailsDao.getTitleById(
                         id = id,
-                        category = API_CATEGORY_ANILIBRIA
+                        category = com.example.common.constants.API_CATEGORY_ANILIBRIA
                     )
                     else null
 
@@ -50,7 +50,7 @@ class AnilibriaRepositoryImpl(
                             name = localState.details.name,
                             description = localState.details.description,
                             episodesList = localState.episodesList.map {
-                                AnilibriaEpisodesList(
+                                com.example.network.anilibria.models.AnilibriaEpisodesList(
                                     episode = it.episode,
                                     name = it.name,
                                     uuid = null,
@@ -76,7 +76,9 @@ class AnilibriaRepositoryImpl(
                                 url = title.getSmallImageUrl(),
                                 name = title.anilibriaNames?.ru,
                                 description = title.description,
-                                episodesList = mapToAnilibriaEpisodesList(title.player?.list)
+                                episodesList = com.example.common.mappers.anilibria.mapToAnilibriaEpisodesList(
+                                    title.player?.list
+                                )
                             )
 
                             detailsDao.addTitle(
@@ -85,12 +87,14 @@ class AnilibriaRepositoryImpl(
                                     description = title.description ?: "",
                                     pictureUrl = title.getSmallImageUrl() ?: "",
                                     titleId = id,
-                                    category = API_CATEGORY_ANILIBRIA,
+                                    category = com.example.common.constants.API_CATEGORY_ANILIBRIA,
                                     lastUpdate = dateTime
                                 )
                             )
 
-                            detailsDao.addEpisodes(episodes = mapToAnilibriaEpisodesList(title.player?.list).map {
+                            detailsDao.addEpisodes(episodes = com.example.common.mappers.anilibria.mapToAnilibriaEpisodesList(
+                                title.player?.list
+                            ).map {
                                 Episodes(
                                     name = it.name ?: "",
                                     episode = it.episode ?: 0,
