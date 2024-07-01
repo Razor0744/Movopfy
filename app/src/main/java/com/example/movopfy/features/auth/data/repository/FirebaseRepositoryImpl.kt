@@ -5,11 +5,11 @@ import android.util.Log
 import com.example.movopfy.features.auth.domain.models.CreateUserResult
 import com.example.movopfy.features.auth.domain.models.SignInUserResult
 import com.example.movopfy.features.auth.domain.repository.FirebaseRepository
-import com.example.movopfy.firebase.user.UserManager
+import com.example.firebase.user.UserManager
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlin.coroutines.resume
 
-class FirebaseRepositoryImpl(private val userManager: UserManager) : FirebaseRepository {
+class FirebaseRepositoryImpl(private val userManager: com.example.firebase.user.UserManager) : FirebaseRepository {
 
     override suspend fun createUser(
         email: String,

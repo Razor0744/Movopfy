@@ -7,9 +7,9 @@ import com.example.common.extensions.dateWithTime
 import com.example.database.dao.favorites.FavouriteDao
 import com.example.database.models.favourite.FavouriteModel
 import com.example.datastore.preferences.AppSettings
-import com.example.movopfy.firebase.model.FirestoreDataNewerResult
-import com.example.movopfy.firebase.model.FirestoreFavouriteModel
-import com.example.movopfy.firebase.synchronization.FirestoreFavourites
+import com.example.firebase.model.FirestoreDataNewerResult
+import com.example.firebase.model.FirestoreFavouriteModel
+import com.example.firebase.synchronization.FirestoreFavourites
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -18,7 +18,7 @@ import kotlinx.coroutines.launch
 import java.util.Calendar
 
 class MainViewModel(
-    private val firestoreFavourites: FirestoreFavourites,
+    private val firestoreFavourites: com.example.firebase.synchronization.FirestoreFavourites,
     private val favouriteDao: FavouriteDao,
     private val appSettings: AppSettings,
 ) : ViewModel() {
@@ -32,7 +32,7 @@ class MainViewModel(
                 firestoreFavourites.firestoreDataNewer(date = appSettings.getInt(key = PreferencesKeys.SYNCHRONIZATION_DATE))
 
             when (firestoreDataNewer) {
-                is FirestoreDataNewerResult.Success -> {
+                is com.example.firebase.model.FirestoreDataNewerResult.Success -> {
                     if (firestoreDataNewer.isNewer) {
                         val anilibriaFavourites = firestoreFavourites.getFavouritesAnilibria()
                         val kinopoiskFavourites = firestoreFavourites.getFavouritesKinopoisk()
@@ -54,7 +54,7 @@ class MainViewModel(
 
                         val fireStoreFavouritesData =
                             roomFavourites.map {
-                                FirestoreFavouriteModel(
+                                com.example.firebase.model.FirestoreFavouriteModel(
                                     titleId = it.titleId,
                                     url = it.url,
                                     category = it.category
@@ -75,7 +75,7 @@ class MainViewModel(
                     _uiState.value = false
                 }
 
-                is FirestoreDataNewerResult.Fail -> {
+                is com.example.firebase.model.FirestoreDataNewerResult.Fail -> {
                     _uiState.value = false
                 }
             }

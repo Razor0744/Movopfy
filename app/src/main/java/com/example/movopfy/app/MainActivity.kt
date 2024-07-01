@@ -13,7 +13,7 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.example.movopfy.firebase.user.UserManager
+import com.example.firebase.user.UserManager
 import com.example.movopfy.uiComponents.components.TopBar
 import com.example.movopfy.uiComponents.navigation.BottomNavItem
 import com.example.movopfy.uiComponents.navigation.BottomNavigationBar
@@ -93,7 +93,7 @@ class MainActivity : ComponentActivity() {
                     SetupNavGraph(
                         navController = navController,
                         paddingValues = padding,
-                        userManager = UserManager()
+                        userManager = com.example.firebase.user.UserManager()
                     )
                 }
             }

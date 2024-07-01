@@ -1,4 +1,4 @@
-package com.example.movopfy.firebase.model
+package com.example.firebase.model
 
 sealed interface FirestoreDataNewerResult {
 

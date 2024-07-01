@@ -11,7 +11,7 @@ import com.example.movopfy.features.home.koin.homeModule
 import com.example.movopfy.features.movies.koin.moviesModule
 import com.example.movopfy.features.player.koin.playerModule
 import com.example.movopfy.features.search.koin.searchModule
-import com.example.movopfy.firebase.koin.firebaseModule
+import com.example.firebase.koin.firebaseModule
 import com.example.network.koin.networkModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -39,7 +39,7 @@ class App : Application() {
                     searchModule,
                     dataStoreModule,
                     authModule,
-                    firebaseModule,
+                    com.example.firebase.koin.firebaseModule,
                     appModule
                 )
             )

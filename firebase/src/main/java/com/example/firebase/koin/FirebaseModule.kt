@@ -1,7 +1,7 @@
-package com.example.movopfy.firebase.koin
+package com.example.firebase.koin
 
-import com.example.movopfy.firebase.synchronization.FirestoreFavourites
-import com.example.movopfy.firebase.user.UserManager
+import com.example.firebase.synchronization.FirestoreFavourites
+import com.example.firebase.user.UserManager
 import org.koin.dsl.module
 
 val firebaseModule = module {

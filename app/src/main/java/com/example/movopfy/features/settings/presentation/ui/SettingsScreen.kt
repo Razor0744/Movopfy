@@ -19,14 +19,14 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.movopfy.R
-import com.example.movopfy.firebase.user.UserManager
+import com.example.firebase.user.UserManager
 import com.example.movopfy.uiComponents.navigation.Screen
 import com.example.movopfy.uiComponents.theme.dimensions
 
 @Composable
 fun SettingsScreen(
     navController: NavController,
-    userManager: UserManager,
+    userManager: com.example.firebase.user.UserManager,
     modifier: Modifier = Modifier
 ) {
     Surface(modifier = modifier.fillMaxSize()) {

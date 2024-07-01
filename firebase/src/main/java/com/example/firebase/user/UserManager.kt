@@ -1,4 +1,4 @@
-package com.example.movopfy.firebase.user
+package com.example.firebase.user
 
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseUser
