@@ -6,7 +6,7 @@ import com.example.common.constants.PreferencesKeys
 import com.example.common.extensions.dateWithTime
 import com.example.database.dao.favorites.FavouriteDao
 import com.example.database.models.favourite.FavouriteModel
-import com.example.movopfy.datastore.preferences.AppSettings
+import com.example.datastore.preferences.AppSettings
 import com.example.movopfy.firebase.model.FirestoreDataNewerResult
 import com.example.movopfy.firebase.model.FirestoreFavouriteModel
 import com.example.movopfy.firebase.synchronization.FirestoreFavourites

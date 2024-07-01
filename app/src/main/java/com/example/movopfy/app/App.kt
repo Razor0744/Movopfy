@@ -1,7 +1,7 @@
 package com.example.movopfy.app
 
 import android.app.Application
-import com.example.movopfy.datastore.koin.dataStoreModule
+import com.example.datastore.koin.dataStoreModule
 import com.example.database.koin.databaseModule
 import com.example.movopfy.features.anime.koin.animeModule
 import com.example.movopfy.features.auth.koin.authModule
@@ -29,13 +29,13 @@ class App : Application() {
             modules(
                 listOf(
                     homeModule,
-                    com.example.network.koin.networkModule,
+                    networkModule,
                     detailsModule,
                     moviesModule,
                     animeModule,
                     playerModule,
                     favoritesModule,
-                    com.example.database.koin.databaseModule,
+                    databaseModule,
                     searchModule,
                     dataStoreModule,
                     authModule,

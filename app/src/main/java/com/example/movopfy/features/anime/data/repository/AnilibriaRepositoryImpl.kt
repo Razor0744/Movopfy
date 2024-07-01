@@ -5,7 +5,7 @@ import com.example.common.mappers.anilibria.mapToAnimeSeriesList
 import com.example.common.models.AnimeSeries
 import com.example.database.dao.anime.AnimeSchedulesDao
 import com.example.database.models.anime.AnimeSchedules
-import com.example.movopfy.datastore.preferences.AppSettings
+import com.example.datastore.preferences.AppSettings
 import com.example.movopfy.features.anime.domain.repository.AnilibriaRepository
 import com.example.network.anilibria.service.AnilibriaService
 import kotlinx.coroutines.Dispatchers
@@ -16,8 +16,8 @@ import kotlinx.coroutines.withContext
 const val DAYS_NUMBER = 6
 
 class AnilibriaRepositoryImpl(
-    private val anilibriaService: com.example.network.anilibria.service.AnilibriaService,
-    private val animeSchedulesDao: com.example.database.dao.anime.AnimeSchedulesDao,
+    private val anilibriaService: AnilibriaService,
+    private val animeSchedulesDao: AnimeSchedulesDao,
     private val appSettings: AppSettings
 ) : AnilibriaRepository {
 
@@ -78,7 +78,7 @@ class AnilibriaRepositoryImpl(
 
                             for (i in listSchedules) {
                                 animeSchedulesDao.addAnimeSchedules(animeSchedules = i.map { item ->
-                                    com.example.database.models.anime.AnimeSchedules(
+                                    AnimeSchedules(
                                         id = item.id,
                                         pictureUrl = item.pictureUrl,
                                         day = listSchedules.indexOf(i)

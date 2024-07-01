@@ -5,7 +5,7 @@ import com.example.common.mappers.anilibria.mapToAnimeSeriesList
 import com.example.common.models.AnimeSeries
 import com.example.database.dao.anime.AnimeSchedulesDao
 import com.example.database.models.anime.AnimeSchedules
-import com.example.movopfy.datastore.preferences.AppSettings
+import com.example.datastore.preferences.AppSettings
 import com.example.network.anilibria.models.AnilibriaSchedule
 import com.example.network.anilibria.models.AnilibriaTitle
 import com.example.network.anilibria.service.AnilibriaService

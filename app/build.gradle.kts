@@ -65,6 +65,7 @@ dependencies {
     implementation(project(":common"))
     implementation(project(":network"))
     implementation(project(":database"))
+    implementation(project(":datastore"))
     testImplementation(libs.junit)
     testImplementation(libs.mockito.core)
     testImplementation(libs.mockito.kotlin)

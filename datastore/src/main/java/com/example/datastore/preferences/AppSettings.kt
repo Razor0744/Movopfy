@@ -1,4 +1,4 @@
-package com.example.movopfy.datastore.preferences
+package com.example.datastore.preferences
 
 import androidx.datastore.preferences.core.Preferences
 
