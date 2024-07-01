@@ -1,6 +1,6 @@
 package com.example.movopfy.features.player.domain.repository
 
-import com.example.movopfy.database.models.player.PlayerMarks
+import com.example.database.models.player.PlayerMarks
 
 interface PlayerMarksRepository {
 

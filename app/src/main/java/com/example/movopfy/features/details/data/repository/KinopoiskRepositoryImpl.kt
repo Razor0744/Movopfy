@@ -1,8 +1,8 @@
 package com.example.movopfy.features.details.data.repository
 
 import com.example.common.constants.API_CATEGORY_KINOPOISK
-import com.example.movopfy.database.dao.details.DetailsDao
-import com.example.movopfy.database.models.details.Details
+import com.example.database.dao.details.DetailsDao
+import com.example.database.models.details.Details
 import com.example.movopfy.features.details.domain.models.DetailsData
 import com.example.movopfy.features.details.domain.repository.KinopoiskRepository
 import com.example.network.kinopoisk.service.KinopoiskService
@@ -12,7 +12,7 @@ import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
 
 class KinopoiskRepositoryImpl(
-    private val kinopoiskService: com.example.network.kinopoisk.service.KinopoiskService,
+    private val kinopoiskService: KinopoiskService,
     private val detailsDao: DetailsDao
 ) : KinopoiskRepository {
 
@@ -26,7 +26,7 @@ class KinopoiskRepositoryImpl(
             var localState =
                 if (detailsData == null || lastTitleId != id) detailsDao.getTitleById(
                     id = id,
-                    category = com.example.common.constants.API_CATEGORY_KINOPOISK
+                    category = API_CATEGORY_KINOPOISK
                 )
                 else null
 
@@ -71,7 +71,7 @@ class KinopoiskRepositoryImpl(
                                 description = title.description ?: "",
                                 pictureUrl = title.poster?.previewUrl ?: "",
                                 titleId = id,
-                                category = com.example.common.constants.API_CATEGORY_KINOPOISK,
+                                category = API_CATEGORY_KINOPOISK,
                                 lastUpdate = dateTime
                             )
                         )

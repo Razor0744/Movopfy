@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.google.devtools.ksp)
     alias(libs.plugins.jetbrains.kotlin.serialization)
     alias(libs.plugins.google.gms.google.services)
+    alias(libs.plugins.compose.compiler)
 }
 
 android {
@@ -41,10 +42,6 @@ android {
     }
     buildFeatures {
         compose = true
-        buildConfig = true
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.8"
     }
     packaging {
         resources {
@@ -67,6 +64,10 @@ dependencies {
     implementation(libs.firebase.firestore.ktx)
     implementation(project(":common"))
     implementation(project(":network"))
+    implementation(project(":database"))
+    implementation(project(":datastore"))
+    implementation(project(":firebase"))
+    implementation(project(":workManager"))
     testImplementation(libs.junit)
     testImplementation(libs.mockito.core)
     testImplementation(libs.mockito.kotlin)

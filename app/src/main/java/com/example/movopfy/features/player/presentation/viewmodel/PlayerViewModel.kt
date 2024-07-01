@@ -2,7 +2,7 @@ package com.example.movopfy.features.player.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.movopfy.database.models.player.PlayerMarks
+import com.example.database.models.player.PlayerMarks
 import com.example.movopfy.features.player.domain.models.PlayerState
 import com.example.movopfy.features.player.domain.repository.AnilibriaRepository
 import com.example.movopfy.features.player.domain.repository.PlayerMarksRepository
@@ -40,7 +40,7 @@ class PlayerViewModel(
         }
     }
 
-    fun saveTime(playerMarks: PlayerMarks) {
+    fun saveTime(playerMarks: com.example.database.models.player.PlayerMarks) {
         viewModelScope.launch {
             playerMarksRepository.setTime(playerMarks = playerMarks)
         }

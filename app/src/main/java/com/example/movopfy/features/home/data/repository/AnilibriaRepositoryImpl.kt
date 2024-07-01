@@ -3,9 +3,9 @@ package com.example.movopfy.features.home.data.repository
 import com.example.common.constants.PreferencesKeys
 import com.example.common.mappers.anilibria.mapToAnimeSeriesList
 import com.example.common.models.AnimeSeries
-import com.example.movopfy.database.dao.anime.AnimeSchedulesDao
-import com.example.movopfy.database.models.anime.AnimeSchedules
-import com.example.movopfy.datastore.preferences.AppSettings
+import com.example.database.dao.anime.AnimeSchedulesDao
+import com.example.database.models.anime.AnimeSchedules
+import com.example.datastore.preferences.AppSettings
 import com.example.movopfy.features.home.domain.repository.AnilibriaRepository
 import com.example.network.anilibria.service.AnilibriaService
 import kotlinx.coroutines.Dispatchers
@@ -14,23 +14,23 @@ import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
 
 class AnilibriaRepositoryImpl(
-    private val anilibriaService: com.example.network.anilibria.service.AnilibriaService,
+    private val anilibriaService: AnilibriaService,
     private val animeSchedulesDao: AnimeSchedulesDao,
     private val appSettings: AppSettings
 ) : AnilibriaRepository {
 
     private val animeSeriesListMutex = Mutex()
 
-    private var animeSeriesList: List<com.example.common.models.AnimeSeries> = emptyList()
+    private var animeSeriesList: List<AnimeSeries> = emptyList()
 
-    override suspend fun getAnimeSeriesList(currentDay: Int, dateTime: Int): List<com.example.common.models.AnimeSeries> =
+    override suspend fun getAnimeSeriesList(currentDay: Int, dateTime: Int): List<AnimeSeries> =
         withContext(Dispatchers.IO) {
             animeSeriesListMutex.withLock {
-                val date = appSettings.getInt(key = com.example.common.constants.PreferencesKeys.HOME_DATE)
+                val date = appSettings.getInt(key = PreferencesKeys.HOME_DATE)
 
                 val localList = when {
                     date != dateTime -> {
-                        appSettings.setInt(key = com.example.common.constants.PreferencesKeys.HOME_DATE, value = dateTime)
+                        appSettings.setInt(key = PreferencesKeys.HOME_DATE, value = dateTime)
 
                         emptyList()
                     }
@@ -50,7 +50,7 @@ class AnilibriaRepositoryImpl(
                     localList.isNotEmpty() -> {
                         animeSeriesList =
                             localList.map {
-                                com.example.common.models.AnimeSeries(
+                                AnimeSeries(
                                     id = it.id,
                                     pictureUrl = it.pictureUrl
                                 )
@@ -67,7 +67,7 @@ class AnilibriaRepositoryImpl(
 
                         responseBody?.let {
                             animeSeriesList =
-                                com.example.common.mappers.anilibria.mapToAnimeSeriesList(
+                                mapToAnimeSeriesList(
                                     anilibriaSchedule = it[currentDay]
                                 )
                                     ?: emptyList()

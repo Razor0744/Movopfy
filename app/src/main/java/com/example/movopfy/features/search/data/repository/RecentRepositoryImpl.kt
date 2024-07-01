@@ -1,7 +1,7 @@
 package com.example.movopfy.features.search.data.repository
 
-import com.example.movopfy.database.dao.search.RecentDao
-import com.example.movopfy.database.models.search.Recent
+import com.example.database.dao.search.RecentDao
+import com.example.database.models.search.Recent
 import com.example.movopfy.features.search.domain.models.RecentModel
 import com.example.movopfy.features.search.domain.repository.RecentRepository
 import kotlinx.coroutines.Dispatchers

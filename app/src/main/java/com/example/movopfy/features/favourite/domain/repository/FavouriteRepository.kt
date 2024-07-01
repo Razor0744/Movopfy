@@ -1,6 +1,6 @@
 package com.example.movopfy.features.favourite.domain.repository
 
-import com.example.movopfy.database.models.favourite.FavouriteModel
+import com.example.database.models.favourite.FavouriteModel
 
 interface FavouriteRepository {
 

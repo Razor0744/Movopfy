@@ -3,9 +3,9 @@ package com.example.movopfy.features.details.data.repository
 import com.example.common.constants.API_CATEGORY_ANILIBRIA
 import com.example.common.extensions.getSmallImageUrl
 import com.example.common.mappers.anilibria.mapToAnilibriaEpisodesList
-import com.example.movopfy.database.dao.details.DetailsDao
-import com.example.movopfy.database.models.details.Details
-import com.example.movopfy.database.models.details.Episodes
+import com.example.database.dao.details.DetailsDao
+import com.example.database.models.details.Details
+import com.example.database.models.details.Episodes
 import com.example.movopfy.features.details.domain.models.DetailsData
 import com.example.movopfy.features.details.domain.repository.AnilibriaRepository
 import com.example.network.anilibria.models.AnilibriaEpisodesList
@@ -17,7 +17,7 @@ import kotlinx.coroutines.withContext
 
 class AnilibriaRepositoryImpl(
     private val anilibriaService: com.example.network.anilibria.service.AnilibriaService,
-    private val detailsDao: DetailsDao
+    private val detailsDao: com.example.database.dao.details.DetailsDao
 ) : AnilibriaRepository {
 
     private val detailsDataMutex = Mutex()
@@ -82,12 +82,12 @@ class AnilibriaRepositoryImpl(
                             )
 
                             detailsDao.addTitle(
-                                details = Details(
+                                details = com.example.database.models.details.Details(
                                     name = title.anilibriaNames?.ru ?: "",
                                     description = title.description ?: "",
                                     pictureUrl = title.getSmallImageUrl() ?: "",
                                     titleId = id,
-                                    category = com.example.common.constants.API_CATEGORY_ANILIBRIA,
+                                    category = API_CATEGORY_ANILIBRIA,
                                     lastUpdate = dateTime
                                 )
                             )
@@ -95,7 +95,7 @@ class AnilibriaRepositoryImpl(
                             detailsDao.addEpisodes(episodes = com.example.common.mappers.anilibria.mapToAnilibriaEpisodesList(
                                 title.player?.list
                             ).map {
-                                Episodes(
+                                com.example.database.models.details.Episodes(
                                     name = it.name ?: "",
                                     episode = it.episode ?: 0,
                                     titleId = id

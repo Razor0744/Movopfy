@@ -28,7 +28,7 @@ import androidx.media3.ui.PlayerView
 import com.example.common.extensions.findActivity
 import com.example.common.extensions.setLandscape
 import com.example.common.extensions.setPortrait
-import com.example.movopfy.database.models.player.PlayerMarks
+import com.example.database.models.player.PlayerMarks
 import com.example.movopfy.features.player.presentation.viewmodel.PlayerViewModel
 import kotlinx.coroutines.delay
 import kotlin.time.Duration.Companion.seconds
@@ -43,7 +43,7 @@ fun Player(
     episodesCount: Int,
     id: Int,
     episode: Int,
-    playerMarks: PlayerMarks?,
+    playerMarks: com.example.database.models.player.PlayerMarks?,
     viewModel: PlayerViewModel,
     modifier: Modifier = Modifier
 ) {
@@ -135,7 +135,7 @@ fun Player(
     DisposableEffect(episode) {
         onDispose {
             viewModel.saveTime(
-                playerMarks = PlayerMarks(
+                playerMarks = com.example.database.models.player.PlayerMarks(
                     id = playerMarks?.id,
                     currentTime = currentTime,
                     episodeId = playerMarks?.episodeId ?: episode,
