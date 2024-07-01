@@ -64,6 +64,7 @@ dependencies {
     implementation(libs.firebase.firestore.ktx)
     implementation(project(":common"))
     implementation(project(":network"))
+    implementation(project(":database"))
     testImplementation(libs.junit)
     testImplementation(libs.mockito.core)
     testImplementation(libs.mockito.kotlin)

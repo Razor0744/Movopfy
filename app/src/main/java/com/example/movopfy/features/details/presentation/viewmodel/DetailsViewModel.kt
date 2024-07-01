@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.common.constants.API_CATEGORY_ANILIBRIA
 import com.example.common.constants.API_CATEGORY_KINOPOISK
 import com.example.common.extensions.date
-import com.example.movopfy.database.models.favourite.FavouriteModel
+import com.example.database.models.favourite.FavouriteModel
 import com.example.movopfy.features.details.domain.models.DetailsState
 import com.example.movopfy.features.details.domain.repository.AnilibriaRepository
 import com.example.movopfy.features.details.domain.repository.FavouriteRepository
@@ -66,7 +66,7 @@ class DetailsViewModel(
         }
     }
 
-    fun addToFavourite(favouriteModel: FavouriteModel) {
+    fun addToFavourite(favouriteModel: com.example.database.models.favourite.FavouriteModel) {
         viewModelScope.launch {
             favouriteRepository.addToFavourite(favouriteModel = favouriteModel)
 
@@ -77,7 +77,7 @@ class DetailsViewModel(
         }
     }
 
-    fun removeFromFavourite(favouriteModel: FavouriteModel) {
+    fun removeFromFavourite(favouriteModel: com.example.database.models.favourite.FavouriteModel) {
         viewModelScope.launch {
             favouriteRepository.removeFromFavourite(favouriteModel = favouriteModel)
 

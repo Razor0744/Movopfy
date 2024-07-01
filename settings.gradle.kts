@@ -17,3 +17,4 @@ rootProject.name = "Movopfy"
 include(":app")
 include(":common")
 include(":network")
+include(":database")

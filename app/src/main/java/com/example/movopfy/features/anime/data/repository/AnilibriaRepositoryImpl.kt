@@ -3,8 +3,8 @@ package com.example.movopfy.features.anime.data.repository
 import com.example.common.constants.PreferencesKeys
 import com.example.common.mappers.anilibria.mapToAnimeSeriesList
 import com.example.common.models.AnimeSeries
-import com.example.movopfy.database.dao.anime.AnimeSchedulesDao
-import com.example.movopfy.database.models.anime.AnimeSchedules
+import com.example.database.dao.anime.AnimeSchedulesDao
+import com.example.database.models.anime.AnimeSchedules
 import com.example.movopfy.datastore.preferences.AppSettings
 import com.example.movopfy.features.anime.domain.repository.AnilibriaRepository
 import com.example.network.anilibria.service.AnilibriaService
@@ -17,7 +17,7 @@ const val DAYS_NUMBER = 6
 
 class AnilibriaRepositoryImpl(
     private val anilibriaService: com.example.network.anilibria.service.AnilibriaService,
-    private val animeSchedulesDao: AnimeSchedulesDao,
+    private val animeSchedulesDao: com.example.database.dao.anime.AnimeSchedulesDao,
     private val appSettings: AppSettings
 ) : AnilibriaRepository {
 
@@ -78,7 +78,7 @@ class AnilibriaRepositoryImpl(
 
                             for (i in listSchedules) {
                                 animeSchedulesDao.addAnimeSchedules(animeSchedules = i.map { item ->
-                                    AnimeSchedules(
+                                    com.example.database.models.anime.AnimeSchedules(
                                         id = item.id,
                                         pictureUrl = item.pictureUrl,
                                         day = listSchedules.indexOf(i)

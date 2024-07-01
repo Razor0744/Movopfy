@@ -4,15 +4,15 @@ import android.content.Context
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.example.common.extensions.getSmallImageUrl
-import com.example.movopfy.database.dao.anime.AnimeSchedulesDao
-import com.example.movopfy.database.models.anime.AnimeSchedules
+import com.example.database.dao.anime.AnimeSchedulesDao
+import com.example.database.models.anime.AnimeSchedules
 import com.example.network.anilibria.service.AnilibriaService
 
 class AnimeWorker(
     context: Context,
     workerParams: WorkerParameters,
     private val anilibriaService: AnilibriaService,
-    private val animeSchedulesDao: AnimeSchedulesDao
+    private val animeSchedulesDao: com.example.database.dao.anime.AnimeSchedulesDao
 ) : CoroutineWorker(context, workerParams) {
 
     override suspend fun doWork(): Result {
@@ -27,7 +27,7 @@ class AnimeWorker(
                         animeSchedulesDao.addAnimeSchedules(
                             animeSchedules = i.list!!
                                 .map {
-                                    AnimeSchedules(
+                                    com.example.database.models.anime.AnimeSchedules(
                                         id = it.id ?: -1,
                                         pictureUrl = it.getSmallImageUrl() ?: "",
                                         day = i.day ?: -1

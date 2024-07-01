@@ -1,7 +1,7 @@
 package com.example.movopfy.features.details.data.repository
 
-import com.example.movopfy.database.dao.favorites.FavouriteDao
-import com.example.movopfy.database.models.favourite.FavouriteModel
+import com.example.database.dao.favorites.FavouriteDao
+import com.example.database.models.favourite.FavouriteModel
 import com.example.movopfy.features.details.domain.repository.FavouriteRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext

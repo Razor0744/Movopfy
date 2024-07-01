@@ -1,7 +1,7 @@
 package com.example.movopfy.features.home.data.repository
 
-import com.example.movopfy.database.dao.home.KinopoiskDocsDao
-import com.example.movopfy.database.models.home.Kinopoisk
+import com.example.database.dao.home.KinopoiskDocsDao
+import com.example.database.models.home.Kinopoisk
 import com.example.movopfy.features.home.domain.models.KinopoiskItem
 import com.example.movopfy.features.home.domain.repository.KinopoiskRepository
 import com.example.network.kinopoisk.service.KinopoiskService

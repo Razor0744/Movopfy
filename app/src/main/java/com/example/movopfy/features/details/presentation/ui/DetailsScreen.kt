@@ -23,7 +23,7 @@ import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.example.common.constants.API_CATEGORY_ANILIBRIA
 import com.example.common.constants.API_CATEGORY_KINOPOISK
-import com.example.movopfy.database.models.favourite.FavouriteModel
+import com.example.database.models.favourite.FavouriteModel
 import com.example.movopfy.features.details.presentation.viewmodel.DetailsViewModel
 import com.example.movopfy.uiComponents.components.FavouriteIcon
 import com.example.movopfy.uiComponents.components.ProgressBarLoading
@@ -109,7 +109,7 @@ fun DetailsScreen(
                                         )
                                     } else {
                                         viewModel.addToFavourite(
-                                            favouriteModel = FavouriteModel(
+                                            favouriteModel = com.example.database.models.favourite.FavouriteModel(
                                                 titleId = id,
                                                 url = state.detailsState?.detailsData?.url ?: "",
                                                 category = category

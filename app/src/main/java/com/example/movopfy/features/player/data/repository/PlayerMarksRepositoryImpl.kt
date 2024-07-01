@@ -1,7 +1,7 @@
 package com.example.movopfy.features.player.data.repository
 
-import com.example.movopfy.database.dao.player.PlayerMarksDao
-import com.example.movopfy.database.models.player.PlayerMarks
+import com.example.database.dao.player.PlayerMarksDao
+import com.example.database.models.player.PlayerMarks
 import com.example.movopfy.features.player.domain.repository.PlayerMarksRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
