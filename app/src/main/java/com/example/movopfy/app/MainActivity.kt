@@ -20,7 +20,7 @@ import com.example.movopfy.uiComponents.navigation.BottomNavigationBar
 import com.example.movopfy.uiComponents.navigation.Screen
 import com.example.movopfy.uiComponents.navigation.SetupNavGraph
 import com.example.movopfy.uiComponents.theme.MovopfyTheme
-import com.example.movopfy.workManager.AnimeWorkUpdate
+import com.example.workManager.AnimeWorkUpdate
 
 class MainActivity : ComponentActivity() {
 
@@ -93,7 +93,7 @@ class MainActivity : ComponentActivity() {
                     SetupNavGraph(
                         navController = navController,
                         paddingValues = padding,
-                        userManager = com.example.firebase.user.UserManager()
+                        userManager = UserManager()
                     )
                 }
             }

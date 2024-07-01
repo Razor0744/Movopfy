@@ -1,4 +1,4 @@
-package com.example.movopfy.workManager
+package com.example.workManager
 
 import android.content.Context
 import androidx.work.CoroutineWorker
@@ -12,7 +12,7 @@ class AnimeWorker(
     context: Context,
     workerParams: WorkerParameters,
     private val anilibriaService: AnilibriaService,
-    private val animeSchedulesDao: com.example.database.dao.anime.AnimeSchedulesDao
+    private val animeSchedulesDao: AnimeSchedulesDao
 ) : CoroutineWorker(context, workerParams) {
 
     override suspend fun doWork(): Result {
@@ -27,7 +27,7 @@ class AnimeWorker(
                         animeSchedulesDao.addAnimeSchedules(
                             animeSchedules = i.list!!
                                 .map {
-                                    com.example.database.models.anime.AnimeSchedules(
+                                    AnimeSchedules(
                                         id = it.id ?: -1,
                                         pictureUrl = it.getSmallImageUrl() ?: "",
                                         day = i.day ?: -1
