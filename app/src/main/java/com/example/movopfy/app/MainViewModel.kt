@@ -18,7 +18,7 @@ import kotlinx.coroutines.launch
 import java.util.Calendar
 
 class MainViewModel(
-    private val firestoreFavourites: com.example.firebase.synchronization.FirestoreFavourites,
+    private val firestoreFavourites: FirestoreFavourites,
     private val favouriteDao: FavouriteDao,
     private val appSettings: AppSettings,
 ) : ViewModel() {
@@ -32,7 +32,7 @@ class MainViewModel(
                 firestoreFavourites.firestoreDataNewer(date = appSettings.getInt(key = PreferencesKeys.SYNCHRONIZATION_DATE))
 
             when (firestoreDataNewer) {
-                is com.example.firebase.model.FirestoreDataNewerResult.Success -> {
+                is FirestoreDataNewerResult.Success -> {
                     if (firestoreDataNewer.isNewer) {
                         val anilibriaFavourites = firestoreFavourites.getFavouritesAnilibria()
                         val kinopoiskFavourites = firestoreFavourites.getFavouritesKinopoisk()
@@ -54,7 +54,7 @@ class MainViewModel(
 
                         val fireStoreFavouritesData =
                             roomFavourites.map {
-                                com.example.firebase.model.FirestoreFavouriteModel(
+                                FirestoreFavouriteModel(
                                     titleId = it.titleId,
                                     url = it.url,
                                     category = it.category
@@ -75,7 +75,7 @@ class MainViewModel(
                     _uiState.value = false
                 }
 
-                is com.example.firebase.model.FirestoreDataNewerResult.Fail -> {
+                is FirestoreDataNewerResult.Fail -> {
                     _uiState.value = false
                 }
             }

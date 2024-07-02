@@ -1,0 +1,5 @@
+<resources>
+    <string name="more_movies_button">Ещё</string>
+
+    <string name="schedule_for_today_text">Ожидается сегодня</string>
+</resources>

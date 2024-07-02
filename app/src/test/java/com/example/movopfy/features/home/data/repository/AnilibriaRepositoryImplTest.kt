@@ -35,7 +35,7 @@ class AnilibriaRepositoryImplTest {
             )
         )
 
-        val repositoryImpl = AnilibriaRepositoryImpl(
+        val repositoryImpl = com.example.home.data.repository.AnilibriaRepositoryImpl(
             anilibriaService = anilibriaService,
             animeSchedulesDao = animeSchedulesDao,
             appSettings = appSettings
@@ -69,7 +69,7 @@ class AnilibriaRepositoryImplTest {
             )
         )
 
-        val repositoryImpl = AnilibriaRepositoryImpl(
+        val repositoryImpl = com.example.home.data.repository.AnilibriaRepositoryImpl(
             anilibriaService = anilibriaService,
             animeSchedulesDao = animeSchedulesDao,
             appSettings = appSettings
@@ -107,7 +107,7 @@ class AnilibriaRepositoryImplTest {
             )
         )
 
-        val repositoryImpl = AnilibriaRepositoryImpl(
+        val repositoryImpl = com.example.home.data.repository.AnilibriaRepositoryImpl(
             anilibriaService = anilibriaService,
             animeSchedulesDao = animeSchedulesDao,
             appSettings = appSettings

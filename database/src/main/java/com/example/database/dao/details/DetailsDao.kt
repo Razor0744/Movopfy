@@ -8,6 +8,7 @@ import androidx.room.Transaction
 import com.example.database.models.details.Details
 import com.example.database.models.details.DetailsWithEpisodes
 import com.example.database.models.details.Episodes
+import org.intellij.lang.annotations.Flow
 
 @Dao
 interface DetailsDao {

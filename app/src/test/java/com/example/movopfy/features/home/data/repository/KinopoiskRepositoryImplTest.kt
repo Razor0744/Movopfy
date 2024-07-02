@@ -3,7 +3,7 @@ package com.example.movopfy.features.home.data.repository
 import com.example.common.mappers.kinopoisk.HORRORS_CATEGORY
 import com.example.database.dao.home.KinopoiskDocsDao
 import com.example.database.models.home.Kinopoisk
-import com.example.movopfy.features.home.domain.models.KinopoiskItem
+import com.example.home.domain.models.KinopoiskItem
 import com.example.network.kinopoisk.models.KinopoiskDocs
 import com.example.network.kinopoisk.models.KinopoiskList
 import com.example.network.kinopoisk.models.KinopoiskMoviePoster
@@ -33,7 +33,7 @@ class KinopoiskRepositoryImplTest {
             )
         )
 
-        val repositoryImpl = KinopoiskRepositoryImpl(
+        val repositoryImpl = com.example.home.data.repository.KinopoiskRepositoryImpl(
             kinopoiskService = kinopoiskService,
             kinopoiskDocsDao = kinopoiskDocsDao
         )
@@ -44,7 +44,7 @@ class KinopoiskRepositoryImplTest {
         val actual = repositoryImpl.getList(page = 1, category = HORRORS_CATEGORY)
 
         val expected = localData.map {
-            KinopoiskItem(
+            com.example.home.domain.models.KinopoiskItem(
                 id = it.id,
                 previewUrl = it.previewUrl
             )
@@ -66,7 +66,7 @@ class KinopoiskRepositoryImplTest {
             pages = null
         )
 
-        val repositoryImpl = KinopoiskRepositoryImpl(
+        val repositoryImpl = com.example.home.data.repository.KinopoiskRepositoryImpl(
             kinopoiskService = kinopoiskService,
             kinopoiskDocsDao = kinopoiskDocsDao
         )
@@ -81,7 +81,7 @@ class KinopoiskRepositoryImplTest {
 
         val actual = repositoryImpl.getList(page = 1, category = HORRORS_CATEGORY)
 
-        val expected = emptyList<KinopoiskItem>()
+        val expected = emptyList<com.example.home.domain.models.KinopoiskItem>()
 
         verify(kinopoiskDocsDao).getKinopoiskDocsByCategory(category = HORRORS_CATEGORY)
         verify(kinopoiskService).getList(page = 1, category = HORRORS_CATEGORY)
@@ -107,7 +107,7 @@ class KinopoiskRepositoryImplTest {
             pages = 4
         )
 
-        val repositoryImpl = KinopoiskRepositoryImpl(
+        val repositoryImpl = com.example.home.data.repository.KinopoiskRepositoryImpl(
             kinopoiskService = kinopoiskService,
             kinopoiskDocsDao = kinopoiskDocsDao
         )
@@ -126,7 +126,7 @@ class KinopoiskRepositoryImplTest {
         val expected = responseData.docs
             ?.filter { it.id != null && it.poster != null && it.poster?.previewUrl != null }
             ?.map {
-                KinopoiskItem(
+                com.example.home.domain.models.KinopoiskItem(
                     id = it.id ?: 0,
                     previewUrl = it.poster?.previewUrl ?: ""
                 )
