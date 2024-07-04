@@ -1,7 +1,6 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.jetbrains.kotlin.android)
-    alias(libs.plugins.google.devtools.ksp)
     alias(libs.plugins.compose.compiler)
 }
 
@@ -73,18 +72,9 @@ dependencies {
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.room.ktx)
     annotationProcessor(libs.androidx.room.compiler)
-    ksp(libs.androidx.room.compiler)
     implementation(libs.coil.compose)
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.androidx.material)
-    implementation(libs.androidx.media3.exoplayer)
-    implementation(libs.androidx.media3.ui)
-    implementation(libs.androidx.media3.exoplayer.dash)
-    implementation(libs.androidx.media3.exoplayer.hls)
     implementation(libs.androidx.datastore.preferences)
     implementation(libs.androidx.lifecycle.runtime.compose)
-    implementation(libs.androidx.core.splashscreen)
-    implementation(platform(libs.firebase.bom))
-    implementation(libs.google.firebase.auth)
-    implementation (libs.androidx.work.runtime.ktx)
 }
