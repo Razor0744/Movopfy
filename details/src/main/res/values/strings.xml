@@ -1,0 +1,5 @@
+<resources>
+    <string name="episode_anime_list">Серия %1$s</string>
+
+    <string name="play_anime_button">Начать просмотр</string>
+</resources>

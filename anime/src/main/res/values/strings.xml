@@ -1,0 +1,11 @@
+<resources>
+    <string-array name="day_list">
+        <item>Понедельник</item>
+        <item>Вторник</item>
+        <item>Среда</item>
+        <item>Четверг</item>
+        <item>Пятница</item>
+        <item>Суббота</item>
+        <item>Восресенье</item>
+    </string-array>
+</resources>

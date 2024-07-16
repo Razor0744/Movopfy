@@ -14,12 +14,12 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.firebase.user.UserManager
-import com.example.movopfy.uiComponents.components.TopBar
-import com.example.movopfy.uiComponents.navigation.BottomNavItem
-import com.example.movopfy.uiComponents.navigation.BottomNavigationBar
-import com.example.movopfy.uiComponents.navigation.Screen
-import com.example.movopfy.uiComponents.navigation.SetupNavGraph
-import com.example.movopfy.uiComponents.theme.MovopfyTheme
+import com.example.uiComponents.components.TopBar
+import com.example.movopfy.navigation.BottomNavItem
+import com.example.movopfy.navigation.BottomNavigationBar
+import com.example.uiComponents.components.Screen
+import com.example.movopfy.navigation.SetupNavGraph
+import com.example.uiComponents.theme.MovopfyTheme
 import com.example.workManager.AnimeWorkUpdate
 
 class MainActivity : ComponentActivity() {
@@ -71,7 +71,10 @@ class MainActivity : ComponentActivity() {
                 Scaffold(
                     topBar = {
                         if (showTopBar) {
-                            TopBar(isBackEnabled = showArrowTopBar, navController = navController)
+                            TopBar(
+                                isBackEnabled = showArrowTopBar,
+                                navController = navController
+                            )
                         }
                     },
                     bottomBar = {

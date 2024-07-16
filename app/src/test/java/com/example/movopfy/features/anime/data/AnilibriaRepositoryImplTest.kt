@@ -6,8 +6,8 @@ import com.example.common.models.AnimeSeries
 import com.example.datastore.preferences.AppSettings
 import com.example.database.dao.anime.AnimeSchedulesDao
 import com.example.database.models.anime.AnimeSchedules
-import com.example.movopfy.features.anime.data.repository.AnilibriaRepositoryImpl
-import com.example.movopfy.features.anime.data.repository.DAYS_NUMBER
+import com.example.anime.data.repository.AnilibriaRepositoryImpl
+import com.example.anime.data.repository.DAYS_NUMBER
 import com.example.network.anilibria.models.AnilibriaNames
 import com.example.network.anilibria.models.AnilibriaPlayer
 import com.example.network.anilibria.models.AnilibriaPosters
@@ -42,7 +42,7 @@ class AnilibriaRepositoryImplTest {
             )
         )
 
-        val repositoryImpl = AnilibriaRepositoryImpl(
+        val repositoryImpl = com.example.anime.data.repository.AnilibriaRepositoryImpl(
             anilibriaService = anilibriaService,
             animeSchedulesDao = animeSchedulesDao,
             appSettings = appSettings
@@ -54,7 +54,7 @@ class AnilibriaRepositoryImplTest {
         val actual = repositoryImpl.getSchedules(dateTime = 1)
 
         val expected = mutableListOf<List<AnimeSeries>>()
-        for (i in 0..DAYS_NUMBER) {
+        for (i in 0..com.example.anime.data.repository.DAYS_NUMBER) {
             expected += listOf(localData.filter { it.day == i }.map { item ->
                 AnimeSeries(id = item.id, pictureUrl = item.pictureUrl)
             })
@@ -76,7 +76,7 @@ class AnilibriaRepositoryImplTest {
             )
         )
 
-        val repositoryImpl = AnilibriaRepositoryImpl(
+        val repositoryImpl = com.example.anime.data.repository.AnilibriaRepositoryImpl(
             anilibriaService = anilibriaService,
             animeSchedulesDao = animeSchedulesDao,
             appSettings = appSettings
@@ -129,7 +129,7 @@ class AnilibriaRepositoryImplTest {
             )
         )
 
-        val repositoryImpl = AnilibriaRepositoryImpl(
+        val repositoryImpl = com.example.anime.data.repository.AnilibriaRepositoryImpl(
             anilibriaService = anilibriaService,
             animeSchedulesDao = animeSchedulesDao,
             appSettings = appSettings
